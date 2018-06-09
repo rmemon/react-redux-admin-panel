@@ -40,7 +40,7 @@ class Login extends Component {
                         </InputGroupText>
                       </InputGroupAddon>
                       <Field
-                      className="form-control form-control-lg"
+                      className="form-control"
                       name="email"
                       type="email"
                       component="input"
@@ -56,7 +56,7 @@ class Login extends Component {
                         </InputGroupText>
                       </InputGroupAddon>
                       <Field
-                      className="form-control form-control-lg"
+                      className="form-control"
                       name="password"
                       type="password"
                       component="input"

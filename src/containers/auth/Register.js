@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardFooter, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardFooter, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row,  } from 'reactstrap';
+import { AppSwitch } from '@coreui/react'
 
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -14,7 +15,8 @@ class Register extends Component {
   }
   
   onSubmit = formProps => {
-    formProps.is_term_accept = 1;
+    console.log(formProps.is_term_accept);
+    // formProps.is_term_accept = 1;
     this.props.signup(formProps, () => {
       this.props.history.push("/");
     });
@@ -115,6 +117,13 @@ class Register extends Component {
                       placeholder="Repeat password"
                       required
                     />
+                  </InputGroup>
+                  <InputGroup className="mb-4 custom-control custom-checkbox">
+                  <Field name="is_term_accept" type="checkbox" className="custom-control-input"
+                  component='input' id="customCheck1"
+                  />
+                  <label className="custom-control-label" htmlFor="customCheck1">Check this custom checkbox</label>
+
                   </InputGroup>
                   <Button color="success" >
                     <i className="fa fa-user-plus"></i> Create Account
