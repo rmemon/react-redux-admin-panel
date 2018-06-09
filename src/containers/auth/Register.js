@@ -1,22 +1,25 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import * as actions from "../../action";
+import { reduxForm, Field } from "redux-form";
 
 class Register extends Component {
-  constructor() {
-    super();
-    this.submitForm = (email, password) => ev => {
-      ev.preventDefault();
-    };
-    this.submitForm = (username, email, password) => ev => {
-      ev.preventDefault();
-    };
+  constructor(props) {
+    super(props);
   }
 
+  onSubmit = formProps => {
+    formProps.is_term_accept = 1;
+    this.props.signup(formProps, () => {
+      this.props.history.push("/");
+    });
+  };
+
+
   render() {
-    const email = this.props.email;
-    const password = this.props.password;
-    const username = this.props.username;
+    const { handleSubmit } = this.props;
 
     return (
       <div className="auth-page">
@@ -28,35 +31,65 @@ class Register extends Component {
                 <Link to="/login">Have an account?</Link>
               </p>
 
-              <form onSubmit={this.submitForm(username, email, password)}>
+              <form onSubmit={handleSubmit(this.onSubmit)}>
                 <fieldset>
                   <fieldset className="form-group">
-                    <input
+                  <Field
                       className="form-control form-control-lg"
+                      name="first_name"
                       type="text"
-                      placeholder="Username"
-                      value={this.props.username}
-                      onChange={this.changeUsername}
+                      component="input"
+                      autoComplete="none"
+                      placeholder="First Name"
+                      required
                     />
                   </fieldset>
 
                   <fieldset className="form-group">
-                    <input
+                  <Field
                       className="form-control form-control-lg"
+                      name="last_name"
+                      type="text"
+                      component="input"
+                      autoComplete="none"
+                      placeholder="Last Name"
+                      required
+                    />
+                  </fieldset>
+
+                  <fieldset className="form-group">
+                  <Field
+                      className="form-control form-control-lg"
+                      name="email"
                       type="email"
+                      component="input"
+                      autoComplete="none"
                       placeholder="Email"
-                      value={this.props.email}
-                      onChange={this.changeEmail}
+                      required
                     />
                   </fieldset>
 
                   <fieldset className="form-group">
-                    <input
+                  <Field
                       className="form-control form-control-lg"
+                      name="password"
                       type="password"
+                      component="input"
+                      autoComplete="none"
                       placeholder="Password"
-                      value={this.props.password}
-                      onChange={this.changePassword}
+                      required
+                    />
+                  </fieldset>
+
+                  <fieldset className="form-group">
+                  <Field
+                      className="form-control form-control-lg"
+                      name="password_confirmation"
+                      type="password"
+                      component="input"
+                      autoComplete="none"
+                      placeholder="Password Confirmation"
+                      required
                     />
                   </fieldset>
 
@@ -78,18 +111,10 @@ class Register extends Component {
 }
 
 const mapStateToProps = state => ({ ...state.auth });
-const mapDispatchToProps = dispatch => ({
-  // onChangeEmail: value =>
-  //   dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
-  // onChangePassword: value =>
-  //   dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
-  // onSubmit: (email, password) =>
-  //   dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
-  // onUnload: () =>
-  //   dispatch({ type: LOGIN_PAGE_UNLOADED })
-});
 
-export default connect(
+export default compose(
+  connect(
   mapStateToProps,
-  mapDispatchToProps
+  actions),
+  reduxForm({ form: "sinup" })
 )(Register);
