@@ -146,4 +146,3 @@ export default compose(
   actions),
   reduxForm({ form: "sinup" })
 )(Register);
-
