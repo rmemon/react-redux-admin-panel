@@ -26,6 +26,9 @@ class Login extends Component {
                     <Link to="/register">
                       Need an account?
                     </Link>
+                    <Link to="/home">
+                      Home
+                    </Link>
                   </p>
 
                   <div>{this.props.errorMessage}</div>                  
