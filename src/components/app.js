@@ -6,6 +6,19 @@ import Home from "../containers/home/Home";
 import Register from "../containers/auth/Register";
 import Login from "../containers/auth/Login";
 
+// Styles
+import '../index.css';
+// CoreUI Icons Set
+import '@coreui/icons/css/coreui-icons.min.css';
+// Import Flag Icons Set
+import 'flag-icon-css/css/flag-icon.min.css';
+// Import Font Awesome Icons Set
+import 'font-awesome/css/font-awesome.min.css';
+// Import Simple Line Icons Set
+import 'simple-line-icons/css/simple-line-icons.css';
+// Import Main styles for this application
+import '../scss/style.css';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
