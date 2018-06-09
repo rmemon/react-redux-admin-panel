@@ -5,6 +5,7 @@ import { PrivateRoute } from "../containers/privateRoute";
 import Home from "../containers/home/Home";
 import Register from "../containers/auth/Register";
 import Login from "../containers/auth/Login";
+import AdminLayout from '../containers/admin'
 
 // Styles
 import '../index.css';
@@ -27,11 +28,11 @@ export default class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <Switch>
-          <PrivateRoute path="/" exact component={Home} />
+        <Switch>          
           <PrivateRoute path="/home" exact component={Home} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
+          <PrivateRoute path="/" name="Home" component={AdminLayout} />
           <Redirect from="/" to="/" />
         </Switch>
       </BrowserRouter>
