@@ -1,11 +1,10 @@
-import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-import { PrivateRoute } from '../containers/privateRoute';
-import Home from '../containers/home/Home';
-import Register from '../containers/auth/Register';
-import Login from '../containers/auth/Login';
-import Signout from '../containers/auth/Signout';
+import { PrivateRoute } from "../containers/privateRoute";
+import Home from "../containers/home/Home";
+import Register from "../containers/auth/Register";
+import Login from "../containers/auth/Login";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -14,14 +13,15 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>			
-          <div>
-            <PrivateRoute path="/" exact component={Home} />
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
-            <Route path="/signout" component={Signout} />
-          </div>
-    	</BrowserRouter>
-    )
-  }  
-};
+      <BrowserRouter>
+        <Switch>
+          <PrivateRoute path="/" exact component={Home} />
+          <PrivateRoute path="/home" exact component={Home} />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+          <Redirect from="/" to="/" />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
+}
