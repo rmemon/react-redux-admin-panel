@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+
 import reducers from './reducers';
-import reduxThunk from 'redux-thunk';
+import { promiseMiddleware , localStorageMiddleware } from './middleware';
+
 
 export const store = createStore(
-    reducers,
-    {
-      auth: { authenticated: localStorage.getItem('token') }
-    },
-    applyMiddleware(reduxThunk)
-  );
+	reducers,	
+	composeWithDevTools(applyMiddleware(promiseMiddleware, localStorageMiddleware))	
+);

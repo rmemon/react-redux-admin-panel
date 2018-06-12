@@ -1,24 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import reduxThunk from 'redux-thunk';
 
+import { BrowserRouter } from "react-router-dom";
 import App from './components/app';
 
-import reducers from './reducers';
-const store = createStore(
-	reducers,
-	{
-		auth: { authenticated: localStorage.getItem('token') }
-	},
-	applyMiddleware(reduxThunk)
-);
-
+import { store } from './store';
 
 render(
 	<Provider store={store}>
+		<BrowserRouter>
 			<App />
+		</BrowserRouter>
 	</Provider>,
 	document.getElementById('root')
 );

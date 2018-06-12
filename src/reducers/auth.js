@@ -1,17 +1,39 @@
-import { AUTH_USER, AUTH_ERROR } from '../constants/actionTypes';
+import {
+  LOGIN,
+  REGISTER,
+  LOGIN_PAGE_UNLOADED,
+  REGISTER_PAGE_UNLOADED,
+  ASYNC_START,
+  UPDATE_FIELD_AUTH,
+  LOGIN_PAGE_LOADED,
+  REGISTER_PAGE_LOADED
+} from '../constants/actionTypes';
 
-const INITIAL_STATE = {
-  authenticated: '',
-  errorMessage: ''
-};
-
-export default function (state = INITIAL_STATE, action) {
+export default (state = {}, action) => {  
   switch (action.type) {
-    case AUTH_USER:
-      return { ...state, authenticated: action.payload };
-    case AUTH_ERROR:
-      return { ...state, errorMessage: action.payload };
+    case LOGIN:
+    case REGISTER:          
+      return {
+        ...state,
+        inProgress: false,
+        errors: action.error ? action.payload.error : null
+      };
+    case LOGIN_PAGE_UNLOADED:
+    case REGISTER_PAGE_UNLOADED:
+      return {};
+    case ASYNC_START:
+      if (action.subtype === LOGIN || action.subtype === REGISTER) {
+        return { ...state, inProgress: true };
+      }
+      break;
+    case UPDATE_FIELD_AUTH:
+      return { ...state, [action.key]: action.value };
     default:
       return state;
+    case LOGIN_PAGE_LOADED:
+    case REGISTER_PAGE_LOADED:
+      return { ...state, [action.key]: '' };
   }
-}
+
+  return state;
+};
