@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import { connect } from 'react-redux';
 
 import {
   AppAside,
@@ -22,12 +23,25 @@ import DefaultAside from './DefaultAside';
 import DefaultFooter from './DefaultFooter';
 import DefaultHeader from './DefaultHeader';
 
+import { APP_LOAD } from '../../constants/actionTypes';
+import agent from '../../agent';
+
 class DefaultLayout extends Component {
-  render() {
+  
+  componentWillMount() {
+    const token = window.localStorage.getItem('jwt');    
+    if (token) {
+      agent.setToken(token);
+    }
+    this.props.onLoad(token ? agent.Auth.current() : null, token);
+  }
+
+  render() {    
     return (
       <div className="app">
         <AppHeader fixed>
-          <DefaultHeader />
+          <DefaultHeader appName={this.props.appName}
+          currentUser={this.props.currentUser} />
         </AppHeader>
         <div className="app-body">
           <AppSidebar fixed display="lg">
@@ -64,4 +78,16 @@ class DefaultLayout extends Component {
   }
 }
 
-export default DefaultLayout;
+const mapStateToProps = state => {
+  return {
+    appLoaded: state.common.appLoaded,
+    appName: state.common.appName,
+    currentUser: state.common.currentUser,
+    redirectTo: state.common.redirectTo
+  }};
+
+const mapDispatchToProps = dispatch => ({  
+  onLoad: (payload, token) =>
+    dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(DefaultLayout);

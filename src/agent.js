@@ -1,4 +1,5 @@
 import axios from "axios";
+import { parseJwt } from './utils'
 
 import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
@@ -33,6 +34,8 @@ const Auth = {
     requests.post('/auth/login', { email, password }),
   register: (first_name, last_name, email, password, password_confirmation, is_term_accept) =>
     requests.post('/auth/register', { first_name, last_name, email, password, password_confirmation, is_term_accept }),
+  current: () =>
+    parseJwt(token),
 };
 
 export default {

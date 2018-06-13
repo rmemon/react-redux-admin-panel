@@ -101,7 +101,7 @@ class Login extends React.Component {
                           <Button type="submit" color="primary" className="px-4">Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
-                          <Button color="link" className="px-0">Forgot password?</Button>
+                          <Button type='button' color="link" className="px-0">Forgot password?</Button>
                         </Col>
                       </Row>
                     </form>

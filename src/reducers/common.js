@@ -16,12 +16,12 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case APP_LOAD:
+    case APP_LOAD:      
       return {
         ...state,
         token: action.token || null,
         appLoaded: true,
-        currentUser: action.payload ? action.payload.user : null,
+        currentUser: action.payload ? action.payload : null,
         email :'',
         password: ''
       };
@@ -35,7 +35,7 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: action.error ? null : '/',
         token: action.error ? null : action.payload.token,
-        currentUser: action.error ? null : action.payload.user
+        currentUser: action.error ? null : action.payload
       };        
     case LOGIN_PAGE_UNLOADED:
     case REGISTER_PAGE_UNLOADED:

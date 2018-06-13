@@ -41,14 +41,14 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    const token = window.localStorage.getItem('jwt');
+    const token = window.localStorage.getItem('jwt');    
     if (token) {
       agent.setToken(token);
     }
-    // this.props.onLoad(token ? agent.Auth.current() : null, token);
+    this.props.onLoad(token ? agent.Auth.current() : null, token);
   }
 
-  render() {
+  render() {    
     return (    
         <Switch>
           <PrivateRoute path="/home" exact component={Home} />
