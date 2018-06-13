@@ -60,6 +60,7 @@ class Register extends React.Component {
                         name="first_name"
                         placeholder="First Name"
                         component="input"
+                        required
                       />
                     </InputGroup>
                     <InputGroup className="mb-3">
@@ -74,6 +75,7 @@ class Register extends React.Component {
                         name="last_name"
                         placeholder="Last Name"
                         component="input"
+                        required
                       />
                     </InputGroup>
 
@@ -87,6 +89,7 @@ class Register extends React.Component {
                         name="email"
                         placeholder="Email"
                         component="input"
+                        required
                       />
 
                     </InputGroup>
@@ -102,6 +105,7 @@ class Register extends React.Component {
                         name="password"
                         placeholder="Password"
                         component="input"
+                        required
                       />
                     </InputGroup>
                     <InputGroup className="mb-4">
@@ -116,6 +120,7 @@ class Register extends React.Component {
                         name="password_confirmation"
                         placeholder="Repeat password"
                         component="input"
+                        required
                       />
                     </InputGroup>
                     <InputGroup className="mb-4 custom-control custom-checkbox">

@@ -39,9 +39,9 @@ class Login extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const { handleSubmit } = this.props;
-    const {invalid} = this.props
-    console.log(invalid);
+    const {invalid} = this.props;
 
     return (
       <div className="app flex-row align-items-center">
@@ -68,6 +68,7 @@ class Login extends React.Component {
                           name="email"
                           placeholder="Email"
                           component="input"
+                          required
                         />
                       </InputGroup>
                       <InputGroup className="mb-4">
@@ -83,6 +84,7 @@ class Login extends React.Component {
                           name="password"
                           placeholder="Password"
                           component="input"
+                          required
                         />
                       </InputGroup>
                       <Row>
