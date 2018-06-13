@@ -19,14 +19,14 @@ import {
 import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
-import DefaultAside from './DefaultAside';
-import DefaultFooter from './DefaultFooter';
-import DefaultHeader from './DefaultHeader';
+import AdmintAside from './AdmintAside';
+import AdminFooter from './AdminFooter';
+import AdminHeader from './AdminHeader';
 
 import { APP_LOAD } from '../../constants/actionTypes';
 import agent from '../../agent';
 
-class DefaultLayout extends Component {
+class AdminLayout extends Component {
   
   componentWillMount() {
     const token = window.localStorage.getItem('jwt');    
@@ -40,7 +40,7 @@ class DefaultLayout extends Component {
     return (
       <div className="app">
         <AppHeader fixed>
-          <DefaultHeader appName={this.props.appName}
+          <AdminHeader appName={this.props.appName}
           currentUser={this.props.currentUser} />
         </AppHeader>
         <div className="app-body">
@@ -67,11 +67,11 @@ class DefaultLayout extends Component {
             </Container>
           </main>
           <AppAside fixed hidden>
-            <DefaultAside />
+            <AdmintAside />
           </AppAside>
         </div>
         <AppFooter>
-          <DefaultFooter />
+          <AdminFooter />
         </AppFooter>
       </div>
     );
@@ -90,4 +90,5 @@ const mapDispatchToProps = dispatch => ({
   onLoad: (payload, token) =>
     dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(DefaultLayout);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminLayout);

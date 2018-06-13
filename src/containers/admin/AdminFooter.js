@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class DefaultFooter extends Component {
+class AdminFooter extends Component {
   render() {
     
     const { children, ...attributes } = this.props;
@@ -14,4 +14,4 @@ class DefaultFooter extends Component {
   }
 }
 
-export default DefaultFooter;
+export default AdminFooter;

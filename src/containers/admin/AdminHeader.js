@@ -20,7 +20,7 @@ const propTypes = {
 
 const defaultProps = {};
 
-class DefaultHeader extends Component {
+class AdminHeader extends Component {
   render() {
 
     // eslint-disable-next-line
@@ -50,8 +50,8 @@ class DefaultHeader extends Component {
   }
 }
 
-DefaultHeader.propTypes = propTypes;
-DefaultHeader.defaultProps = defaultProps;
+AdminHeader.propTypes = propTypes;
+AdminHeader.defaultProps = defaultProps;
 
 const mapStateToProps = state => ({  
   currentUser: state.common.currentUser,
@@ -62,4 +62,4 @@ const mapDispatchToProps = dispatch => ({
   onClickLogout: () => dispatch({ type: LOGOUT }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DefaultHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminHeader);
