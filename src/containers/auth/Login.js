@@ -18,8 +18,8 @@ import { reduxForm, Field } from "redux-form";
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (email, password) =>
-    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
+  onSubmit: (values) =>
+    dispatch({ type: LOGIN, payload: agent.Auth.login(values) }),
   onUnload: () =>
     dispatch({ type: LOGIN_PAGE_UNLOADED }),
 });
@@ -27,19 +27,16 @@ const mapDispatchToProps = dispatch => ({
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.onSubmit = (values) => {
-      console.log(values)
-      console.log(...values)
-      this.props.onSubmit(values.email, values.password);
-    };
+    // this.onSubmit = (values) => {      
+    //   this.props.onSubmit(values);
+    // };
   }
 
   componentWillUnmount() {
     this.props.onUnload();
   }
 
-  render() {
-    console.log(this.props);
+  render() {    
     const { handleSubmit } = this.props;
     const {invalid} = this.props;
 
@@ -52,7 +49,7 @@ class Login extends React.Component {
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
+                    <form onSubmit={handleSubmit(this.props.onSubmit.bind(this))} >
                       <h1>Login</h1>
                       <p className="text-muted">Sign In to your account</p>
                       <InputGroup className="mb-3">

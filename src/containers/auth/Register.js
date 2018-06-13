@@ -15,8 +15,8 @@ import { reduxForm, Field } from "redux-form";
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (first_name, last_name, email, password, password_confirmation, is_term_accept) => {
-    const payload = agent.Auth.register(first_name, last_name, email, password, password_confirmation, is_term_accept);
+  onSubmit: (values) => {
+    const payload = agent.Auth.register(values);
     dispatch({ type: REGISTER, payload })
   },
   onUnload: () =>
@@ -25,10 +25,7 @@ const mapDispatchToProps = dispatch => ({
 
 class Register extends React.Component {
   constructor() {
-    super();
-    this.onSubmit = (values) => {
-      this.props.onSubmit(values.first_name, values.last_name, values.email, values.password, values.password_confirmation, values.is_term_accept);
-    }
+    super();    
   }
 
   componentWillUnmount() {
@@ -45,7 +42,7 @@ class Register extends React.Component {
               <ListErrors errors={this.props.errors} />
               <Card className="mx-4">
                 <CardBody className="p-4">
-                  <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                  <form onSubmit={handleSubmit(this.props.onSubmit.bind(this))}>
                     <h1>Register</h1>
                     <p className="text-muted">Create your account</p>
                     <InputGroup className="mb-3">

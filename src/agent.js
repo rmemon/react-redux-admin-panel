@@ -30,10 +30,10 @@ const requests = {
 };
 
 const Auth = {
-  login: (email, password) =>
-    requests.post('/auth/login', { email, password }),
-  register: (first_name, last_name, email, password, password_confirmation, is_term_accept) =>
-    requests.post('/auth/register', { first_name, last_name, email, password, password_confirmation, is_term_accept }),
+  login: (values) =>    
+    requests.post('/auth/login', values),
+  register: (values) =>
+    requests.post('/auth/register', values),
   current: () =>
     parseJwt(token),
 };
