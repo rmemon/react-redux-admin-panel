@@ -24,27 +24,24 @@ class DefaultHeader extends Component {
   render() {
 
     // eslint-disable-next-line
-    const { children, ...attributes } = this.props;
+    const { appName, ...attributes } = this.props;    
 
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
-          full={{ src: logo, width: 89, height: 25, alt: this.props.appName }}
-          minimized={{ src: sygnet, width: 30, height: 30, alt: this.props.appName }}
+          full={{ src: logo, width: 89, height: 25, alt: attributes.appName }}
+          minimized={{ src: sygnet, width: 30, height: 30, alt: attributes.appName }}
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
-
-
         <Nav className="ml-auto" navbar>
-
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
-              <img src={this.props.currentUser.picture} className="img-avatar" alt={this.props.currentUser.email} />
+              <img src={attributes.currentUser.picture} className="img-avatar" alt={attributes.currentUser.email} />
             </DropdownToggle>
             <DropdownMenu right style={{ right: 'auto' }}>
-              <DropdownItem header tag="div" className="text-center"><strong> {this.props.currentUser.first_name} {' '} {this.props.currentUser.last_name}</strong></DropdownItem>
-              <DropdownItem onClick={this.props.onClickLogout} > Logout </DropdownItem>
+              <DropdownItem header tag="div" className="text-center"><strong> {attributes.currentUser.first_name} {' '} {this.props.currentUser.last_name}</strong></DropdownItem>
+              <DropdownItem onClick={attributes.onClickLogout} > Logout </DropdownItem>
             </DropdownMenu>
           </AppHeaderDropdown>
         </Nav>
@@ -56,9 +53,9 @@ class DefaultHeader extends Component {
 DefaultHeader.propTypes = propTypes;
 DefaultHeader.defaultProps = defaultProps;
 
-const mapStateToProps = state => ({
-  // ...state.settings,
-  // currentUser: state.common.currentUser
+const mapStateToProps = state => ({  
+  currentUser: state.common.currentUser,
+  appName: state.common.appName
 });
 
 const mapDispatchToProps = dispatch => ({

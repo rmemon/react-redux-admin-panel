@@ -21,8 +21,7 @@ const promiseMiddleware = store => next => action => {
           return
         }        
         action.payload = res;
-        store.dispatch({ type: ASYNC_END, promise: action.payload });
-        console.log(action);
+        store.dispatch({ type: ASYNC_END, promise: action.payload });        
         store.dispatch(action);
       },
       error => {
