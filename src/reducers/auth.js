@@ -5,14 +5,13 @@ import {
   REGISTER_PAGE_UNLOADED,
   ASYNC_START,
   UPDATE_FIELD_AUTH,
-  LOGIN_PAGE_LOADED,
   REGISTER_PAGE_LOADED
 } from '../constants/actionTypes';
 
-export default (state = {}, action) => {  
+export default (state = {}, action) => {
   switch (action.type) {
     case LOGIN:
-    case REGISTER:          
+    case REGISTER:
       return {
         ...state,
         inProgress: false,
@@ -30,9 +29,6 @@ export default (state = {}, action) => {
       return { ...state, [action.key]: action.value };
     default:
       return state;
-    case LOGIN_PAGE_LOADED:
-    case REGISTER_PAGE_LOADED:
-      return { ...state, [action.key]: '' };
   }
 
   return state;

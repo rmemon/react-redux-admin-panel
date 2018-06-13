@@ -10,23 +10,12 @@ import {
 } from '../../constants/actionTypes';
 import { Button, Card, CardBody, CardFooter, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row, } from 'reactstrap';
 
+import { reduxForm, Field } from "redux-form";
 
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
-  onChangeFirstName: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'first_name', value }),
-  onChangeLastName: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'last_name', value }),
-  onChangeEmail: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
-  onChangePassword: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
-  onChangePasswordConfirm: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password_confirmation', value }),
-  onChangeIsTermAccept: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'is_term_accept', value }),
-  onSubmit: (first_name, last_name, email, password, password_confirmation, is_term_accept) => {    
+  onSubmit: (first_name, last_name, email, password, password_confirmation, is_term_accept) => {
     const payload = agent.Auth.register(first_name, last_name, email, password, password_confirmation, is_term_accept);
     dispatch({ type: REGISTER, payload })
   },
@@ -37,15 +26,8 @@ const mapDispatchToProps = dispatch => ({
 class Register extends React.Component {
   constructor() {
     super();
-    this.changeFirstName = ev => this.props.onChangeFirstName(ev.target.value);
-    this.changeLastName = ev => this.props.onChangeLastName(ev.target.value);
-    this.changeEmail = ev => this.props.onChangeEmail(ev.target.value);
-    this.changePassword = ev => this.props.onChangePassword(ev.target.value);
-    this.changePasswordConfirm = ev => this.props.onChangePasswordConfirm(ev.target.value);
-    this.changeIsTermAccept = ev => this.props.onChangeIsTermAccept(ev.target.checked);
-    this.submitForm = (first_name, last_name, email, password, password_confirmation, is_term_accept) => ev => {
-      ev.preventDefault();
-      this.props.onSubmit(first_name, last_name, email, password, password_confirmation, is_term_accept);
+    this.onSubmit = (values) => {
+      this.props.onSubmit(values.first_name, values.last_name, values.email, values.password, values.password_confirmation, values.is_term_accept);
     }
   }
 
@@ -54,13 +36,7 @@ class Register extends React.Component {
   }
 
   render() {
-    const first_name = this.props.first_name;
-    const last_name = this.props.last_name;
-    const email = this.props.email;
-    const password = this.props.password;
-    const password_confirmation = this.props.password_confirmation;
-    const is_term_accept = this.props.is_term_accept;
-
+    const { handleSubmit } = this.props;
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -69,7 +45,7 @@ class Register extends React.Component {
               <ListErrors errors={this.props.errors} />
               <Card className="mx-4">
                 <CardBody className="p-4">
-                  <form onSubmit={this.submitForm(first_name, last_name, email, password, password_confirmation, is_term_accept)}>
+                  <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <h1>Register</h1>
                     <p className="text-muted">Create your account</p>
                     <InputGroup className="mb-3">
@@ -78,12 +54,13 @@ class Register extends React.Component {
                           <i className="icon-user"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <input
+                      <Field
                         className="form-control"
                         type="text"
+                        name="first_name"
                         placeholder="First Name"
-                        value={this.props.first_name}
-                        onChange={this.changeFirstName} />
+                        component="input"
+                      />
                     </InputGroup>
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
@@ -91,26 +68,27 @@ class Register extends React.Component {
                           <i className="icon-user"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <input
+                      <Field
                         className="form-control"
                         type="text"
+                        name="last_name"
                         placeholder="Last Name"
-                        value={this.props.last_name}
-                        onChange={this.changeLastName} />
+                        component="input"
+                      />
                     </InputGroup>
 
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>@</InputGroupText>
                       </InputGroupAddon>
-                      <input
+                      <Field
                         className="form-control"
-                        name="email"
                         type="email"
+                        name="email"
                         placeholder="Email"
-                        value={this.props.email}
-                        onChange={this.changeEmail}
+                        component="input"
                       />
+
                     </InputGroup>
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
@@ -118,13 +96,13 @@ class Register extends React.Component {
                           <i className="icon-lock"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <input
+                      <Field
                         className="form-control"
-                        name="password"
                         type="password"
+                        name="password"
                         placeholder="Password"
-                        value={this.props.password}
-                        onChange={this.changePassword} />
+                        component="input"
+                      />
                     </InputGroup>
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
@@ -132,21 +110,21 @@ class Register extends React.Component {
                           <i className="icon-lock"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <input
+                      <Field
                         className="form-control"
-                        name="password_confirmation"
                         type="password"
+                        name="password_confirmation"
                         placeholder="Repeat password"
-                        value={this.props.password_confirmation}
-                        onChange={this.changePasswordConfirm} />
+                        component="input"
+                      />
                     </InputGroup>
                     <InputGroup className="mb-4 custom-control custom-checkbox">
-                      <input
+                      <Field
                         name="is_term_accept"
                         type="checkbox"
                         className="custom-control-input"
-                        id="customCheck1"
-                        onChange={this.changeIsTermAccept} />
+                        component='input' id="customCheck1"
+                      />
                       <label className="custom-control-label" htmlFor="customCheck1">Check this custom checkbox</label>
                     </InputGroup>
                     <Button color="success" >
@@ -171,4 +149,6 @@ class Register extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default reduxForm({
+  form: "RegisterForm"
+})(connect(mapStateToProps, mapDispatchToProps)(Register));

@@ -7,7 +7,6 @@ import {
   UPDATE_FIELD_AUTH,
   LOGIN,
   LOGIN_PAGE_UNLOADED,
-  LOGIN_PAGE_LOADED
 } from '../../constants/actionTypes';
 import { Button, Card, CardBody, CardGroup, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
@@ -19,41 +18,31 @@ import { reduxForm, Field } from "redux-form";
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
-  onChangeEmail: (value = null) =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
-  onChangePassword: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
   onSubmit: (email, password) =>
     dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
   onUnload: () =>
     dispatch({ type: LOGIN_PAGE_UNLOADED }),
-  onLoad: () =>
-    dispatch({ type: LOGIN_PAGE_LOADED, key: 'email', key: 'password' })
 });
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    
-    this.changeEmail = ev => this.props.onChangeEmail(ev.target.value);
-    this.changePassword = ev => this.props.onChangePassword(ev.target.value);
-    this.submitForm = (email, password) => ev => {
-      ev.preventDefault();
-      this.props.onSubmit(email, password);
+    this.onSubmit = (values) => {
+      console.log(values)
+      console.log(...values)
+      this.props.onSubmit(values.email, values.password);
     };
   }
 
   componentWillUnmount() {
     this.props.onUnload();
   }
-  
-  componentDidMount(){
-    this.props.onLoad();
-  }
 
   render() {
-    const email = this.props.email || '';
-    const password = this.props.password || '';
+    const { handleSubmit } = this.props;
+    const {invalid} = this.props
+    console.log(invalid);
+
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -61,10 +50,9 @@ class Login extends React.Component {
             <Col md="8">
               <ListErrors errors={this.props.errors} />
               <CardGroup>
-
                 <Card className="p-4">
                   <CardBody>
-                    <form onSubmit={this.submitForm(email, password)} >
+                    <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
                       <h1>Login</h1>
                       <p className="text-muted">Sign In to your account</p>
                       <InputGroup className="mb-3">
@@ -73,13 +61,14 @@ class Login extends React.Component {
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <input
+                        <Field
+                          name="title"
                           className="form-control"
                           type="email"
                           name="email"
                           placeholder="Email"
-                          value={email}
-                          onChange={this.changeEmail} />
+                          component="input"
+                        />
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -87,15 +76,15 @@ class Login extends React.Component {
                             <i className="icon-lock"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <input
+                        <Field
+                          name="password"
                           className="form-control"
                           type="password"
                           name="password"
                           placeholder="Password"
-                          value={password}
-                          onChange={this.changePassword} />
+                          component="input"
+                        />
                       </InputGroup>
-
                       <Row>
                         <Col xs="6">
                           <Button type="submit" color="primary" className="px-4">Login</Button>
@@ -125,4 +114,6 @@ class Login extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default reduxForm({
+  form: "LoginForm"
+})(connect(mapStateToProps, mapDispatchToProps)(Login));
