@@ -4,16 +4,11 @@ import React from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
 import {
-  UPDATE_FIELD_AUTH,
   LOGIN,
   LOGIN_PAGE_UNLOADED,
 } from '../../constants/actionTypes';
 import { Button, Card, CardBody, CardGroup, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-
-import { compose } from "redux";
 import { reduxForm, Field } from "redux-form";
-
-
 
 const mapStateToProps = state => ({ ...state.auth });
 
@@ -36,9 +31,8 @@ class Login extends React.Component {
     this.props.onUnload();
   }
 
-  render() {    
+  render() {
     const { handleSubmit } = this.props;
-    const {invalid} = this.props;
 
     return (
       <div className="app flex-row align-items-center">

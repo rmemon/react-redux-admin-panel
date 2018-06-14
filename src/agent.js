@@ -1,11 +1,9 @@
-import axios from "axios";
-import { parseJwt } from './utils'
-
 import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
 
-const superagent = superagentPromise(_superagent, global.Promise);
+import { parseJwt } from './utils';
 
+const superagent = superagentPromise(_superagent, global.Promise);
 
 let API_ROOT = "http://192.192.7.224:8000/api/v1";
 const responseBody = res => res.body;
@@ -30,15 +28,19 @@ const requests = {
 };
 
 const Auth = {
-  login: (values) =>    
+  login: (values) =>
     requests.post('/auth/login', values),
   register: (values) =>
     requests.post('/auth/register', values),
   current: () =>
     parseJwt(token),
 };
+const User = {
+};
 
 export default {
   Auth,
-  setToken: _token => { token = _token; }
+  User,
+  setToken: _token => { token = _token; },
+  getToken: () => token,
 };

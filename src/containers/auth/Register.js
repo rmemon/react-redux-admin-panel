@@ -4,11 +4,10 @@ import React from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
 import {
-  UPDATE_FIELD_AUTH,
   REGISTER,
   REGISTER_PAGE_UNLOADED
 } from '../../constants/actionTypes';
-import { Button, Card, CardBody, CardFooter, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row, } from 'reactstrap';
+import { Button, Card, CardBody, Col, Container, InputGroup, InputGroupAddon, InputGroupText, Row, } from 'reactstrap';
 
 import { reduxForm, Field } from "redux-form";
 
@@ -25,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
 
 class Register extends React.Component {
   constructor() {
-    super();    
+    super();
   }
 
   componentWillUnmount() {

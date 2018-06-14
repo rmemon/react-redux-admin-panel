@@ -8,27 +8,27 @@ export default {
         variant: 'info',
         // text: 'NEW',
       },
-    },    
+    },
     {
       name: 'Access Management',
-      url: '/dashboard',
+      url: '/access',
       icon: 'icon-puzzle',
       children: [
         {
           name: 'Mange Users',
-          url: '/base/breadcrumbs',
+          url: '/access/users`',
           icon: 'icon-puzzle',
-        },        
-        {
-          name: 'Mange Roles',
-          url: '/base/breadcrumbs',
-          icon: 'icon-puzzle',
-        },        
-        {
-          name: 'Mange Permissions',
-          url: '/base/breadcrumbs',
-          icon: 'icon-puzzle',
-        },        
+        },
+        // {
+        //   name: 'Mange Roles',
+        //   url: '/base/breadcrumbs',
+        //   icon: 'icon-puzzle',
+        // },
+        // {
+        //   name: 'Mange Permissions',
+        //   url: '/base/breadcrumbs',
+        //   icon: 'icon-puzzle',
+        // },
       ],
     },
   ],

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 class AdminFooter extends Component {
   render() {
-    
+
     const { children, ...attributes } = this.props;
-    
+
     return (
       <React.Fragment>
         <span><a href="#">Rahil</a> &copy; 2018 React Admin .</span>

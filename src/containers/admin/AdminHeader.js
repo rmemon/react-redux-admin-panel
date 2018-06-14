@@ -24,7 +24,7 @@ class AdminHeader extends Component {
   render() {
 
     // eslint-disable-next-line
-    const { appName, ...attributes } = this.props;    
+    const { appName, ...attributes } = this.props;
 
     return (
       <React.Fragment>
@@ -53,7 +53,7 @@ class AdminHeader extends Component {
 AdminHeader.propTypes = propTypes;
 AdminHeader.defaultProps = defaultProps;
 
-const mapStateToProps = state => ({  
+const mapStateToProps = state => ({
   currentUser: state.common.currentUser,
   appName: state.common.appName
 });
