@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { PrivateRoute } from "../containers/privateRoute";
-import Home from "../containers/home/Home";
 import Register from "../containers/auth/Register";
 import Login from "../containers/auth/Login";
 import AdminLayout from '../containers/admin'

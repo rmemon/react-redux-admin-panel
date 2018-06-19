@@ -12,7 +12,7 @@ const errorBody = err => err.message;
 let token = null;
 const tokenPlugin = req => {
   if (token) {
-    req.set('authorization', `Token ${token}`);
+    req.set('Authorization', `Bearer ${token}`);
   }
 }
 
@@ -36,6 +36,10 @@ const Auth = {
     parseJwt(token),
 };
 const User = {
+  list: () =>
+    requests.get('/users'),
+  get: (id) =>
+    requests.get(`/users${id}`),    
 };
 
 export default {

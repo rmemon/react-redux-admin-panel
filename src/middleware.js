@@ -7,7 +7,7 @@ import {
   REGISTER
 } from './constants/actionTypes';
 
-const promiseMiddleware = store => next => action => {      
+const promiseMiddleware = store => next => action => {
   if (isPromise(action.payload)) {
     store.dispatch({ type: ASYNC_START, subtype: action.type });
 
@@ -19,18 +19,21 @@ const promiseMiddleware = store => next => action => {
         const currentState = store.getState()
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return
-        }        
+        }
         action.payload = res;
-        store.dispatch({ type: ASYNC_END, promise: action.payload });        
+        store.dispatch({ type: ASYNC_END, promise: action.payload });
         store.dispatch(action);
       },
       error => {
         const currentState = store.getState()
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return
-        }        
+        }
         action.error = true;
-        action.payload = error.response.body;
+        action.payload = error.response.body;        
+        if (action.payload.error && action.payload.error.status_code == '401') {
+          store.dispatch({ type: LOGOUT });
+        }
         if (!action.skipTracking) {
           store.dispatch({ type: ASYNC_END, promise: action.payload.error });
         }
