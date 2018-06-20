@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../../../agent';
 import { USER_PAGE_LOADED, USER_PAGE_UNLOADED } from '../../../../constants/actionTypes'
-
+import {
+  InputGroupText, InputGroupAddon, InputGroup
+} from 'reactstrap';
 import {
   Badge,
   Button,
@@ -20,6 +22,10 @@ import {
   Row,
 } from 'reactstrap';
 
+
+import { reduxForm, Field}  from 'redux-form'; 
+
+
 class Create extends Component {
   constructor(props) {
     super(props)
@@ -32,81 +38,118 @@ class Create extends Component {
 
   }  
   render() {
+    const { handleSubmit } = this.props;
     return (
       <div className="animated fadeIn">      
         <Row>
           <Col xs="12">
             <Card>
               <CardHeader>
-                <strong> <i className="fa fa-user"></i> Create User </strong>
+                 <i className="fa fa fa-user-plus"></i>  Create User 
               </CardHeader>
               <CardBody>
-                <Form action="" method="post" encType="multipart/form-data" className="form-horizontal">                  
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">First Name</Label>
-                    </Col>
-                    <Col xs="6" md="6">
-                      <Input type="text" id="text-input" name="text-input" placeholder="Enter First Name..." />
-                      {/* <FormText color="muted">This is a help text</FormText> */}
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Last Name</Label>
-                    </Col>
-                    <Col xs="6" md="6">
-                      <Input type="text" id="text-input" name="text-input" placeholder="Enter Last Name..." />                      
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Email</Label>
-                    </Col>
-                    <Col xs="6" md="6">
-                      <Input type="email" id="text-input" name="text-input" placeholder="Enter Email..." />                      
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Password</Label>
-                    </Col>
-                    <Col xs="6" md="6">
-                      <Input type="password" id="text-input" name="text-input" placeholder="Enter Password..." />                      
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Confirm Password</Label>
-                    </Col>
-                    <Col xs="6" md="6">
-                      <Input type="password" id="text-input" name="text-input" placeholder="Enter Confirm Password..." />                      
-                    </Col>
-                  </FormGroup>
-                                                      
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label>Associated Roles</Label>
-                    </Col>
-                    <Col md="9">
-                      <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio1" name="inline-radios" value="Administrator" />
-                        <Label className="form-check-label" check htmlFor="inline-radio1">Administrator</Label>
-                      </FormGroup>
-                      <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" value="Executive" />
-                        <Label className="form-check-label" check htmlFor="inline-radio2">Executive</Label>
-                      </FormGroup>
-                      <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio3" name="inline-radios" value="User" />
-                        <Label className="form-check-label" check htmlFor="inline-radio3">User</Label>
-                      </FormGroup>
-                    </Col>
-                  </FormGroup>                                                      
-                </Form>
+                <Row>
+                  <Col sm="8">
+                  <form onSubmit={handleSubmit(this.props.onSubmit.bind(this))} className="form-horizontal">
+                    <FormGroup row>
+                      <Label className="col-md-3 col-form-label" htmlFor="firstName">First Name*</Label>
+                      <Col md="9">
+                        <InputGroup>
+                          <Field  className="form-control" component="input" type="text" id="firstName" name="firstName" placeholder="Enter First Name..." />
+                          <InputGroupAddon addonType="append">
+                            <InputGroupText><i className="fa fa-user"></i></InputGroupText>
+                          </InputGroupAddon>
+                        </InputGroup>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Label className="col-md-3 col-form-label" htmlFor="secondName">Last Name*</Label>
+                      <Col md="9">
+                        <InputGroup>
+                          <Field  className="form-control" component="input" type="text" id="secondName" name="secondName" placeholder="Enter Last Name..." />
+                          <InputGroupAddon addonType="append">
+                            <InputGroupText><i className="fa fa-user"></i></InputGroupText>
+                          </InputGroupAddon>
+                        </InputGroup>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Label className="col-md-3 col-form-label" htmlFor="email">Email*</Label>
+                      <Col md="9">
+                        <InputGroup>
+                          <Field  className="form-control" component="input" type="email" id="email" name="email" placeholder="Enter Email..." />
+                          <InputGroupAddon addonType="append">
+                            <InputGroupText><i className="fa fa-envelope"></i></InputGroupText>
+                          </InputGroupAddon>
+                        </InputGroup>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Label className="col-md-3 col-form-label" htmlFor="password">Password*</Label>
+                      <Col md="9">
+                        <InputGroup>
+                          <Field  className="form-control" component="input" type="password" id="password" name="password" placeholder="Enter Password..." />
+                          <InputGroupAddon addonType="append">
+                            <InputGroupText><i className="fa fa-lock"></i></InputGroupText>
+                          </InputGroupAddon>
+                        </InputGroup>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Label className="col-md-3 col-form-label" htmlFor="password">Confirm Password*</Label>
+                      <Col md="9">
+                        <InputGroup>
+                          <Field  className="form-control" component="input" type="password" id="password_confirmation" name="password_confirmation" placeholder="Enter Confirm Password..." />
+                          <InputGroupAddon addonType="append">
+                            <InputGroupText><i className="fa fa-lock"></i></InputGroupText>
+                          </InputGroupAddon>
+                        </InputGroup>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Label className="col-md-3 col-form-label" htmlFor="status">User Active</Label>
+                      <Col md="9">
+                          <Field  type="checkbox" id="status" name="status" component="input" className="centered-checkbox" />
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Label className="col-md-3 col-form-label" htmlFor="confirmed">User Confirmed</Label>
+                      <Col md="9">
+                          <Field  type="checkbox" id="confirmed" name="confirmed" component="input" className="centered-checkbox" />
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Label className="col-md-3 col-form-label" htmlFor="confirmation_email">Send Confirmation</Label>
+                      <Col md="9">
+                          <Field  type="checkbox" id="confirmation_email" name="confirmation_email" component="input" className="centered-checkbox"/>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col md="3">
+                        <Label>Associated Roles</Label>
+                      </Col>
+                      <Col md="9">
+                        <FormGroup check inline className="col-md-3">
+                          <Field  component="input" type="radio" id="inline-radio1" name="inline-radios" value="Administrator" className="form-check-input"/>
+                          <Label className="form-check-label" check htmlFor="inline-radio1"> Administrator</Label>
+                        </FormGroup>
+                        <FormGroup check inline className="col-md-3">
+                          <Field  component="input" type="radio" id="inline-radio2" name="inline-radios" value="Executive" className="form-check-input"/>
+                          <Label className="form-check-label" check htmlFor="inline-radio2"> Executive</Label>
+                        </FormGroup>
+                        <FormGroup check inline className="col-md-3">
+                          <Field  component="input" type="radio" id="inline-radio3" name="inline-radios" value="User" className="form-check-input"/>
+                          <Label className="form-check-label" check htmlFor="inline-radio3"> User</Label>
+                        </FormGroup>
+                      </Col>
+                    </FormGroup>
+                    <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
+                  </form>
+                  </Col>
+                </Row>
               </CardBody>
               <CardFooter>
-                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
+                
                 {/* <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button> */}
               </CardFooter>
             </Card>            
@@ -122,10 +165,16 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  onSubmit: (values) => {
+    console.log(values);
+    return false;
+  },
   onLoad: payload =>
     dispatch({ type: USER_PAGE_LOADED, payload }),
   onUnload: () =>
     dispatch({ type: USER_PAGE_UNLOADED })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Create);
+export default reduxForm({
+  form: "CreateUserForm"
+})(connect(mapStateToProps, mapDispatchToProps)(Create));
