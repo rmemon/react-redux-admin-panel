@@ -118,7 +118,7 @@ class Create extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.user,
+  ...state.users,
 });
 
 const mapDispatchToProps = dispatch => ({

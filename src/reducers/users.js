@@ -1,5 +1,7 @@
 import {
     USER_PAGE_LOADED,
+    USER_VIEW_PAGE_LOADED
+
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -8,6 +10,13 @@ export default (state = {}, action) => {
             return {
                 ...state,
                 users: action.payload.data,
+                inProgress: false,
+                errors: action.error ? action.payload.error : null
+            };
+        case USER_VIEW_PAGE_LOADED:            
+            return {
+                ...state,
+                user: action.payload.data,
                 inProgress: false,
                 errors: action.error ? action.payload.error : null
             };

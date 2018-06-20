@@ -29,7 +29,7 @@ class List extends Component {
     });
   }
 
-  render() {
+  render() {    
     const { users } = this.props;
     if (!users) {
       return null;
@@ -109,13 +109,11 @@ class List extends Component {
                             <td> <Badge color={user.status === 1 ? 'success' : 'danger'}>{user.status === 1 ? 'Active' : 'InActive'}</Badge></td>
                             <td>{(new Date(user.registered_at)).toLocaleString('en-US')}</td>
                             <td>
-                              <Button block={false} outline color="primary" size="sm">
-                                <Link to={`/access/user/update/${user.id}`} >
-                                  <i className="fa fa-eye"></i>
-                                </Link>
+                              <Button block={false} tag={Link} to={`/access/user/view/${user.id}`} outline color="primary" size="sm">                                
+                                  <i className="fa fa-eye"></i>                                
                               </Button>
                               &nbsp;
-                              <Button block={false} outline color="success" size="sm">
+                              <Button tag={Link} to={`/access/user/update/${user.id}`} block={false} outline color="success" size="sm">
                                 <i className="fa fa-edit"></i>
                               </Button>
                               &nbsp;
@@ -155,8 +153,7 @@ class List extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.users,
-  // currentUser: state.common.currentUser
+  ...state.users,  
 });
 
 const mapDispatchToProps = dispatch => ({
