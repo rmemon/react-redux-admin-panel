@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
-import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import {
+  ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle,
+  Button
+} from 'reactstrap';
 import agent from '../../../../agent';
 import { USER_PAGE_LOADED, USER_PAGE_UNLOADED } from '../../../../constants/actionTypes'
 import { Link } from 'react-router-dom';
@@ -13,18 +16,19 @@ class List extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      dropdownOpen: new Array(1).fill(false),
+      dropdownOpen: false
     };
   }
   componentWillMount() {
     this.props.onLoad(agent.User.list());
   }
-  toggle(i) {
-    const newArray = this.state.dropdownOpen.map((element, index) => { return (index === i ? !element : false); });
+
+  toggle() {
     this.setState({
-      dropdownOpen: newArray,
+      dropdownOpen: !this.state.dropdownOpen
     });
   }
+
   render() {
     const { users } = this.props;
     if (!users) {
@@ -39,18 +43,59 @@ class List extends Component {
                 <h5><i className="fa fa-user"></i> Users List</h5>
               </CardHeader>
               <CardBody>
-                <Link to="/access/user/create" className="nav-link">
-                  Create
-                </Link>
+
+                <Row>
+                  <div className="col-md-6">
+                    <form action="" method="post" className="form-horizontal">
+                      <div className="form-group row">
+                        <div className="col-md-12">
+                          <div className="input-group">
+                            <span className="input-group-prepend">
+                              <button type="button" className="btn btn-primary">
+                                <i className="fa fa-search"></i> Search
+                                </button>
+                            </span>
+                            <input type="text" className="form-control" />
+                            <span className="input-group-append">
+                              <button type="button" className="btn btn-primary" >
+                                <i className="fa fa-remove"></i>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="btn-group float-sm-right">
+                      <ButtonDropdown className="mr-1" isOpen={this.state.dropdownOpen} toggle={this.toggle} direction="down">
+                        <DropdownToggle caret color="danger">
+                          Action
+                          </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem>
+                            <Link to="/access/user/create" >
+                              <i className="fa fa-user-plus"></i>Create User
+                              </Link>
+                          </DropdownItem>
+                          {/* <DropdownItem>
+                            <i className="fa fa-trash"></i> Delete Selected
+                            </DropdownItem> */}
+                        </DropdownMenu>
+                      </ButtonDropdown>
+                    </div>
+                  </div>
+                </Row>
                 <Table responsive striped>
                   <thead>
                     <tr>
-                      <th>FirsT Name</th>
+                      <th>First Name</th>
                       <th>Last Name</th>
                       <th>Email</th>
                       <th>Role</th>
                       <th>Status</th>
                       <th>Created On</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -63,8 +108,23 @@ class List extends Component {
                             <td>{user.last_name}</td>
                             <td>{user.email}</td>
                             <td>{user.role}</td>
-                            <td>{user.status}</td>
-                            <td>{user.registered_at}</td>
+                            <td> <Badge color={user.status === 1 ? 'success' : 'danger'}>{user.status === 1 ? 'Active' : 'InActive'}</Badge></td>
+                            <td>{(new Date(user.registered_at)).toLocaleString('en-US')}</td>
+                            <td>
+                              <Button block={false} outline color="primary" size="sm">
+                                <Link to={`/access/user/update/${user.id}`} >
+                                  <i class="fa fa-eye"></i>
+                                </Link>
+                              </Button>
+                              &nbsp;
+                              <Button block={false} outline color="success" size="sm">
+                                <i class="fa fa-edit"></i>
+                              </Button>
+                              &nbsp;
+                              <Button block={false} outline color="danger" size="sm">
+                                <i class="fa fa-trash"></i>
+                              </Button>
+                            </td>
                           </tr>
                         );
                       })
