@@ -2,22 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
+import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import agent from '../../../../agent';
 import { USER_PAGE_LOADED, USER_PAGE_UNLOADED } from '../../../../constants/actionTypes'
+import { Link } from 'react-router-dom';
 
 class List extends Component {
   constructor(props) {
     super(props)
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      dropdownOpen: new Array(1).fill(false),
+    };
   }
   componentWillMount() {
     this.props.onLoad(agent.User.list());
   }
+  toggle(i) {
+    const newArray = this.state.dropdownOpen.map((element, index) => { return (index === i ? !element : false); });
+    this.setState({
+      dropdownOpen: newArray,
+    });
+  }
   render() {
-    const { users } = this.props;    
-    if(!users)
-    {
+    const { users } = this.props;
+    if (!users) {
       return null;
-    }    
+    }
     return (
       <div className="animated fadeIn">
         <Row>
@@ -27,6 +39,9 @@ class List extends Component {
                 <h5><i className="fa fa-user"></i> Users List</h5>
               </CardHeader>
               <CardBody>
+                <Link to="/access/user/create" className="nav-link">
+                  Create
+                </Link>
                 <Table responsive striped>
                   <thead>
                     <tr>
@@ -39,10 +54,10 @@ class List extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {                      
+                    {
                       users.map(user => {
                         return (
-                          <tr                            
+                          <tr
                             key={user.id}>
                             <td>{user.first_name}</td>
                             <td>{user.last_name}</td>
@@ -54,15 +69,14 @@ class List extends Component {
                         );
                       })
                     }
-
-                    <tr>
+                    {/* <tr>
                       <td>Yiorgos Avraamu</td>
                       <td>2012/01/01</td>
                       <td>Member</td>
                       <td>
                         <Badge color="success">Active</Badge>
                       </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </Table>
                 <Pagination>

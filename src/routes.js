@@ -3,7 +3,10 @@ import Loadable from 'react-loadable'
 
 import AdmintLayout from './containers/admin';
 
-import { List as UserList } from './containers/admin/access/users'
+import { List as UserList } from './containers/admin/access/users';
+import { Create as UserCreate } from './containers/admin/access/users';
+
+
 
 function Loading() {
   return <div>Loading...</div>;
@@ -17,10 +20,14 @@ const Home = Loadable({
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
-  { path: '/', exact: true, name: 'Dashboard', component: Home },
+  // { path: '/', exact: true, name: 'Dashboard', component: Home },
   // { path: '/dashboard', name: 'Dashboard', component: Home },
-  { path: '/access', name: 'Users', component: UserList },
-  { path: '/access/users', name: 'Users', component: UserList },
+  { path: '/access', exact: true, name: 'Access', component: UserList },
+  { path: '/access/user', exact: true, name: 'Users', component: UserList },
+  { path: '/access/user/create', exact: true,  name: 'Create', component: UserCreate },
+  { path: '/access/user/update/:id', exact: true,  name: 'Update', component: UserCreate },
+  { path: '/access/user/view/:id', exact: true,  name: 'view', component: UserCreate },
+
 ];
 
 export default routes;

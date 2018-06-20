@@ -16,7 +16,7 @@ export default {
       children: [
         {
           name: 'Mange Users',
-          url: '/access/users',
+          url: '/access/user',
           icon: 'icon-puzzle',
         },
         // {
