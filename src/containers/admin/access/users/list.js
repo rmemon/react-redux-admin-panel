@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
 import {
   ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle,
-  Button
+  Button, ButtonGroup
 } from 'reactstrap';
 import agent from '../../../../agent';
 import { USER_PAGE_LOADED, USER_PAGE_UNLOADED } from '../../../../constants/actionTypes'
@@ -45,8 +45,8 @@ class List extends Component {
               <CardBody>
 
                 <Row>
-                  <div className="col-md-6">
-                    <form action="" method="post" className="form-horizontal">
+                  <Col md="6">
+                    <form action="" method="post" className="form-horizontal invisible">
                       <div className="form-group row">
                         <div className="col-md-12">
                           <div className="input-group">
@@ -65,26 +65,24 @@ class List extends Component {
                         </div>
                       </div>
                     </form>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="btn-group float-sm-right">
-                      <ButtonDropdown className="mr-1" isOpen={this.state.dropdownOpen} toggle={this.toggle} direction="down">
+                  </Col>
+                  <Col md="6">
+                  <ButtonGroup className="btn-group float-sm-right">
+                      <ButtonDropdown direction="down"  isOpen={this.state.dropdownOpen} toggle={this.toggle} >
                         <DropdownToggle caret color="danger">
                           Action
                           </DropdownToggle>
-                        <DropdownMenu>
-                          <DropdownItem>
-                            <Link to="/access/user/create" >
+                        <DropdownMenu right>
+                          <DropdownItem href="/access/user/create">
                               <i className="fa fa-user-plus"></i>Create User
-                              </Link>
                           </DropdownItem>
                           {/* <DropdownItem>
                             <i className="fa fa-trash"></i> Delete Selected
                             </DropdownItem> */}
                         </DropdownMenu>
                       </ButtonDropdown>
-                    </div>
-                  </div>
+                    </ButtonGroup>
+                  </Col>
                 </Row>
                 <Table responsive striped>
                   <thead>
@@ -113,16 +111,16 @@ class List extends Component {
                             <td>
                               <Button block={false} outline color="primary" size="sm">
                                 <Link to={`/access/user/update/${user.id}`} >
-                                  <i class="fa fa-eye"></i>
+                                  <i className="fa fa-eye"></i>
                                 </Link>
                               </Button>
                               &nbsp;
                               <Button block={false} outline color="success" size="sm">
-                                <i class="fa fa-edit"></i>
+                                <i className="fa fa-edit"></i>
                               </Button>
                               &nbsp;
                               <Button block={false} outline color="danger" size="sm">
-                                <i class="fa fa-trash"></i>
+                                <i className="fa fa-trash"></i>
                               </Button>
                             </td>
                           </tr>
