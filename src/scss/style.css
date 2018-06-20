@@ -9939,5 +9939,9 @@ body {
 .app-header .navbar-nav .dropdown-menu-right {
   right: auto; }
 
+.centered-checkbox {
+  display: flex;
+  align-items: center; }
+
 html body .app.flex-row.align-items-center {
   height: 100vh; }

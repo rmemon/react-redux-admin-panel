@@ -39,7 +39,7 @@ const User = {
   list: () =>
     requests.get('/users'),
   get: (id) =>
-    requests.get(`/users${id}`),    
+    requests.get(`/users/${id}`),    
 };
 
 export default {
