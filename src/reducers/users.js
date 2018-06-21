@@ -25,10 +25,17 @@ export default (state = {}, action) => {
                 errors: action.error ? action.payload.error : null
             };
         case USER_CREATE:
-        case USER_UPDATE:
             return {
                 ...state,
                 user: action.payload.data,
+                inProgress: false,
+                errors: action.error ? action.payload.error : null,
+                redirectTo: action.error ? null : '/access/user',
+            };
+        case USER_UPDATE:
+            return {
+                ...state,
+                user: {},
                 inProgress: false,
                 errors: action.error ? action.payload.error : null,
                 redirectTo: action.error ? null : '/access/user',
