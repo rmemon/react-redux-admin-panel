@@ -20,6 +20,8 @@ import {
 } from 'reactstrap';
 
 import { reduxForm, Field } from 'redux-form';
+import { Link } from 'react-router-dom';
+
 const data = {
   id: null,
   first_name: "",
@@ -40,10 +42,12 @@ class Create extends Component {
   }
   render() {
     const { handleSubmit } = this.props;
+    const { invalid } = this.props
     return (
       <div className="animated fadeIn">
         <Row>
           <Col xs="12">
+          <form onSubmit={handleSubmit(this.props.onSubmit.bind(this))} className="form-horizontal">
             <Card>
               <CardHeader>
                 <i className="fa fa fa-user-plus"></i>  Create User
@@ -52,12 +56,12 @@ class Create extends Component {
                 <Row>
                   <Col sm="8">
                     <ListErrors errors={this.props.errors} />
-                    <form onSubmit={handleSubmit(this.props.onSubmit.bind(this))} className="form-horizontal">
+
                       <FormGroup row>
                         <Label className="col-md-3 col-form-label" htmlFor="first_name">First Name*</Label>
                         <Col md="9">
                           <InputGroup>
-                            <Field className="form-control" component="input" type="text" id="first_name" name="first_name" placeholder="Enter First Name..." />
+                            <Field className="form-control" component="input" type="text" id="first_name" name="first_name" placeholder="Enter First Name..." required/>
                             <InputGroupAddon addonType="append">
                               <InputGroupText><i className="fa fa-user"></i></InputGroupText>
                             </InputGroupAddon>
@@ -68,7 +72,7 @@ class Create extends Component {
                         <Label className="col-md-3 col-form-label" htmlFor="last_name">Last Name*</Label>
                         <Col md="9">
                           <InputGroup>
-                            <Field className="form-control" component="input" type="text" id="last_name" name="last_name" placeholder="Enter Last Name..." />
+                            <Field className="form-control" component="input" type="text" id="last_name" name="last_name" placeholder="Enter Last Name..." required/>
                             <InputGroupAddon addonType="append">
                               <InputGroupText><i className="fa fa-user"></i></InputGroupText>
                             </InputGroupAddon>
@@ -79,7 +83,7 @@ class Create extends Component {
                         <Label className="col-md-3 col-form-label" htmlFor="email">Email*</Label>
                         <Col md="9">
                           <InputGroup>
-                            <Field className="form-control" component="input" type="email" id="email" name="email" placeholder="Enter Email..." />
+                            <Field className="form-control" component="input" type="email" id="email" name="email" placeholder="Enter Email..." required/>
                             <InputGroupAddon addonType="append">
                               <InputGroupText><i className="fa fa-envelope"></i></InputGroupText>
                             </InputGroupAddon>
@@ -90,7 +94,7 @@ class Create extends Component {
                         <Label className="col-md-3 col-form-label" htmlFor="password">Password*</Label>
                         <Col md="9">
                           <InputGroup>
-                            <Field className="form-control" component="input" type="password" id="password" name="password" placeholder="Enter Password..." />
+                            <Field className="form-control" component="input" type="password" id="password" name="password" placeholder="Enter Password..." required/>
                             <InputGroupAddon addonType="append">
                               <InputGroupText><i className="fa fa-lock"></i></InputGroupText>
                             </InputGroupAddon>
@@ -101,7 +105,7 @@ class Create extends Component {
                         <Label className="col-md-3 col-form-label" htmlFor="password">Confirm Password*</Label>
                         <Col md="9">
                           <InputGroup>
-                            <Field className="form-control" component="input" type="password" id="password_confirmation" name="password_confirmation" placeholder="Enter Confirm Password..." />
+                            <Field className="form-control" component="input" type="password" id="password_confirmation" name="password_confirmation" placeholder="Enter Confirm Password..." required/>
                             <InputGroupAddon addonType="append">
                               <InputGroupText><i className="fa fa-lock"></i></InputGroupText>
                             </InputGroupAddon>
@@ -145,16 +149,19 @@ class Create extends Component {
                           </FormGroup>
                         </Col>
                       </FormGroup>
-                      <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                    </form>
                   </Col>
                 </Row>
               </CardBody>
               <CardFooter>
-
-                {/* <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button> */}
+              <Button  block={false} outline color="primary" disabled={ invalid} type="submit">
+                <i  className='fa fa-save'></i>  Submit
+              </Button> {' '}
+              <Link to="/access/user">
+              <Button type="submit" block={false} outline  color="danger"><i className="fa fa-arrow-left"></i> Go Back</Button>
+              </Link>
               </CardFooter>
             </Card>
+            </form>
           </Col>
         </Row>
       </div>
