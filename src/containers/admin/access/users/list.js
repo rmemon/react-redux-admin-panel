@@ -34,7 +34,9 @@ class List extends Component {
     let { users } = this.props;
     this.props.onClickDelete(Promise.all([
       agent.User.del(user.id)
-    ]));
+    ]).then(() => {
+      this.props.onLoad(agent.User.list());
+    }));
 
   }
 
