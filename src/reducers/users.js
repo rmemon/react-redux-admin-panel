@@ -25,17 +25,9 @@ export default (state = {}, action) => {
                 errors: action.error ? action.payload.error : null
             };
         case USER_CREATE:
-            return {
-                ...state,
-                user: action.payload.data,
-                inProgress: false,
-                errors: action.error ? action.payload.error : null,
-                redirectTo: action.error ? null : '/access/user',
-            };
         case USER_UPDATE:
             return {
                 ...state,
-                user: {},
                 inProgress: false,
                 errors: action.error ? action.payload.error : null,
                 redirectTo: action.error ? null : '/access/user',
@@ -47,10 +39,12 @@ export default (state = {}, action) => {
                 errors: action.error ? action.payload.error : null,
             };
         case USER_EDITOR_PAGE_UNLOADED:
-            return {};
+            return {
+                ...state,
+                user: {}
+            };
         case USER_DELETE:
             return {
-
             };
         default:
             return state;
