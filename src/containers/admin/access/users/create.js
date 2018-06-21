@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../../../agent';
-import { USER_PAGE_LOADED, USER_PAGE_UNLOADED, USER_CREATE } from '../../../../constants/actionTypes'
+import { USER_EDITOR_PAGE_LOADED, USER_EDITOR_PAGE_UNLOADED, USER_CREATE } from '../../../../constants/actionTypes'
 import {
   InputGroupText, InputGroupAddon, InputGroup
 } from 'reactstrap';
@@ -22,7 +22,7 @@ import {
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 
-const data = {
+let data = {
   id: null,
   first_name: "",
   last_name: "",
@@ -40,28 +40,62 @@ class Create extends Component {
   constructor(props) {
     super(props)
   }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.id !== nextProps.match.params.id) {
+      console.log(this.props.match.params.id);
+      if (nextProps.match.params.id) {
+        this.props.onUnload();
+        return this.props.onLoad(agent.User.get(this.props.match.params.id));
+      }
+      this.props.onLoad(null);
+    }
+  }
+  componentWillMount() {
+    if (this.props.match.params.id) {
+      return this.props.onLoad(agent.User.get(this.props.match.params.id));
+    }
+    this.props.onLoad(null);
+  }
+
+  componentWillUnmount() {
+    this.props.onUnload();
+  }
+
   render() {
     const { handleSubmit } = this.props;
-    const { invalid } = this.props
+    const { invalid } = this.props;
+    const { user } = this.props;        
+    
+    if(user)    
+    {      
+      data.first_name = user.first_name;
+      data.id = user.id;
+      data.last_name = user.last_name;
+      data.email = user.email;
+      data.confirmed = user.confirmed;
+      data.status = user.status;
+      data.confirmation_email = user.confirmation_email;
+    }
+
     return (
       <div className="animated fadeIn">
         <Row>
           <Col xs="12">
-          <form onSubmit={handleSubmit(this.props.onSubmit.bind(this))} className="form-horizontal">
-            <Card>
-              <CardHeader>
-                <i className="fa fa fa-user-plus"></i>  Create User
+            <form onSubmit={handleSubmit(this.props.onSubmit.bind(this))} className="form-horizontal">
+              <Card>
+                <CardHeader>
+                  <i className="fa fa fa-user-plus"></i>  {this.props.match.params.id ? 'Update' : 'Create'} User
               </CardHeader>
-              <CardBody>
-                <Row>
-                  <Col sm="8">
-                    <ListErrors errors={this.props.errors} />
+                <CardBody>
+                  <Row>
+                    <Col sm="8">
+                      <ListErrors errors={this.props.errors} />
 
                       <FormGroup row>
                         <Label className="col-md-3 col-form-label" htmlFor="first_name">First Name*</Label>
                         <Col md="9">
                           <InputGroup>
-                            <Field className="form-control" component="input" type="text" id="first_name" name="first_name" placeholder="Enter First Name..." required/>
+                            <Field className="form-control" component="input" type="text" id="first_name" name="first_name" placeholder="Enter First Name..." required />
                             <InputGroupAddon addonType="append">
                               <InputGroupText><i className="fa fa-user"></i></InputGroupText>
                             </InputGroupAddon>
@@ -72,7 +106,7 @@ class Create extends Component {
                         <Label className="col-md-3 col-form-label" htmlFor="last_name">Last Name*</Label>
                         <Col md="9">
                           <InputGroup>
-                            <Field className="form-control" component="input" type="text" id="last_name" name="last_name" placeholder="Enter Last Name..." required/>
+                            <Field className="form-control" component="input" type="text" id="last_name" name="last_name" placeholder="Enter Last Name..." required />
                             <InputGroupAddon addonType="append">
                               <InputGroupText><i className="fa fa-user"></i></InputGroupText>
                             </InputGroupAddon>
@@ -83,7 +117,7 @@ class Create extends Component {
                         <Label className="col-md-3 col-form-label" htmlFor="email">Email*</Label>
                         <Col md="9">
                           <InputGroup>
-                            <Field className="form-control" component="input" type="email" id="email" name="email" placeholder="Enter Email..." required/>
+                            <Field className="form-control" component="input" type="email" id="email" name="email" placeholder="Enter Email..." required />
                             <InputGroupAddon addonType="append">
                               <InputGroupText><i className="fa fa-envelope"></i></InputGroupText>
                             </InputGroupAddon>
@@ -94,7 +128,7 @@ class Create extends Component {
                         <Label className="col-md-3 col-form-label" htmlFor="password">Password*</Label>
                         <Col md="9">
                           <InputGroup>
-                            <Field className="form-control" component="input" type="password" id="password" name="password" placeholder="Enter Password..." required/>
+                            <Field className="form-control" component="input" type="password" id="password" name="password" placeholder="Enter Password..." required />
                             <InputGroupAddon addonType="append">
                               <InputGroupText><i className="fa fa-lock"></i></InputGroupText>
                             </InputGroupAddon>
@@ -105,7 +139,7 @@ class Create extends Component {
                         <Label className="col-md-3 col-form-label" htmlFor="password">Confirm Password*</Label>
                         <Col md="9">
                           <InputGroup>
-                            <Field className="form-control" component="input" type="password" id="password_confirmation" name="password_confirmation" placeholder="Enter Confirm Password..." required/>
+                            <Field className="form-control" component="input" type="password" id="password_confirmation" name="password_confirmation" placeholder="Enter Confirm Password..." required />
                             <InputGroupAddon addonType="append">
                               <InputGroupText><i className="fa fa-lock"></i></InputGroupText>
                             </InputGroupAddon>
@@ -149,18 +183,18 @@ class Create extends Component {
                           </FormGroup>
                         </Col>
                       </FormGroup>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-              <Button  block={false} outline color="primary" disabled={ invalid} type="submit">
-                <i  className='fa fa-save'></i>  Submit
+                    </Col>
+                  </Row>
+                </CardBody>
+                <CardFooter>
+                  <Button block={false} outline color="primary" disabled={invalid} type="submit">
+                    <i className='fa fa-save'></i>  Submit
               </Button> {' '}
-              <Link to="/access/user">
-              <Button type="submit" block={false} outline  color="danger"><i className="fa fa-arrow-left"></i> Go Back</Button>
-              </Link>
-              </CardFooter>
-            </Card>
+                  <Link to="/access/user">
+                    <Button type="submit" block={false} outline color="danger"><i className="fa fa-arrow-left"></i> Go Back</Button>
+                  </Link>
+                </CardFooter>
+              </Card>
             </form>
           </Col>
         </Row>
@@ -175,11 +209,21 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: (values) =>
-    dispatch({ type: USER_CREATE, payload: agent.User.create(values) }),
+  {
+    console.log(values);
+    if(values.id)
+    {
+
+    }
+    else
+    {
+      dispatch({ type: USER_CREATE, payload: agent.User.create(values) })
+    }    
+  },
   onLoad: payload =>
-    dispatch({ type: USER_PAGE_LOADED, payload }),
+    dispatch({ type: USER_EDITOR_PAGE_LOADED, payload }),
   onUnload: () =>
-    dispatch({ type: USER_PAGE_UNLOADED })
+    dispatch({ type: USER_EDITOR_PAGE_UNLOADED })
 });
 
 export default reduxForm({

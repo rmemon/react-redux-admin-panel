@@ -40,9 +40,9 @@ const User = {
     requests.get('/users'),
   get: (id) =>
     requests.get(`/users/${id}`),
-  create: (values) =>
+  create: ({...values}) =>
   { 
-    values.assignees_roles = ['3'];
+    values.assignees_roles = [values.assignees_roles];
     return requests.post('/users', values);
   },
 };
