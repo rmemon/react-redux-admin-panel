@@ -206,10 +206,8 @@ class Editor extends Component {
                 <CardFooter>
                   <Button block={false} outline color="primary" disabled={invalid} type="submit">
                     <i className='fa fa-save'></i>  Submit
-              </Button> {' '}
-                  <Link to="/access/user">
-                    <Button type="submit" block={false} outline color="danger"><i className="fa fa-arrow-left"></i> Go Back</Button>
-                  </Link>
+              </Button> {' '}                  
+              <Button tag={Link} to={`/access/user`} className='btn btn-outline-danger'> <i className="fa fa-arrow-left"></i> Go Back </Button>
                 </CardFooter>
               </Card>
             </form>
