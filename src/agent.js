@@ -39,7 +39,12 @@ const User = {
   list: () =>
     requests.get('/users'),
   get: (id) =>
-    requests.get(`/users/${id}`),    
+    requests.get(`/users/${id}`),
+  create: (values) =>
+  { 
+    values.assignees_roles = ['3'];
+    return requests.post('/users', values);
+  },
 };
 
 export default {

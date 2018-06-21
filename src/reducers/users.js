@@ -1,7 +1,7 @@
 import {
     USER_PAGE_LOADED,
-    USER_VIEW_PAGE_LOADED
-
+    USER_VIEW_PAGE_LOADED,
+    USER_CREATE
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -13,12 +13,20 @@ export default (state = {}, action) => {
                 inProgress: false,
                 errors: action.error ? action.payload.error : null
             };
-        case USER_VIEW_PAGE_LOADED:            
+        case USER_VIEW_PAGE_LOADED:
             return {
                 ...state,
                 user: action.payload.data,
                 inProgress: false,
                 errors: action.error ? action.payload.error : null
+            };
+        case USER_CREATE:
+            return {
+                ...state,
+                user: action.payload.data,
+                inProgress: false,
+                errors: action.error ? action.payload.error : null,
+                redirectTo: action.error ? null : '/access/user',
             };
         default:
             return state;
