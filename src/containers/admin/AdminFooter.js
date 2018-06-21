@@ -7,7 +7,7 @@ class AdminFooter extends Component {
 
     return (
       <React.Fragment>
-        <span><a href="#">Rahil</a> &copy; 2018 React Admin .</span>
+        <span><a>Rahil</a> &copy; 2018 React Admin .</span>
         <span className="ml-auto">Powered by <a href="">for React</a></span>
       </React.Fragment>
     );

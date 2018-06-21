@@ -22,11 +22,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: REGISTER_PAGE_UNLOADED })
 });
 
-class Register extends React.Component {
-  constructor() {
-    super();
-  }
-
+class Register extends React.Component {  
   componentWillUnmount() {
     this.props.onUnload();
   }

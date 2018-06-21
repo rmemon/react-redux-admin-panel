@@ -25,12 +25,10 @@ import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
 import '../scss/style.css';
 
-import { push } from 'react-router-redux';
-
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
       this.context.router.history.push(nextProps.redirectTo)

@@ -7,7 +7,7 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED,
 } from '../../constants/actionTypes';
-import { Button, Card, CardBody, CardGroup, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardGroup, Col, Container, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { reduxForm, Field } from "redux-form";
 
 const mapStateToProps = state => ({ ...state.auth });
@@ -20,12 +20,12 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.onSubmit = (values) => {      
-    //   this.props.onSubmit(values);
-    // };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   // this.onSubmit = (values) => {      
+  //   //   this.props.onSubmit(values);
+  //   // };
+  // }
 
   componentWillUnmount() {
     this.props.onUnload();

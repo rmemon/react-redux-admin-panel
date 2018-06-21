@@ -7,7 +7,6 @@ const superagent = superagentPromise(_superagent, global.Promise);
 
 let API_ROOT = "http://192.192.7.224:8000/api/v1";
 const responseBody = res => res.body;
-const errorBody = err => err.message;
 
 let token = null;
 const tokenPlugin = req => {

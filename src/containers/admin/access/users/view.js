@@ -7,9 +7,6 @@ import { Card, CardBody, CardFooter, CardHeader, Col, Row, FormGroup, Label, Bad
 import { Link } from 'react-router-dom';
 
 class View extends Component {
-    constructor(props) {
-        super(props)
-    }
     componentWillMount() {
         const { id } = this.props.match.params
         this.props.onLoad(agent.User.get(id));
@@ -17,10 +14,10 @@ class View extends Component {
     render() {
         const { user } = this.props;
         const { errors } = this.props;
-        
+
         if (errors) {
             this.props.history.push('/access/user');
-            return null; 
+            return null;
         }
 
         if (!user) {
