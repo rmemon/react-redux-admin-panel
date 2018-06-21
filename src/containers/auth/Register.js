@@ -130,7 +130,7 @@ class Register extends React.Component {
                     {'  '}
                     <Link to="/login">
                       <Button color="primary" type="submit" >
-                        <i className="fa fa-lock"></i>login
+                        <i className="fa fa-lock"></i> login
                   </Button>
                     </Link>
 
