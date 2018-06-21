@@ -34,6 +34,19 @@ class AdminHeader extends Component {
           minimized={{ src: sygnet, width: 30, height: 30, alt: attributes.appName }}
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
+        
+        <Nav className="d-md-down-none" navbar>
+          <NavItem className="px-3">
+            <NavLink tag={Link} to='/dashboard'>Dashboard</NavLink>
+          </NavItem>
+          <NavItem className="px-3">
+            <NavLink tag={Link} to='/access/user'>Users</NavLink>
+          </NavItem>
+          {/* <NavItem className="px-3">
+            <NavLink href="#">Settings</NavLink>
+          </NavItem> */}
+        </Nav>
+        
         <Nav className="ml-auto" navbar>
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
