@@ -3,7 +3,8 @@ import {
     USER_VIEW_PAGE_LOADED,
     USER_CREATE,
     USER_EDITOR_PAGE_LOADED,
-    USER_EDITOR_PAGE_UNLOADED
+    USER_EDITOR_PAGE_UNLOADED,
+    USER_DELETE
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -37,6 +38,10 @@ export default (state = {}, action) => {
             };
         case USER_EDITOR_PAGE_UNLOADED:
             return {};
+        case USER_DELETE:
+            return {
+
+            };
         default:
             return state;
     }

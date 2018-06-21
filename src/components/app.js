@@ -50,9 +50,9 @@ class App extends React.Component {
     return (
       <Switch>        
         <Route path="/register" component={Register} />
-        <Route path="/login" component={Login} />
+        <Route path="/login" component={Login} />        
         <PrivateRoute path="/" name="Home" component={AdminLayout} />
-        <Redirect from="/" to="/" />
+        <Redirect from="/" to="/dashboard" />
       </Switch>
     );
   }

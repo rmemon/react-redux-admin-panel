@@ -20,7 +20,7 @@ const Home = Loadable({
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   // { path: '/', exact: true, name: 'Dashboard', component: Home },
-  // { path: '/dashboard', name: 'Dashboard', component: Home },
+  { path: '/dashboard', name: 'Dashboard', component: Home },
   { path: '/access', exact: true, name: 'Access', component: UserList },
   { path: '/access/user', exact: true, name: 'Users', component: UserList },
   { path: '/access/user/create', exact: true,  name: 'Create', component: UserCreate },

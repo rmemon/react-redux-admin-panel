@@ -7,7 +7,7 @@ import {
   Button, ButtonGroup
 } from 'reactstrap';
 import agent from '../../../../agent';
-import { USER_PAGE_LOADED, USER_PAGE_UNLOADED } from '../../../../constants/actionTypes'
+import { USER_PAGE_LOADED, USER_PAGE_UNLOADED, USER_DELETE } from '../../../../constants/actionTypes'
 import { Link } from 'react-router-dom';
 
 class List extends Component {
@@ -15,6 +15,8 @@ class List extends Component {
     super(props)
 
     this.toggle = this.toggle.bind(this);
+    // this.onClickDelete= this.onClickDelete.bind(this);
+
     this.state = {
       dropdownOpen: false
     };
@@ -28,12 +30,21 @@ class List extends Component {
       dropdownOpen: !this.state.dropdownOpen
     });
   }
+  onClickDelete(user) {    
+    let { users } = this.props;        
+    this.props.onClickDelete(Promise.all([
+      agent.User.del(user.id)
+    ]));
 
-  render() {    
+  }
+
+  render() {
     const { users } = this.props;
     if (!users) {
       return null;
     }
+
+    console.log(users);
     return (
       <div className="animated fadeIn">
         <Row>
@@ -67,14 +78,14 @@ class List extends Component {
                     </form>
                   </Col>
                   <Col md="6">
-                  <ButtonGroup className="btn-group float-sm-right">
-                      <ButtonDropdown direction="down"  isOpen={this.state.dropdownOpen} toggle={this.toggle} >
+                    <ButtonGroup className="btn-group float-sm-right">
+                      <ButtonDropdown direction="down" isOpen={this.state.dropdownOpen} toggle={this.toggle} >
                         <DropdownToggle caret color="danger">
                           Action
                           </DropdownToggle>
                         <DropdownMenu right>
                           <DropdownItem tag={Link} to="/access/user/create">
-                              <i className="fa fa-user-plus"></i>Create User
+                            <i className="fa fa-user-plus"></i>Create User
                           </DropdownItem>
                           {/* <DropdownItem>
                             <i className="fa fa-trash"></i> Delete Selected
@@ -109,15 +120,15 @@ class List extends Component {
                             <td> <Badge color={user.status === 1 ? 'success' : 'danger'}>{user.status === 1 ? 'Active' : 'InActive'}</Badge></td>
                             <td>{(new Date(user.registered_at)).toLocaleString('en-US')}</td>
                             <td>
-                              <Button block={false} tag={Link} to={`/access/user/view/${user.id}`} outline color="primary" size="sm">                                
-                                  <i className="fa fa-eye"></i>                                
+                              <Button block={false} tag={Link} to={`/access/user/view/${user.id}`} outline color="primary" size="sm">
+                                <i className="fa fa-eye"></i>
                               </Button>
                               &nbsp;
                               <Button tag={Link} to={`/access/user/update/${user.id}`} block={false} outline color="success" size="sm">
                                 <i className="fa fa-edit"></i>
                               </Button>
                               &nbsp;
-                              <Button block={false} outline color="danger" size="sm">
+                              <Button onClick={() => this.onClickDelete(user)} block={false} outline color="danger" size="sm">
                                 <i className="fa fa-trash"></i>
                               </Button>
                             </td>
@@ -125,24 +136,17 @@ class List extends Component {
                         );
                       })
                     }
-                    {/* <tr>
-                      <td>Yiorgos Avraamu</td>
-                      <td>2012/01/01</td>
-                      <td>Member</td>
-                      <td>
-                        <Badge color="success">Active</Badge>
-                      </td>
-                    </tr> */}
+                    
                   </tbody>
                 </Table>
-                <Pagination>
+                {/* <Pagination>
                   <PaginationItem disabled><PaginationLink previous tag="button">Prev</PaginationLink></PaginationItem>
                   <PaginationItem active>
                     <PaginationLink tag="button">1</PaginationLink>
                   </PaginationItem>
                   <PaginationItem><PaginationLink tag="button">2</PaginationLink></PaginationItem>
                   <PaginationItem><PaginationLink next tag="button">Next</PaginationLink></PaginationItem>
-                </Pagination>
+                </Pagination> */}
               </CardBody>
             </Card>
           </Col>
@@ -153,12 +157,14 @@ class List extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.users,  
+  ...state.users,
 });
 
 const mapDispatchToProps = dispatch => ({
   onLoad: payload =>
     dispatch({ type: USER_PAGE_LOADED, payload }),
+  onClickDelete: payload =>
+    dispatch({ type: USER_DELETE, payload }),
   onUnload: () =>
     dispatch({ type: USER_PAGE_UNLOADED })
 });
