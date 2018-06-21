@@ -4,7 +4,7 @@ import Loadable from 'react-loadable'
 import AdmintLayout from './containers/admin';
 
 import { List as UserList } from './containers/admin/access/users';
-import { Create as UserCreate } from './containers/admin/access/users';
+import { Editor as UserEditor } from './containers/admin/access/users';
 import { View as UserView } from './containers/admin/access/users';
 
 function Loading() {
@@ -23,8 +23,8 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', component: Home },
   { path: '/access', exact: true, name: 'Access', component: UserList },
   { path: '/access/user', exact: true, name: 'Users', component: UserList },
-  { path: '/access/user/create', exact: true,  name: 'Create', component: UserCreate },
-  { path: '/access/user/update/:id', exact: true,  name: 'Update', component: UserCreate },
+  { path: '/access/user/create', exact: true,  name: 'Create', component: UserEditor },
+  { path: '/access/user/update/:id', exact: true,  name: 'Update', component: UserEditor },
   { path: '/access/user/view/:id', exact: true,  name: 'view', component: UserView },
 
 ];

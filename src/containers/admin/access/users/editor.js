@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../../../agent';
-import { USER_EDITOR_PAGE_LOADED, USER_EDITOR_PAGE_UNLOADED, USER_CREATE } from '../../../../constants/actionTypes'
+import { USER_EDITOR_PAGE_LOADED, USER_EDITOR_PAGE_UNLOADED, USER_CREATE,
+  USER_UPDATE } from '../../../../constants/actionTypes'
 import {
   InputGroupText, InputGroupAddon, InputGroup
 } from 'reactstrap';
@@ -36,7 +37,13 @@ let data = {
   permissions: [1]
 };
 
-class Create extends Component {
+const roleMap = {
+  Administrator : '1',
+  Executive     : '2',
+  User          : '3'
+}
+
+class Editor extends Component {
   constructor(props) {
     super(props)
   }
@@ -64,10 +71,11 @@ class Create extends Component {
   render() {
     const { handleSubmit } = this.props;
     const { invalid } = this.props;
-    const { user } = this.props;        
-    
-    if(user)    
-    {      
+    const { user } = this.props;
+    const isEditMode = user ? true : false;
+    const { errors } = this.props;
+    if(user)
+    {
       data.first_name = user.first_name;
       data.id = user.id;
       data.last_name = user.last_name;
@@ -75,8 +83,12 @@ class Create extends Component {
       data.confirmed = user.confirmed;
       data.status = user.status;
       data.confirmation_email = user.confirmation_email;
+      data.assignees_roles = roleMap[user.role];
     }
-
+    if(this.props.match.params.id && errors)
+    {
+      this.props.history.push('/access/user');
+    }
     return (
       <div className="animated fadeIn">
         <Row>
@@ -84,7 +96,7 @@ class Create extends Component {
             <form onSubmit={handleSubmit(this.props.onSubmit.bind(this))} className="form-horizontal">
               <Card>
                 <CardHeader>
-                  <i className="fa fa fa-user-plus"></i>  {this.props.match.params.id ? 'Update' : 'Create'} User
+                  <i className="fa fa fa-user-plus"></i>  {isEditMode ? 'Update' : 'Create'} User
               </CardHeader>
                 <CardBody>
                   <Row>
@@ -124,6 +136,8 @@ class Create extends Component {
                           </InputGroup>
                         </Col>
                       </FormGroup>
+                      {!isEditMode &&
+                      <div>
                       <FormGroup row>
                         <Label className="col-md-3 col-form-label" htmlFor="password">Password*</Label>
                         <Col md="9">
@@ -146,6 +160,9 @@ class Create extends Component {
                           </InputGroup>
                         </Col>
                       </FormGroup>
+                      </div>
+                       }
+
                       <FormGroup row>
                         <Label className="col-md-3 col-form-label" htmlFor="status">User Active</Label>
                         <Col md="9">
@@ -213,12 +230,12 @@ const mapDispatchToProps = dispatch => ({
     console.log(values);
     if(values.id)
     {
-
+      dispatch({ type: USER_UPDATE, payload: agent.User.update(values) })
     }
     else
     {
       dispatch({ type: USER_CREATE, payload: agent.User.create(values) })
-    }    
+    }
   },
   onLoad: payload =>
     dispatch({ type: USER_EDITOR_PAGE_LOADED, payload }),
@@ -229,4 +246,4 @@ const mapDispatchToProps = dispatch => ({
 export default reduxForm({
   form: "CreateUserForm",
   initialValues: data
-})(connect(mapStateToProps, mapDispatchToProps)(Create));
+})(connect(mapStateToProps, mapDispatchToProps)(Editor));

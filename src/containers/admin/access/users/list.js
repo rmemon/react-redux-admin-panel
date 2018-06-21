@@ -30,8 +30,8 @@ class List extends Component {
       dropdownOpen: !this.state.dropdownOpen
     });
   }
-  onClickDelete(user) {    
-    let { users } = this.props;        
+  onClickDelete(user) {
+    let { users } = this.props;
     this.props.onClickDelete(Promise.all([
       agent.User.del(user.id)
     ]));
@@ -43,15 +43,15 @@ class List extends Component {
     if (!users) {
       return null;
     }
-
-    console.log(users);
+    
+    const noRecords = users.length == 0? true : false;
     return (
       <div className="animated fadeIn">
         <Row>
           <Col xs="12" lg="12">
             <Card>
               <CardHeader>
-                <h5><i className="fa fa-user"></i> Users List</h5>
+                <h5><i className="fa fa-user"></i> Users Lists</h5>
               </CardHeader>
               <CardBody>
 
@@ -136,7 +136,14 @@ class List extends Component {
                         );
                       })
                     }
-                    
+                    { noRecords &&
+                      <tr>
+                        <td colSpan='7'>
+                        No Data to Display
+                        </td>
+                      </tr>
+                    }
+
                   </tbody>
                 </Table>
                 {/* <Pagination>

@@ -1,9 +1,9 @@
 import List from './list';
-import Create from './create';
+import Editor from './editor';
 import View from './view'
 
 export {
-    Create,
+    Editor,
     List,
     View
 };

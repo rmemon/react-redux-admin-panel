@@ -2,6 +2,7 @@ import {
     USER_PAGE_LOADED,
     USER_VIEW_PAGE_LOADED,
     USER_CREATE,
+    USER_UPDATE,
     USER_EDITOR_PAGE_LOADED,
     USER_EDITOR_PAGE_UNLOADED,
     USER_DELETE
@@ -24,6 +25,7 @@ export default (state = {}, action) => {
                 errors: action.error ? action.payload.error : null
             };
         case USER_CREATE:
+        case USER_UPDATE:
             return {
                 ...state,
                 user: action.payload.data,
@@ -35,6 +37,7 @@ export default (state = {}, action) => {
             return {
                 ...state,
                 user: action.payload ? action.payload.data : '',
+                errors: action.error ? action.payload.error : null,
             };
         case USER_EDITOR_PAGE_UNLOADED:
             return {};

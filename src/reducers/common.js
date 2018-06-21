@@ -6,7 +6,8 @@ import {
   REGISTER,
   LOGIN_PAGE_UNLOADED,
   REGISTER_PAGE_UNLOADED,
-  USER_CREATE
+  USER_CREATE,
+  USER_UPDATE
 } from '../constants/actionTypes';
 
 const defaultState = {
@@ -39,6 +40,7 @@ export default (state = defaultState, action) => {
         currentUser: action.error ? null : action.payload
       };
     case USER_CREATE:
+    case USER_UPDATE:
       return {
         ...state,
         redirectTo: action.error ? null : '/access/user',
