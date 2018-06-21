@@ -45,6 +45,7 @@ export default (state = {}, action) => {
             };
         case USER_DELETE:
             return {
+                ...state
             };
         default:
             return state;
