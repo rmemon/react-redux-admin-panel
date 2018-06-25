@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import agent from '../../../../agent';
-import { USER_VIEW_PAGE_LOADED, USER_VIEW_PAGE_UNLOADED } from '../../../../constants/actionTypes'
+import {USER_VIEW_PAGE_LOADED, USER_VIEW_PAGE_UNLOADED} from '../../../../constants/actionTypes'
 
-import { Card, CardBody, CardFooter, CardHeader, Col, Row, FormGroup, Label, Badge, Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import {Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, FormGroup, Label, Row} from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 class View extends Component {
     componentWillMount() {
-        const { id } = this.props.match.params
+        const {id} = this.props.match.params
         this.props.onLoad(agent.User.get(id));
     }
+
     render() {
-        const { user } = this.props;
-        const { errors } = this.props;
+        const {user} = this.props;
+        const {errors} = this.props;
 
         if (errors) {
             this.props.history.push('/access/user');
@@ -33,7 +34,7 @@ class View extends Component {
                             </CardHeader>
                             <CardBody>
                                 <Row>
-                                    <Col sm="8" >
+                                    <Col sm="8">
                                         <FormGroup row>
                                             <Label className="col-md-3 col-form-label" htmlFor="text-input">
                                                 <strong>First Name: </strong> </Label>
@@ -44,7 +45,7 @@ class View extends Component {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col sm="8" >
+                                    <Col sm="8">
                                         <FormGroup row>
                                             <Label className="col-md-3 col-form-label" htmlFor="text-input">
                                                 <strong>Last Name: </strong> </Label>
@@ -55,7 +56,7 @@ class View extends Component {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col sm="8" >
+                                    <Col sm="8">
                                         <FormGroup row>
                                             <Label className="col-md-3 col-form-label" htmlFor="text-input">
                                                 <strong>Email: </strong> </Label>
@@ -66,7 +67,7 @@ class View extends Component {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col sm="8" >
+                                    <Col sm="8">
                                         <FormGroup row>
                                             <Label className="col-md-3 col-form-label" htmlFor="text-input">
                                                 <strong>Role: </strong> </Label>
@@ -77,29 +78,31 @@ class View extends Component {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col sm="8" >
+                                    <Col sm="8">
                                         <FormGroup row>
                                             <Label className="col-md-3 col-form-label" htmlFor="text-input">
                                                 <strong>Status: </strong> </Label>
                                             <Col xs="6" md="6" className='centered-checkbox'>
-                                                <Badge color={user.status === 1 ? 'success' : 'danger'}>{user.status === 1 ? 'Active' : 'InActive'}</Badge>
+                                                <Badge
+                                                    color={user.status === 1 ? 'success' : 'danger'}>{user.status === 1 ? 'Active' : 'InActive'}</Badge>
                                             </Col>
                                         </FormGroup>
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col sm="8" >
+                                    <Col sm="8">
                                         <FormGroup row>
                                             <Label className="col-md-3 col-form-label" htmlFor="text-input">
                                                 <strong>Confirmed: </strong> </Label>
                                             <Col xs="6" md="6" className='centered-checkbox'>
-                                                <Badge color={user.confirmed === 1 ? 'success' : 'danger'}>{user.confirmed === 1 ? 'Yes' : 'No'}</Badge>
+                                                <Badge
+                                                    color={user.confirmed === 1 ? 'success' : 'danger'}>{user.confirmed === 1 ? 'Yes' : 'No'}</Badge>
                                             </Col>
                                         </FormGroup>
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col sm="8" >
+                                    <Col sm="8">
                                         <FormGroup row>
                                             <Label className="col-md-3 col-form-label" htmlFor="text-input">
                                                 <strong>Created On: </strong> </Label>
@@ -110,7 +113,7 @@ class View extends Component {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col sm="8" >
+                                    <Col sm="8">
                                         <FormGroup row>
                                             <Label className="col-md-3 col-form-label" htmlFor="text-input">
                                                 <strong>Updated On: </strong> </Label>
@@ -122,7 +125,8 @@ class View extends Component {
                                 </Row>
                             </CardBody>
                             <CardFooter>
-                                <Button tag={Link} to={`/access/user`} className='btn btn-outline-danger'> <i className="fa fa-arrow-left"></i> Go Back </Button>
+                                <Button tag={Link} to={`/access/user`} className='btn btn-outline-danger'> <i
+                                    className="fa fa-arrow-left"></i> Go Back </Button>
                             </CardFooter>
                         </Card>
                     </Col>
@@ -138,9 +142,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onLoad: payload =>
-        dispatch({ type: USER_VIEW_PAGE_LOADED, payload }),
+        dispatch({type: USER_VIEW_PAGE_LOADED, payload}),
     onUnload: () =>
-        dispatch({ type: USER_VIEW_PAGE_UNLOADED })
+        dispatch({type: USER_VIEW_PAGE_UNLOADED})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);

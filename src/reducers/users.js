@@ -1,11 +1,11 @@
 import {
-    USER_PAGE_LOADED,
-    USER_VIEW_PAGE_LOADED,
     USER_CREATE,
-    USER_UPDATE,
+    USER_DELETE,
     USER_EDITOR_PAGE_LOADED,
     USER_EDITOR_PAGE_UNLOADED,
-    USER_DELETE
+    USER_PAGE_LOADED,
+    USER_UPDATE,
+    USER_VIEW_PAGE_LOADED
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {

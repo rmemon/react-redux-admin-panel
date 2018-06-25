@@ -1,12 +1,11 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import agent from '../agent';
 
-export const PrivateRoute = ({ component: Component, ...rest }) => (
-	<Route {...rest} render={props => (
-		agent.getToken()
-		// localStorage.getItem('jwt')
-			? <Component {...props} />
-			: <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-	)} />
+export const PrivateRoute = ({component: Component, ...rest}) => (
+    <Route {...rest} render={props => (
+        agent.getToken()
+            ? <Component {...props} />
+            : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
+    )}/>
 )
