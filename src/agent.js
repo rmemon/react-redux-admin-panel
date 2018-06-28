@@ -5,7 +5,7 @@ import {parseJwt} from './utils';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-let API_ROOT = "http://127.0.0.1:8000/api/v1";
+let API_ROOT = "http://192.192.7.224:8000/api/v1";
 
 const responseBody = res => res.body;
 

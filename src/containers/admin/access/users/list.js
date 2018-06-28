@@ -16,16 +16,16 @@ import {
     Row,
     Table
 } from 'reactstrap';
+
 import agent from '../../../../agent';
 import {USER_DELETE, USER_PAGE_LOADED, USER_PAGE_UNLOADED} from '../../../../constants/actionTypes';
 import {Link} from 'react-router-dom';
 
 class List extends Component {
     constructor(props) {
-        super(props)
+        super(props);
 
-        this.toggle = this.toggle.bind(this);
-        // this.onClickDelete= this.onClickDelete.bind(this);
+        this.toggle = this.toggle.bind(this);        
 
         this.state = {
             dropdownOpen: false
