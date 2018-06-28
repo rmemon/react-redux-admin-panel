@@ -99,7 +99,7 @@ class List extends Component {
                                     <thead>
                                         <tr>
                                             <th>Role</th>
-                                            {/* <th>Permissions</th> */}
+                                            <th>Permissions</th>
                                             <th>Number of Users</th>
                                             <th>Sort</th>
                                             <th>Status</th>
@@ -110,12 +110,12 @@ class List extends Component {
                                         {
                                             roles.map(role => {
 
-                                                //const permissions = role.permissions.constructor == Array ? role.permissions.join('\n') : role.permissions;
+                                                const permissions = role.permissions.constructor == Array ? role.permissions.join('<br/>') : role.permissions;
                                                 return (
                                                     <tr
                                                         key={role.id}>
                                                         <td>{role.name}</td>
-                                                        {/* <td>{permissions}</td> */}
+                                                        <td dangerouslySetInnerHTML = {{__html:permissions }} />
                                                         <td>{role.number_of_users}</td>
                                                         <td>{role.sort}</td>
                                                         <td>
