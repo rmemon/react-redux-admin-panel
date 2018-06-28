@@ -11,7 +11,7 @@ import {
 } from '../constants/actionTypes';
 
 const defaultState = {
-    appName: 'React Demo',
+    appName: process.env.REACT_APP_NAME,
     token: null,
     viewChangeCounter: 0
 };

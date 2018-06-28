@@ -7,6 +7,8 @@ import App from './components/app';
 
 import {store} from './store';
 
+require('dotenv').config();
+
 render(
     <Provider store={store}>
         <BrowserRouter>
