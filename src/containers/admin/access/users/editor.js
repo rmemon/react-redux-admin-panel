@@ -61,7 +61,7 @@ class Editor extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.match.params.id) {
             return this.props.onLoad(agent.User.get(this.props.match.params.id));
         }
