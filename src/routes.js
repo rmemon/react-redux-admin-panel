@@ -10,6 +10,7 @@ const Home = Loadable({
     loading: Loading,
 });
 
+// Users 
 const UserList = Loadable({
     loader: () => import( './containers/admin/access/users/list'),
     loading: Loading,
@@ -25,6 +26,12 @@ const UserView = Loadable({
     loading: Loading,
 });
 
+// Roles
+const RoleList = Loadable({
+    loader: () => import( './containers/admin/access/roles/list'),
+    loading: Loading,
+});
+
 const routes = [
     {path: '/dashboard', name: 'Dashboard', component: Home},
     {path: '/access', exact: true, name: 'Access', component: UserList},
@@ -32,6 +39,9 @@ const routes = [
     {path: '/access/user/create', exact: true, name: 'Create', component: UserEditor},
     {path: '/access/user/update/:id', exact: true, name: 'Update', component: UserEditor},
     {path: '/access/user/view/:id', exact: true, name: 'view', component: UserView},
+
+    // Roles 
+    {path: '/access/role', exact: true, name: 'Roles', component: RoleList},
 
 ];
 
