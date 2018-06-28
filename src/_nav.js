@@ -19,16 +19,11 @@ export default {
                     url: '/access/user',
                     icon: 'icon-puzzle',
                 },
-                // {
-                //   name: 'Mange Roles',
-                //   url: '/base/breadcrumbs',
-                //   icon: 'icon-puzzle',
-                // },
-                // {
-                //   name: 'Mange Permissions',
-                //   url: '/base/breadcrumbs',
-                //   icon: 'icon-puzzle',
-                // },
+                {
+                    name: 'Mange Roles',
+                    url: '/access/role',
+                    icon: 'icon-puzzle',
+                },
             ],
         },
     ],

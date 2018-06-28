@@ -17,7 +17,7 @@ import {
     Table
 } from 'reactstrap';
 import agent from '../../../../agent';
-import {USER_DELETE, USER_PAGE_LOADED, USER_PAGE_UNLOADED} from '../../../../constants/actionTypes'
+import {USER_DELETE, USER_PAGE_LOADED, USER_PAGE_UNLOADED} from '../../../../constants/actionTypes';
 import {Link} from 'react-router-dom';
 
 class List extends Component {
@@ -75,17 +75,17 @@ class List extends Component {
                                             <div className="form-group row">
                                                 <div className="col-md-12">
                                                     <div className="input-group">
-                            <span className="input-group-prepend">
-                              <button type="button" className="btn btn-primary">
-                                <i className="fa fa-search"></i> Search
-                                </button>
-                            </span>
+                                                        <span className="input-group-prepend">
+                                                            <button type="button" className="btn btn-primary">
+                                                                <i className="fa fa-search"></i> Search
+                                                            </button>
+                                                        </span>
                                                         <input type="text" className="form-control"/>
                                                         <span className="input-group-append">
-                              <button type="button" className="btn btn-primary">
-                                <i className="fa fa-remove"></i>
-                              </button>
-                            </span>
+                                                            <button type="button" className="btn btn-primary">
+                                                                <i className="fa fa-remove"></i>
+                                                            </button>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>

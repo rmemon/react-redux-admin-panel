@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import agent from '../../../../agent';
 import {
-    USER_CREATE,
-    USER_EDITOR_PAGE_LOADED,
-    USER_EDITOR_PAGE_UNLOADED,
-    USER_UPDATE
-} from '../../../../constants/actionTypes'
+    ROLE_CREATE,
+    ROLE_EDITOR_PAGE_LOADED,
+    ROLE_EDITOR_PAGE_UNLOADED,
+    ROLE_UPDATE
+} from '../../../../constants/actionTypes';
 import {
     Button,
     Card,
@@ -259,22 +259,22 @@ class Editor extends Component {
 }
 
 const mapStateToProps = state => ({
-    ...state.users,
+    ...state.roles,
 });
 
 const mapDispatchToProps = dispatch => ({
-    onSubmit: (values) => {        
+    /*onSubmit: (values) => {        
         if (values.id) {
-            dispatch({type: USER_UPDATE, payload: agent.User.update(values)})
+            dispatch({type: ROLE_UPDATE, payload: agent.User.update(values)})
         }
         else {
-            dispatch({type: USER_CREATE, payload: agent.User.create(values)})
+            dispatch({type: ROLE_CREATE, payload: agent.User.create(values)})
         }
-    },
+    },*/
     onLoad: payload =>
-        dispatch({type: USER_EDITOR_PAGE_LOADED, payload}),
+        dispatch({type: ROLE_EDITOR_PAGE_LOADED, payload}),
     onUnload: () =>
-        dispatch({type: USER_EDITOR_PAGE_UNLOADED})
+        dispatch({type: ROLE_EDITOR_PAGE_UNLOADED})
 });
 
 export default reduxForm({
