@@ -5,7 +5,7 @@ import {parseJwt} from './utils';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-let API_ROOT = "http://laraveladminpanel.phpdevbox.com/api/v1";
+let API_ROOT = "http://127.0.0.1:8000/api/v1";
 
 const responseBody = res => res.body;
 
@@ -52,9 +52,16 @@ const User = {
     },
 };
 
+
+const Role = {
+    list: () =>
+        requests.get('/roles'),
+};
+
 export default {
     Auth,
     User,
+    Role,
     setToken: _token => {
         token = _token;
     },
