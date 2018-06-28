@@ -109,11 +109,13 @@ class List extends Component {
                                     <tbody>
                                         {
                                             roles.map(role => {
+
+                                                const permissions = role.permissions.constructor == Array ? role.permissions.join('<br/>') : role.permissions;
                                                 return (
                                                     <tr
                                                         key={role.id}>
                                                         <td>{role.name}</td>
-                                                        <td>{role.permissions}</td>
+                                                        <td dangerouslySetInnerHTML = {{__html:permissions }} />
                                                         <td>{role.number_of_users}</td>
                                                         <td>{role.sort}</td>
                                                         <td>
