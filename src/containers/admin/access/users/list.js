@@ -25,17 +25,14 @@ class List extends Component {
     constructor(props) {
         super(props);
 
-        this.toggle = this.toggle.bind(this);        
+        this.props.onLoad(agent.User.list());
 
+        this.toggle = this.toggle.bind(this);        
         this.state = {
             dropdownOpen: false
         };
     }
-
-    componentWillMount() {
-        this.props.onLoad(agent.User.list());
-    }
-
+    
     toggle() {
         this.setState({
             dropdownOpen: !this.state.dropdownOpen

@@ -26,24 +26,22 @@ import 'simple-line-icons/css/simple-line-icons.css';
 import '../scss/style.css';
 
 class App extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+    
+    const token = window.localStorage.getItem('jwt');    
+    if (token) {
+      agent.setToken(token);
+    }    
+    this.props.onLoad(token ? agent.Auth.current() : null, token);
+  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
       this.context.router.history.push(nextProps.redirectTo)
       this.props.onRedirect();
     }
   }
-
-  componentDidMount() {
-    const token = window.localStorage.getItem('jwt');
-    if (token) {
-      agent.setToken(token);
-    }
-    this.props.onLoad(token ? agent.Auth.current() : null, token);
-  }
-
+  
   render() {
     return (
       <Switch>        

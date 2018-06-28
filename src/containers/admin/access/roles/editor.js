@@ -49,6 +49,11 @@ const roleMap = {
 class Editor extends Component {
     constructor(props) {
         super(props)
+        
+        if (this.props.match.params.id) {
+            return this.props.onLoad(agent.User.get(this.props.match.params.id));
+        }
+        this.props.onLoad(null);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -60,14 +65,7 @@ class Editor extends Component {
             this.props.onLoad(null);
         }
     }
-
-    componentWillMount() {
-        if (this.props.match.params.id) {
-            return this.props.onLoad(agent.User.get(this.props.match.params.id));
-        }
-        this.props.onLoad(null);
-    }
-
+    
     componentWillUnmount() {
         this.props.onUnload();
     }
