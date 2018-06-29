@@ -21,6 +21,10 @@ import agent from '../../../../agent';
 import {USER_DELETE, USER_PAGE_LOADED, USER_PAGE_UNLOADED} from '../../../../constants/actionTypes';
 import {Link} from 'react-router-dom';
 
+
+import ReactTable from 'react-table';
+
+
 class List extends Component {
     constructor(props) {
         super(props);
@@ -39,10 +43,9 @@ class List extends Component {
         });
     }
 
-    onClickDelete(user) {
-        let {users} = this.props;
+    onClickDelete(userId) {
         this.props.onClickDelete(Promise.all([
-            agent.User.del(user.id)
+            agent.User.del(userId)
         ]).then(() => {
             this.props.onLoad(agent.User.list());
         }));
@@ -107,71 +110,74 @@ class List extends Component {
                                         </ButtonGroup>
                                     </Col>
                                 </Row>
-                                <Table responsive striped>
-                                    <thead>
-                                    <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                        <th>Created On</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {
-                                        users.map(user => {
-                                            return (
-                                                <tr
-                                                    key={user.id}>
-                                                    <td>{user.first_name}</td>
-                                                    <td>{user.last_name}</td>
-                                                    <td>{user.email}</td>
-                                                    <td>{user.role}</td>
-                                                    <td><Badge
-                                                        color={user.status === 1 ? 'success' : 'danger'}>{user.status === 1 ? 'Active' : 'InActive'}</Badge>
-                                                    </td>
-                                                    <td>{(new Date(user.registered_at)).toLocaleString('en-US')}</td>
-                                                    <td>
-                                                        <Button block={false} tag={Link}
-                                                                to={`/access/user/view/${user.id}`} outline
-                                                                color="primary" size="sm">
-                                                            <i className="fa fa-eye"></i>
-                                                        </Button>
-                                                        &nbsp;
-                                                        <Button tag={Link} to={`/access/user/update/${user.id}`}
-                                                                block={false} outline color="success" size="sm">
-                                                            <i className="fa fa-edit"></i>
-                                                        </Button>
-                                                        &nbsp;
-                                                        <Button onClick={() => this.onClickDelete(user)} block={false}
-                                                                outline color="danger" size="sm">
-                                                            <i className="fa fa-trash"></i>
-                                                        </Button>
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })
-                                    }
-                                    {noRecords &&
-                                    <tr>
-                                        <td colSpan='7'>
-                                            No Data to Display
-                                        </td>
-                                    </tr>
-                                    }
-
-                                    </tbody>
-                                </Table>
-                                {/* <Pagination>
-                  <PaginationItem disabled><PaginationLink previous tag="button">Prev</PaginationLink></PaginationItem>
-                  <PaginationItem active>
-                    <PaginationLink tag="button">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem><PaginationLink tag="button">2</PaginationLink></PaginationItem>
-                  <PaginationItem><PaginationLink next tag="button">Next</PaginationLink></PaginationItem>
-                </Pagination> */}
+                                <ReactTable
+                                data={users}
+                                noDataText="No Data to Display"
+                                minRows = {0}
+                                columns={
+                                    [
+                                        {
+                                            Header: 'First Name',
+                                            accessor: 'first_name',
+                                            className: 'text-left'
+                                        },
+                                        {
+                                            Header: 'Last Name',
+                                            accessor: 'last_name',
+                                        },
+                                        {
+                                            Header: 'Email',
+                                            accessor: 'email',
+                                        },
+                                        {
+                                            Header: 'Role',
+                                            accessor: 'role',
+                                        },
+                                        {
+                                            Header: 'Status',
+                                            accessor: 'status',
+                                            Cell: row => (
+                                                <Badge
+                                                color={row.value === 1 ? 'success' : 'danger'}>{row.value === 1 ? 'Active' : 'InActive'}</Badge>
+                                            )
+                                        },
+                                        {
+                                            Header: 'Created On',
+                                            accessor: 'registered_at',
+                                            Cell: row => (
+                                                <span>
+                                                    {new Date(row.value).toLocaleString('en-US')}
+                                                </span>
+                                            )
+                                        },
+                                        {
+                                            Header: 'Actions',
+                                            accessor: 'id',
+                                            Cell: row => (
+                                                <span>
+                                                    <Button block={false} tag={Link}
+                                                    to={`/access/user/view/${row.value}`} outline
+                                                    color="primary" size="sm">
+                                                    <i className="fa fa-eye"></i>
+                                                    </Button>
+                                                    &nbsp;
+                                                    <Button tag={Link} to={`/access/user/update/${row.value}`}
+                                                            block={false} outline color="success" size="sm">
+                                                        <i className="fa fa-edit"></i>
+                                                    </Button>
+                                                    &nbsp;
+                                                    <Button onClick={() => this.onClickDelete(row.value)}
+                                                     block={false}
+                                                            outline color="danger" size="sm">
+                                                        <i className="fa fa-trash"></i>
+                                                    </Button>
+                                                </span>
+                                            )
+                                        },
+                                    ]}
+                                defaultPageSize={10}
+                                className="-striped -highlight"
+                                />
                             </CardBody>
                         </Card>
                     </Col>

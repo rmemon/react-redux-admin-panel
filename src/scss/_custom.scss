@@ -3,3 +3,11 @@
     display: flex;
     align-items: center;
 }
+
+.rt-resizable-header-content {
+    text-align: left;
+}
+
+.ReactTable .rt-thead .rt-resizable-header-content {
+    padding: 0.75rem;
+}
