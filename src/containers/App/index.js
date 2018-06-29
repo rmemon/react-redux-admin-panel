@@ -24,6 +24,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
 import '../../scss/style.css';
+import "react-table/react-table.css";
 
 class App extends React.Component {
   constructor(props) {

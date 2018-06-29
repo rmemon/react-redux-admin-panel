@@ -26,6 +26,7 @@
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^4.0.8",
     "react-scripts": "1.1.4",
+    "react-table": "^6.8.6",
     "react-test-renderer": "^16.4.0",
     "reactstrap": "^6.1.0",
     "redux": "^4.0.0",
@@ -33,7 +34,9 @@
     "redux-form": "^7.3.0",
     "simple-line-icons": "^2.4.1",
     "superagent": "^3.8.3",
-    "superagent-promise": "^1.1.0"
+    "superagent-promise": "^1.1.0",
+    "sweetalert2": "^7.24.3",
+    "sweetalert2-react-content": "^1.0.1"
   },
   "devDependencies": {
     "babel-jest": "^23.0.1",
