@@ -33,16 +33,15 @@ const RoleList = Loadable({
 });
 
 const routes = [
-    {path: '/dashboard', name: 'Dashboard', component: Home},
-    {path: '/access', exact: true, name: 'Access', component: UserList},
-    {path: '/access/user', exact: true, name: 'Users', component: UserList},
-    {path: '/access/user/create', exact: true, name: 'Create', component: UserEditor},
-    {path: '/access/user/update/:id', exact: true, name: 'Update', component: UserEditor},
-    {path: '/access/user/view/:id', exact: true, name: 'view', component: UserView},
+    {path: '/admin/dashboard', name: 'Dashboard', component: Home},
+    {path: '/admin/access', exact: true, name: 'Access', component: UserList},
+    {path: '/admin/access/user', exact: true, name: 'Users', component: UserList},
+    {path: '/admin/access/user/create', exact: true, name: 'Create', component: UserEditor},
+    {path: '/admin/access/user/update/:id', exact: true, name: 'Update', component: UserEditor},
+    {path: '/admin/access/user/view/:id', exact: true, name: 'view', component: UserView},
 
     // Roles 
-    {path: '/access/role', exact: true, name: 'Roles', component: RoleList},
-
+    {path: '/admin/access/role', exact: true, name: 'Roles', component: RoleList},    
 ];
 
 export default routes;

@@ -122,7 +122,7 @@ class List extends Component {
                                                     Action
                                                 </DropdownToggle>
                                                 <DropdownMenu right>
-                                                    <DropdownItem tag={Link} to="/access/user/create">
+                                                    <DropdownItem tag={Link} to="/admin/access/user/create">
                                                         <i className="fa fa-user-plus"></i>Create User
                                                     </DropdownItem>
                                                     {/* <DropdownItem>
