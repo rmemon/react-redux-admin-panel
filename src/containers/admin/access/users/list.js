@@ -23,7 +23,13 @@ import {Link} from 'react-router-dom';
 
 
 import ReactTable from 'react-table';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
+const MySwal = withReactContent(Swal)
+
+const title = 'Want To Delete ?';
+const content = 'This User will be deleted permanently and cannot be undone';
 
 class List extends Component {
     constructor(props) {
@@ -36,7 +42,7 @@ class List extends Component {
             dropdownOpen: false
         };
     }
-    
+
     toggle() {
         this.setState({
             dropdownOpen: !this.state.dropdownOpen
@@ -44,11 +50,28 @@ class List extends Component {
     }
 
     onClickDelete(userId) {
-        this.props.onClickDelete(Promise.all([
-            agent.User.del(userId)
-        ]).then(() => {
-            this.props.onLoad(agent.User.list());
-        }));
+
+        MySwal.fire({
+            type: 'question',
+            title: title,
+            text: content,
+            // confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel',
+            showCancelButton: true,
+            confirmButtonColor: '#4dbd74',
+            cancelButtonColor: '#f64846',
+            focusConfirm: true,
+          }).then((result) =>
+          {
+              if(result.value)
+              {
+                  this.props.onClickDelete(Promise.all([
+                      agent.User.del(userId)
+                  ]).then(() => {
+                      this.props.onLoad(agent.User.list());
+                  }));
+              }
+          })
 
     }
 
