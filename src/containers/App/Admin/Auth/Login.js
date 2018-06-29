@@ -1,9 +1,9 @@
 import {Link} from 'react-router-dom';
-import ListErrors from '../../components/ListErrors';
+import ListErrors from '../../../../components/ListErrors';
 import React from 'react';
-import agent from '../../agent';
+import agent from '../../../../agent';
 import {connect} from 'react-redux';
-import {LOGIN, LOGIN_PAGE_UNLOADED,} from '../../constants/actionTypes';
+import {LOGIN, LOGIN_PAGE_UNLOADED,} from '../../../../constants/actionTypes';
 import {
     Button,
     Card,
@@ -105,7 +105,7 @@ class Login extends React.Component {
                                             <h2>Sign up</h2>
                                             <p>Smart React is an open source React project with basic admin features. It
                                                 uses Laravel famous PHP framework for backend API purpose.</p>
-                                            <Link to="/register"><Button color="primary" className="mt-3" active>Register
+                                            <Link to="/admin/register"><Button color="primary" className="mt-3" active>Register
                                                 Now!</Button></Link>
                                         </div>
                                     </CardBody>

@@ -16,15 +16,15 @@ import {
     AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
-import navigation from '../../_nav';
+import navigation from '../../../_nav';
 // routes config
-import routes from '../../routes';
+import adminRoutes from './routes';
 import AdmintAside from './AdmintAside';
 import AdminFooter from './AdminFooter';
 import AdminHeader from './AdminHeader';
 
-import {APP_LOAD} from '../../constants/actionTypes';
-import agent from '../../agent';
+import {APP_LOAD} from '../../../constants/actionTypes';
+import agent from '../../../agent';
 
 class AdminLayout extends Component {
 
@@ -52,10 +52,10 @@ class AdminLayout extends Component {
                         <AppSidebarMinimizer/>
                     </AppSidebar>
                     <main className="main">
-                        <AppBreadcrumb appRoutes={routes}/>
+                        <AppBreadcrumb appRoutes={adminRoutes}/>
                         <Container fluid>
                             <Switch>
-                                {routes.map((route, idx) => {
+                                {adminRoutes.map((route, idx) => {
                                         return route.component ? (
                                                 <Route key={idx} path={route.path} exact={route.exact} name={route.name}
                                                        render={props => (

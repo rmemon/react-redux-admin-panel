@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import agent from '../../../../agent';
+import agent from '../../../../../agent';
 import {
     ROLE_CREATE,
     ROLE_EDITOR_PAGE_LOADED,
     ROLE_EDITOR_PAGE_UNLOADED,
     ROLE_UPDATE
-} from '../../../../constants/actionTypes';
+} from '../../../../../constants/actionTypes';
+
 import {
     Button,
     Card,

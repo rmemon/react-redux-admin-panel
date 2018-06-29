@@ -3,17 +3,17 @@ import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { PrivateRoute } from "../containers/privateRoute";
-import Register from "../containers/auth/Register";
-import Login from "../containers/auth/Login";
-import AdminLayout from '../containers/admin'
+import { PrivateRoute } from "../privateRoute";
+import Register from "./Admin/Auth/Register";
+import Login from "./Admin/Auth/Login";
+import AdminLayout from './Admin'
+import ClientLayout from './Client'
 
+import agent from '../../agent';
 
-import agent from '../agent';
-
-import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
+import { APP_LOAD, REDIRECT } from '../../constants/actionTypes';
 // Styles
-import '../index.css';
+import '../../index.css';
 // CoreUI Icons Set
 import '@coreui/icons/css/coreui-icons.min.css';
 // Import Flag Icons Set
@@ -23,7 +23,7 @@ import 'font-awesome/css/font-awesome.min.css';
 // Import Simple Line Icons Set
 import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
-import '../scss/style.css';
+import '../../scss/style.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -47,6 +47,7 @@ class App extends React.Component {
       <Switch>        
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />        
+        <Route path="/client" component={ClientLayout} />        
         <PrivateRoute path="/" name="Home" component={AdminLayout} />
         <Redirect from="/" to="/dashboard" />
       </Switch>

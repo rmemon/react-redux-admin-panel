@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import agent from '../../../../agent';
-import {USER_VIEW_PAGE_LOADED, USER_VIEW_PAGE_UNLOADED} from '../../../../constants/actionTypes'
+import agent from '../../../../../agent';
+import {USER_VIEW_PAGE_LOADED, USER_VIEW_PAGE_UNLOADED} from '../../../../../constants/actionTypes'
 
 import {Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, FormGroup, Label, Row} from 'reactstrap';
 import {Link} from 'react-router-dom';

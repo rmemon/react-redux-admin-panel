@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import agent from '../../../../agent';
+import agent from '../../../../../agent';
 import {
     USER_CREATE,
     USER_EDITOR_PAGE_LOADED,
     USER_EDITOR_PAGE_UNLOADED,
     USER_UPDATE
-} from '../../../../constants/actionTypes'
+} from '../../../../../constants/actionTypes'
 import {
     Button,
     Card,
@@ -21,7 +21,7 @@ import {
     Label,
     Row
 } from 'reactstrap';
-import ListErrors from '../../../../components/ListErrors';
+import ListErrors from '../../../../../components/ListErrors';
 
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router-dom';
