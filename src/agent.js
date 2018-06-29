@@ -36,8 +36,8 @@ const Auth = {
         parseJwt(token),
 };
 const User = {
-    list: () =>
-        requests.get('/users'),
+    list: (page = 1) =>
+        requests.get('/users?page=' + page),
     get: (id) =>
         requests.get(`/users/${id}`),
     del: (id) =>

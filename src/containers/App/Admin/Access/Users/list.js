@@ -17,7 +17,7 @@ import {
     Table
 } from 'reactstrap';
 
-import agent from '../../../../../agent';
+import agent from '../../../../../agent'
 import {USER_DELETE, USER_PAGE_LOADED, USER_PAGE_UNLOADED} from '../../../../../constants/actionTypes';
 import {Link} from 'react-router-dom';
 
@@ -35,12 +35,15 @@ class List extends Component {
     constructor(props) {
         super(props);
 
-        this.props.onLoad(agent.User.list());
-
-        this.toggle = this.toggle.bind(this);        
         this.state = {
-            dropdownOpen: false
+            dropdownOpen: false,
+            loading : false
         };
+        // this.props.onLoad(agent.User.list(this.state.page));
+
+        this.toggle = this.toggle.bind(this);
+
+        this.fetchData = this.fetchData.bind(this);
     }
 
     toggle() {
@@ -75,13 +78,22 @@ class List extends Component {
 
     }
 
+    fetchData(state, instance) {
+        // Whenever the table model changes, or the user sorts or changes pages, this method gets called and passed the current table model.
+        // You can set the `loading` prop of the table to true to use the built-in one or show you're own loading bar if you want.
+        this.setState({ loading: true });
+        // Request the data however you want.  Here, we'll use our mocked service we created earlier
+        this.props.onLoad(agent.User.list(state.page + 1));
+        // });
+      }
     render() {
-        const {users} = this.props;
+        const {users, loading } = this.props;
+
         if (!users) {
             return null;
         }
 
-        const noRecords = users.length == 0 ? true : false;
+        const noRecords = users ? users.data.length == 0 ? true : false: false;
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -122,7 +134,7 @@ class List extends Component {
                                                     Action
                                                 </DropdownToggle>
                                                 <DropdownMenu right>
-                                                    <DropdownItem tag={Link} to="/admin/access/user/create">
+                                                    <DropdownItem tag={Link} to="/access/user/create">
                                                         <i className="fa fa-user-plus"></i>Create User
                                                     </DropdownItem>
                                                     {/* <DropdownItem>
@@ -134,7 +146,7 @@ class List extends Component {
                                     </Col>
                                 </Row>
                                 <ReactTable
-                                data={users}
+                                data={users.data}
                                 noDataText="No Data to Display"
                                 minRows = {0}
                                 columns={
@@ -198,7 +210,12 @@ class List extends Component {
                                             )
                                         },
                                     ]}
-                                defaultPageSize={10}
+                                defaultPageSize={25}
+                                showPageSizeOptions={false}
+                                pages={users.meta.last_page}
+                                manual
+                                loading={loading}
+                                onFetchData={this.fetchData}
                                 className="-striped -highlight"
                                 />
                             </CardBody>

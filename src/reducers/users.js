@@ -8,12 +8,12 @@ import {
     USER_VIEW_PAGE_LOADED
 } from '../constants/actionTypes';
 
-export default (state = {}, action) => {
+export default (state = {users: { data:[], pages:1,meta: {last_page : 1}}}, action) => {
     switch (action.type) {
         case USER_PAGE_LOADED:
-            return {
+        return {
                 ...state,
-                users: action.payload.data,
+                users: action.payload,
                 inProgress: false,
                 errors: action.error ? action.payload.error : null
             };
