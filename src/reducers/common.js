@@ -30,12 +30,12 @@ export default (state = defaultState, action) => {
         case REDIRECT:
             return {...state, redirectTo: null};
         case LOGOUT:
-            return {...state, redirectTo: '/', token: null, currentUser: null};
+            return {...state, redirectTo: '/admin', token: null, currentUser: null};
         case LOGIN:
         case REGISTER:
             return {
                 ...state,
-                redirectTo: action.error ? null : '/',
+                redirectTo: action.error ? null : '/admin',
                 token: action.error ? null : action.payload.token,
                 currentUser: action.error ? null : action.payload
             };

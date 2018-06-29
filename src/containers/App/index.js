@@ -35,9 +35,9 @@ class App extends React.Component {
     }    
     this.props.onLoad(token ? agent.Auth.current() : null, token);
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {    
     if (nextProps.redirectTo) {
-      this.context.router.history.push(nextProps.redirectTo)
+      this.context.router.history.push(nextProps.redirectTo);
       this.props.onRedirect();
     }
   }
@@ -45,11 +45,11 @@ class App extends React.Component {
   render() {
     return (
       <Switch>        
-        <Route path="/register" component={Register} />
-        <Route path="/login" component={Login} />        
-        <Route path="/client" component={ClientLayout} />        
-        <PrivateRoute path="/" name="Home" component={AdminLayout} />
-        <Redirect from="/" to="/dashboard" />
+        <Route path="/" exact={true} component={ClientLayout} />
+        <Route path="/admin/register" component={Register} />
+        <Route path="/admin/login" component={Login} />                
+        <PrivateRoute path="/admin" name="Home" component={AdminLayout} />
+        <Redirect from="/" to="/client" />
       </Switch>
     );
   }

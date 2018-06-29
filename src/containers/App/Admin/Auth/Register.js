@@ -126,7 +126,7 @@ class Register extends React.Component {
                                             <i className="fa fa-user-plus"></i> Create Account
                                         </Button>
                                         {'  '}
-                                        <Link to="/login">
+                                        <Link to="/admin/login">
                                             <Button color="primary" type="submit">
                                                 <i className="fa fa-lock"></i> login
                                             </Button>

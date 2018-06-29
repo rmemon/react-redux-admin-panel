@@ -96,7 +96,7 @@ class List extends Component {
                                                     Action
                                                 </DropdownToggle>
                                                 <DropdownMenu right>
-                                                    <DropdownItem tag={Link} to="/access/user/create">
+                                                    <DropdownItem tag={Link} to="/admin/access/user/create">
                                                         <i className="fa fa-user-plus"></i>Create User
                                                     </DropdownItem>
                                                     {/* <DropdownItem>
@@ -135,12 +135,12 @@ class List extends Component {
                                                     <td>{(new Date(user.registered_at)).toLocaleString('en-US')}</td>
                                                     <td>
                                                         <Button block={false} tag={Link}
-                                                                to={`/access/user/view/${user.id}`} outline
+                                                                to={`/admin/access/user/view/${user.id}`} outline
                                                                 color="primary" size="sm">
                                                             <i className="fa fa-eye"></i>
                                                         </Button>
                                                         &nbsp;
-                                                        <Button tag={Link} to={`/access/user/update/${user.id}`}
+                                                        <Button tag={Link} to={`/admin/access/user/update/${user.id}`}
                                                                 block={false} outline color="success" size="sm">
                                                             <i className="fa fa-edit"></i>
                                                         </Button>
