@@ -259,6 +259,4 @@ const withConnect = connect(
 export default compose(    
     withReducer,    
     withConnect,    
-  )(List);  
-
-// export default connect(mapStateToProps, mapDispatchToProps)(List);
+)(List);
