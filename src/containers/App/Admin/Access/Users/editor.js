@@ -6,7 +6,7 @@ import {
     USER_EDITOR_PAGE_LOADED,
     USER_EDITOR_PAGE_UNLOADED,
     USER_UPDATE
-} from '../../../../../constants/actionTypes'
+} from './constants';
 import {
     Button,
     Card,

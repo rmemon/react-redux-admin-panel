@@ -20,7 +20,7 @@ import {
 } from 'reactstrap';
 
 import agent from '../../../../../agent'
-import {USER_DELETE, USER_PAGE_LOADED, USER_PAGE_UNLOADED} from '../../../../../constants/actionTypes';
+import {USER_DELETE, USER_PAGE_LOADED, USER_PAGE_UNLOADED} from './constants';
 import {Link} from 'react-router-dom';
 
 

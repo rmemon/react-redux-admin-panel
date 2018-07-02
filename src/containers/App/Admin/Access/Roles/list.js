@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import agent from '../../../../../agent';
-import {ROLE_DELETE, ROLE_PAGE_LOADED, ROLE_PAGE_UNLOADED} from '../../../../../constants/actionTypes';
+import {ROLE_DELETE, ROLE_PAGE_LOADED, ROLE_PAGE_UNLOADED} from './constants';
 
 import { compose } from 'redux';
 

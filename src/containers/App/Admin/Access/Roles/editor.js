@@ -6,7 +6,7 @@ import {
     ROLE_EDITOR_PAGE_LOADED,
     ROLE_EDITOR_PAGE_UNLOADED,
     ROLE_UPDATE
-} from '../../../../../constants/actionTypes';
+} from './constants';
 
 import {
     Button,

@@ -5,10 +5,13 @@ import {
     LOGOUT,
     REDIRECT,
     REGISTER,
-    REGISTER_PAGE_UNLOADED,
+    REGISTER_PAGE_UNLOADED
+} from '../constants/actionTypes';
+
+import {
     USER_CREATE,
     USER_UPDATE
-} from '../constants/actionTypes';
+} from '../containers/App/Admin/Access/Users/constants'
 
 const defaultState = {
     appName: process.env.REACT_APP_NAME,
