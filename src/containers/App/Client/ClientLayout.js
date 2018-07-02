@@ -7,7 +7,7 @@ export default class Client extends Component {
         return (
             <div>
                 <h1> Client Is Under Development, Please vist admin </h1>
-                <Link to="/admin">Admin</Link>
+                <Link to="/admin">Admin</Link>                
             </div>
         );
     }

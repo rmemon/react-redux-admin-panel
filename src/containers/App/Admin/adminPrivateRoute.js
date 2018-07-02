@@ -1,8 +1,8 @@
 import React from "react";
 import {Redirect, Route} from "react-router-dom";
-import agent from '../agent';
+import agent from '../../../agent';
 
-export const PrivateRoute = ({component: Component, ...rest}) => (
+export const AdminPrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={props => (
         agent.getToken()
             ? <Component {...props} />

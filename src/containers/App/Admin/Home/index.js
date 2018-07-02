@@ -4,7 +4,7 @@ export default class Home extends Component {
     render() {
         return (
             <div>
-                <h1> Dashboard Layout. </h1>
+                <h1> Dashboard Layoutss. </h1>
             </div>
         );
     }

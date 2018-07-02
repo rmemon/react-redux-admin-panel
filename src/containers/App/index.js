@@ -3,7 +3,7 @@ import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { PrivateRoute } from "../privateRoute";
+import { AdminPrivateRoute } from "./Admin/adminPrivateRoute";
 import Register from "./Admin/Auth/Register";
 import Login from "./Admin/Auth/Login";
 import AdminLayout from './Admin'
@@ -46,11 +46,11 @@ class App extends React.Component {
   render() {
     return (
       <Switch>        
-        <Route path="/" exact={true} component={ClientLayout} />
+        <Route path="/" exact={true} component={ClientLayout} />        
         <Route path="/admin/register" component={Register} />
-        <Route path="/admin/login" component={Login} />                
-        <PrivateRoute path="/admin" name="Home" component={AdminLayout} />
-        <Redirect from="/" to="/client" />
+        <Route path="/admin/login" component={Login} />
+        <AdminPrivateRoute path="/admin" name="Home" component={AdminLayout} />
+        <Redirect from="/" to="/" />
       </Switch>
     );
   }

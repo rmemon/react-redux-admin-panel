@@ -41,8 +41,11 @@ class AdminHeader extends Component {
                         <NavLink tag={Link} to='/admin/access/user'>Users</NavLink>
                     </NavItem>
                     <NavItem className="px-3">
-                        <NavLink href="#">Settings</NavLink>
+                        <NavLink tag={Link} to='/admin/access/role'>Roles</NavLink>
                     </NavItem>
+                    {/* <NavItem className="px-3">
+                        <NavLink href="#">Settings</NavLink>
+                    </NavItem> */}
                 </Nav>
 
                 <Nav className="ml-auto" navbar>

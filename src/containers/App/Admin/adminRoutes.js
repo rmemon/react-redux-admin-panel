@@ -32,7 +32,7 @@ const RoleList = Loadable({
     loading: Loading,
 });
 
-const routes = [
+const adminRoutes = [
     {path: '/admin/dashboard', name: 'Dashboard', component: Home},
     {path: '/admin/access', exact: true, name: 'Access', component: UserList},
     {path: '/admin/access/user', exact: true, name: 'Users', component: UserList},
@@ -44,4 +44,4 @@ const routes = [
     {path: '/admin/access/role', exact: true, name: 'Roles', component: RoleList},    
 ];
 
-export default routes;
+export default adminRoutes;
