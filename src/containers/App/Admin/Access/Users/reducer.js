@@ -6,7 +6,7 @@ import {
     USER_PAGE_LOADED,
     USER_UPDATE,
     USER_VIEW_PAGE_LOADED
-} from '../constants/actionTypes';
+} from '../../../../../constants/actionTypes';
 
 export default (state = {users: { data:[], pages:1,meta: {last_page : 1}}}, action) => {
     switch (action.type) {

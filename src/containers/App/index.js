@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import { AdminPrivateRoute } from "./Admin/adminPrivateRoute";
 import Register from "./Admin/Auth/Register";
 import Login from "./Admin/Auth/Login";
-import AdminLayout from './Admin'
-import ClientLayout from './Client'
+import AdminLayout from './Admin';
+import ClientLayout from './Client';
 
 import agent from '../../agent';
 

@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import { compose } from 'redux';
 import ListErrors from '../../../../components/ListErrors';
 import React from 'react';
 import agent from '../../../../agent';
@@ -17,6 +18,9 @@ import {
     Row
 } from 'reactstrap';
 import {Field, reduxForm} from "redux-form";
+
+import injectReducer from '../../../../utils/injectReducer';
+import reducer from './reducer';
 
 const mapStateToProps = state => ({...state.auth});
 
@@ -119,6 +123,20 @@ class Login extends React.Component {
     }
 }
 
-export default reduxForm({
+const withConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+);
+
+
+const withReducer = injectReducer({ key: 'auth', reducer });
+
+const withreduxForm = reduxForm({
     form: "LoginForm"
-})(connect(mapStateToProps, mapDispatchToProps)(Login));
+});
+
+export default compose(    
+    withReducer,
+    withreduxForm,
+    withConnect,    
+  )(Login);  

@@ -3,10 +3,13 @@ import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 import {BrowserRouter} from "react-router-dom";
 
+import configureStore from './store';
 import App from './containers/App';
-import {store} from './store';
+
 require('dotenv').config();
 
+
+const store = configureStore({});
 
 const MOUNT_NODE = document.getElementById('root');
 

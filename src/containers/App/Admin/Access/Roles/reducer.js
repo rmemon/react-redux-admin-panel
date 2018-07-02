@@ -6,7 +6,7 @@ import {
     ROLE_PAGE_LOADED,
     ROLE_UPDATE,
     ROLE_VIEW_PAGE_LOADED
-} from '../constants/actionTypes';
+} from '../../../../../constants/actionTypes';
 
 export default (state = {}, action) => {
     switch (action.type) {

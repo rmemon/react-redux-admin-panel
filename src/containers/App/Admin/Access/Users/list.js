@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import { compose } from 'redux';
+
 import {
     Badge,
     Button,
@@ -26,6 +28,9 @@ import ReactTable from 'react-table';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
+import injectReducer from '../../../../../utils/injectReducer';
+import reducer from './reducer';
+
 const MySwal = withReactContent(Swal)
 
 const title = 'Want To Delete ?';
@@ -34,12 +39,13 @@ const content = 'This User will be deleted permanently and cannot be undone';
 class List extends Component {
     constructor(props) {
         super(props);
+    
 
         this.state = {
             dropdownOpen: false,
             loading : false
         };
-        // this.props.onLoad(agent.User.list(this.state.page));
+        this.props.onLoad(agent.User.list(this.state.page));
 
         this.toggle = this.toggle.bind(this);
 
@@ -85,7 +91,7 @@ class List extends Component {
         // Request the data however you want.  Here, we'll use our mocked service we created earlier
         this.props.onLoad(agent.User.list(state.page + 1));
         // });
-      }
+    }
     render() {
         const {users, loading } = this.props;
 
@@ -215,7 +221,7 @@ class List extends Component {
                                 pages={users.meta.last_page}
                                 manual
                                 loading={loading}
-                                onFetchData={this.fetchData}
+                                // onFetchData={this.fetchData}
                                 className="-striped -highlight"
                                 />
                             </CardBody>
@@ -233,11 +239,26 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onLoad: payload =>
-        dispatch({type: USER_PAGE_LOADED, payload}),
+    {
+        console.log("before");
+        dispatch({type: USER_PAGE_LOADED, payload})
+    },
     onClickDelete: payload =>
         dispatch({type: USER_DELETE, payload}),
     onUnload: () =>
         dispatch({type: USER_PAGE_UNLOADED})
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+const withReducer = injectReducer({ key: 'users', reducer });
+
+const withConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+);
+
+export default compose(    
+    withReducer,    
+    withConnect,    
+  )(List);  
+
+// export default connect(mapStateToProps, mapDispatchToProps)(List);

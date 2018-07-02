@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import { compose } from 'redux';
 import ListErrors from '../../../../components/ListErrors';
 import React from 'react';
 import agent from '../../../../agent';
@@ -7,6 +8,9 @@ import {REGISTER, REGISTER_PAGE_UNLOADED} from '../../../../constants/actionType
 import {Button, Card, CardBody, Col, Container, InputGroup, InputGroupAddon, InputGroupText, Row,} from 'reactstrap';
 
 import {Field, reduxForm} from "redux-form";
+
+import injectReducer from '../../../../utils/injectReducer';
+import reducer from './reducer';
 
 const mapStateToProps = state => ({...state.auth});
 
@@ -144,6 +148,20 @@ class Register extends React.Component {
     }
 }
 
-export default reduxForm({
+const withConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+);
+
+
+const withReducer = injectReducer({ key: 'auth', reducer });
+
+const withreduxForm = reduxForm({
     form: "RegisterForm"
-})(connect(mapStateToProps, mapDispatchToProps)(Register));
+});
+
+export default compose(    
+    withReducer,
+    withreduxForm,
+    withConnect,    
+)(Register);

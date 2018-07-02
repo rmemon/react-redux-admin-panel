@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import agent from '../../../../../agent';
 import {ROLE_DELETE, ROLE_PAGE_LOADED, ROLE_PAGE_UNLOADED} from '../../../../../constants/actionTypes';
 
+import { compose } from 'redux';
+
 import {
     Badge,
     Button,
@@ -20,6 +22,9 @@ import {
 } from 'reactstrap';
 
 import {Link} from 'react-router-dom';
+
+import injectReducer from '../../../../../utils/injectReducer';
+import reducer from './reducer';
 
 class List extends Component {
     constructor(props) {
@@ -161,4 +166,15 @@ const mapDispatchToProps = dispatch => ({
         dispatch({type: ROLE_PAGE_UNLOADED})
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+const withConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+);
+
+
+const withReducer = injectReducer({ key: 'roles', reducer });
+
+export default compose(    
+    withReducer,    
+    withConnect,    
+  )(List);
