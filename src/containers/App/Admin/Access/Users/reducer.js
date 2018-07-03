@@ -5,11 +5,17 @@ import {
     USER_EDITOR_PAGE_UNLOADED,
     USER_PAGE_LOADED,
     USER_UPDATE,
-    USER_VIEW_PAGE_LOADED
+    USER_VIEW_PAGE_LOADED,
+    USER_PAGE_REQUESTED
 } from './constants';
 
 export default (state = {users: { data:[], pages:1,meta: {last_page : 1}}}, action) => {
     switch (action.type) {
+        case USER_PAGE_REQUESTED:
+        return {
+                ...state,
+                inProgress: true
+            };
         case USER_PAGE_LOADED:
         return {
                 ...state,

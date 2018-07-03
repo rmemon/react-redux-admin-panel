@@ -20,7 +20,8 @@ import {
 } from 'reactstrap';
 
 import agent from '../../../../../agent'
-import {USER_DELETE, USER_PAGE_LOADED, USER_PAGE_UNLOADED} from './constants';
+import {USER_DELETE, USER_PAGE_LOADED, USER_PAGE_UNLOADED,
+    USER_PAGE_REQUESTED} from './constants';
 import {Link} from 'react-router-dom';
 
 
@@ -37,14 +38,15 @@ const title = 'Want To Delete ?';
 const content = 'This User will be deleted permanently and cannot be undone';
 
 class List extends Component {
+
     constructor(props) {
         super(props);
-    
 
         this.state = {
             dropdownOpen: false,
-            loading : false
+            sorted: [],
         };
+        this.props.onLoadRequest();
         this.props.onLoad(agent.User.list(this.state.page));
 
         this.toggle = this.toggle.bind(this);
@@ -84,16 +86,51 @@ class List extends Component {
 
     }
 
-    fetchData(state, instance) {
-        // Whenever the table model changes, or the user sorts or changes pages, this method gets called and passed the current table model.
-        // You can set the `loading` prop of the table to true to use the built-in one or show you're own loading bar if you want.
-        this.setState({ loading: true });
-        // Request the data however you want.  Here, we'll use our mocked service we created earlier
-        this.props.onLoad(agent.User.list(state.page + 1));
-        // });
+    fetchData(state)
+    {
+        this.setState({sorted: []})
+        this.props.onLoadRequest();
+
+        this.props.onLoad(agent.User.list(state + 1));
     }
+
+    sortedChange(sorted)
+    {
+        let pre, next, type;
+        const isDate = function(date) {
+            return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
+        }
+
+        this.props.users.data.sort((a,b)=> {
+            pre = a[sorted[0].id];
+            next= b[sorted[0].id];
+            type = typeof pre;
+            if(pre === null || next === null)
+            {
+                return -1;
+            }
+            if(type === 'string' && isDate(pre))
+            {
+                pre = new Date(pre);
+                next = new Date(next);
+            } else if(type === 'string')
+            {
+                pre = pre[0].toUpperCase();
+                next = next[0].toUpperCase();
+            }
+            if(sorted[0].desc)
+            {
+                return pre < next ? 1 : -1;
+            } else
+            {
+                return pre > next ? 1 : -1;
+            }
+        })
+        this.setState({ sorted })
+    }
+
     render() {
-        const {users, loading } = this.props;
+        const {users, inProgress } = this.props;
 
         if (!users) {
             return null;
@@ -220,9 +257,13 @@ class List extends Component {
                                 showPageSizeOptions={false}
                                 pages={users.meta.last_page}
                                 manual
-                                loading={loading}
+                                loading={inProgress}
                                 // onFetchData={this.fetchData}
                                 className="-striped -highlight"
+                                onPageChange={this.fetchData}
+                                sorted={this.state.sorted}
+                                onSortedChange={ (sort) => this.sortedChange(sort)}
+
                                 />
                             </CardBody>
                         </Card>
@@ -243,6 +284,10 @@ const mapDispatchToProps = dispatch => ({
         console.log("before");
         dispatch({type: USER_PAGE_LOADED, payload})
     },
+    onLoadRequest: () =>
+    {
+        dispatch({type: USER_PAGE_REQUESTED})
+    },
     onClickDelete: payload =>
         dispatch({type: USER_DELETE, payload}),
     onUnload: () =>
@@ -256,7 +301,7 @@ const withConnect = connect(
     mapDispatchToProps,
 );
 
-export default compose(    
-    withReducer,    
-    withConnect,    
+export default compose(
+    withReducer,
+    withConnect,
 )(List);
