@@ -123,14 +123,13 @@ class Register extends React.Component {
                                                 className="custom-control-input"
                                                 component='input' id="customCheck1"
                                             />
-                                            <label className="custom-control-label" htmlFor="customCheck1">Check this
-                                                custom checkbox</label>
+                                            <label className="custom-control-label" htmlFor="customCheck1">Do you agree with the terms & conditions? </label>
                                         </InputGroup>
                                         <Button color="success">
                                             <i className="fa fa-user-plus"></i> Create Account
                                         </Button>
                                         {'  '}
-                                        <Link to="/admin/login">
+                                        <Link to="/login">
                                             <Button color="primary" type="submit">
                                                 <i className="fa fa-lock"></i> login
                                             </Button>

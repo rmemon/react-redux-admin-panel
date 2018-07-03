@@ -2,7 +2,7 @@ export default {
     items: [
         {
             name: 'Dashboard',
-            url: '/admin/dashboard',
+            url: '/dashboard',
             icon: 'icon-speedometer',
             badge: {
                 variant: 'info',
@@ -11,17 +11,17 @@ export default {
         },
         {
             name: 'Access Management',
-            url: '/admin/access',
+            url: '/access',
             icon: 'icon-puzzle',
             children: [
                 {
                     name: 'Mange Users',
-                    url: '/admin/access/user',
+                    url: '/access/user',
                     icon: 'icon-puzzle',
                 },
                 {
                     name: 'Mange Roles',
-                    url: '/admin/access/role',
+                    url: '/access/role',
                     icon: 'icon-puzzle',
                 },
             ],

@@ -109,7 +109,7 @@ class Login extends React.Component {
                                             <h2>Sign up</h2>
                                             <p>Smart React is an open source React project with basic admin features. It
                                                 uses Laravel famous PHP framework for backend API purpose.</p>
-                                            <Link to="/admin/register"><Button color="primary" className="mt-3" active>Register
+                                            <Link to="/register"><Button color="primary" className="mt-3" active>Register
                                                 Now!</Button></Link>
                                         </div>
                                     </CardBody>

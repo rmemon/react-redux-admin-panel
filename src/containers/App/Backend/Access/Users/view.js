@@ -125,7 +125,7 @@ class View extends Component {
                                 </Row>
                             </CardBody>
                             <CardFooter>
-                                <Button tag={Link} to={`/admin/access/user`} className='btn btn-outline-danger'> <i
+                                <Button tag={Link} to={`/access/user`} className='btn btn-outline-danger'> <i
                                     className="fa fa-arrow-left"></i> Go Back </Button>
                             </CardFooter>
                         </Card>

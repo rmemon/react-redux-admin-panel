@@ -11,7 +11,7 @@ import {
 import {
     USER_CREATE,
     USER_UPDATE
-} from '../containers/App/Admin/Access/Users/constants'
+} from '../containers/App/Backend/Access/Users/constants'
 
 const defaultState = {
     appName: process.env.REACT_APP_NAME,
@@ -33,12 +33,12 @@ export default (state = defaultState, action) => {
         case REDIRECT:
             return {...state, redirectTo: null};
         case LOGOUT:
-            return {...state, redirectTo: '/admin', token: null, currentUser: null};
+            return {...state, redirectTo: '/', token: null, currentUser: null};
         case LOGIN:
         case REGISTER:
             return {
                 ...state,
-                redirectTo: action.error ? null : '/admin',
+                redirectTo: action.error ? null : '/',
                 token: action.error ? null : action.payload.token,
                 currentUser: action.error ? null : action.payload
             };

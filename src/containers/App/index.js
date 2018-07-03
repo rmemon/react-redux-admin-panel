@@ -3,11 +3,11 @@ import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { AdminPrivateRoute } from "./Admin/adminPrivateRoute";
-import Register from "./Admin/Auth/Register";
-import Login from "./Admin/Auth/Login";
-import AdminLayout from './Admin';
-import ClientLayout from './Client';
+import { AdminPrivateRoute } from "./Backend/adminPrivateRoute";
+import Register from "./Backend/Auth/Register";
+import Login from "./Backend/Auth/Login";
+import AdminLayout from './Backend';
+import ClientLayout from './Frontend';
 
 import agent from '../../agent';
 
@@ -46,11 +46,10 @@ class App extends React.Component {
   render() {
     return (
       <Switch>        
-        <Route path="/" exact={true} component={ClientLayout} />        
-        <Route path="/admin/register" component={Register} />
-        <Route path="/admin/login" component={Login} />
-        <AdminPrivateRoute path="/admin" name="Home" component={AdminLayout} />
-        <Redirect from="/" to="/" />
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <AdminPrivateRoute path="/" name="Home" component={AdminLayout} />
+        <Redirect from="/" to="/dashboard" />
       </Switch>
     );
   }

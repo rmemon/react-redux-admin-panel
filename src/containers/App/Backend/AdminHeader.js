@@ -35,13 +35,13 @@ class AdminHeader extends Component {
 
                 <Nav className="d-md-down-none" navbar>
                     <NavItem className="px-3">
-                        <NavLink tag={Link} to='/admin/dashboard'>Dashboard</NavLink>
+                        <NavLink tag={Link} to='/dashboard'>Dashboard</NavLink>
                     </NavItem>
                     <NavItem className="px-3">
-                        <NavLink tag={Link} to='/admin/access/user'>Users</NavLink>
+                        <NavLink tag={Link} to='/access/user'>Users</NavLink>
                     </NavItem>
                     <NavItem className="px-3">
-                        <NavLink tag={Link} to='/admin/access/role'>Roles</NavLink>
+                        <NavLink tag={Link} to='/access/role'>Roles</NavLink>
                     </NavItem>
                     {/* <NavItem className="px-3">
                         <NavLink href="#">Settings</NavLink>

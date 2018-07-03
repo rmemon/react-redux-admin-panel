@@ -177,7 +177,7 @@ class List extends Component {
                                                     Action
                                                 </DropdownToggle>
                                                 <DropdownMenu right>
-                                                    <DropdownItem tag={Link} to="/admin/access/user/create">
+                                                    <DropdownItem tag={Link} to="/access/user/create">
                                                         <i className="fa fa-user-plus"></i>Create User
                                                     </DropdownItem>
                                                     {/* <DropdownItem>
@@ -234,12 +234,12 @@ class List extends Component {
                                             Cell: row => (
                                                 <span>
                                                     <Button block={false} tag={Link}
-                                                    to={`/admin/access/user/view/${row.value}`} outline
+                                                    to={`/access/user/view/${row.value}`} outline
                                                     color="primary" size="sm">
                                                     <i className="fa fa-eye"></i>
                                                     </Button>
                                                     &nbsp;
-                                                    <Button tag={Link} to={`/admin/access/user/update/${row.value}`}
+                                                    <Button tag={Link} to={`/access/user/update/${row.value}`}
                                                             block={false} outline color="success" size="sm">
                                                         <i className="fa fa-edit"></i>
                                                     </Button>
