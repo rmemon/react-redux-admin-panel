@@ -1,10 +1,10 @@
 import {Link} from 'react-router-dom';
 import { compose } from 'redux';
-import ListErrors from '../../../../components/ListErrors';
+import ListErrors from 'components/ListErrors';
 import React from 'react';
-import agent from '../../../../agent';
+import agent from 'agent';
 import {connect} from 'react-redux';
-import {LOGIN, LOGIN_PAGE_UNLOADED,} from '../../../../constants/actionTypes';
+import {LOGIN, LOGIN_PAGE_UNLOADED,} from 'constants/actionTypes';
 import {
     Button,
     Card,
@@ -19,7 +19,7 @@ import {
 } from 'reactstrap';
 import {Field, reduxForm} from "redux-form";
 
-import injectReducer from '../../../../utils/injectReducer';
+import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 
 const mapStateToProps = state => ({...state.auth});

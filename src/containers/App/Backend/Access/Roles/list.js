@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import agent from '../../../../../agent';
+import agent from 'agent';
 import {ROLE_DELETE, ROLE_PAGE_LOADED, ROLE_PAGE_UNLOADED} from './constants';
 
 import { compose } from 'redux';
@@ -23,7 +23,7 @@ import {
 
 import {Link} from 'react-router-dom';
 
-import injectReducer from '../../../../../utils/injectReducer';
+import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 
 class List extends Component {

@@ -8,7 +8,6 @@ import App from './containers/App';
 
 require('dotenv').config();
 
-
 const store = configureStore({});
 
 const MOUNT_NODE = document.getElementById('root');

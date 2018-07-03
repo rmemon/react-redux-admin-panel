@@ -27,6 +27,7 @@ const requests = {
         superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
 };
 
+
 const Auth = {
     login: (values) =>
         requests.post('/auth/login', values),

@@ -1,15 +1,15 @@
 import {Link} from 'react-router-dom';
 import { compose } from 'redux';
-import ListErrors from '../../../../components/ListErrors';
+import ListErrors from 'components/ListErrors';
 import React from 'react';
-import agent from '../../../../agent';
+import agent from 'agent';
 import {connect} from 'react-redux';
-import {REGISTER, REGISTER_PAGE_UNLOADED} from '../../../../constants/actionTypes';
+import {REGISTER, REGISTER_PAGE_UNLOADED} from 'constants/actionTypes';
 import {Button, Card, CardBody, Col, Container, InputGroup, InputGroupAddon, InputGroupText, Row,} from 'reactstrap';
 
 import {Field, reduxForm} from "redux-form";
 
-import injectReducer from '../../../../utils/injectReducer';
+import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 
 const mapStateToProps = state => ({...state.auth});

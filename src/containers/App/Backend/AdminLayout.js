@@ -16,15 +16,15 @@ import {
     AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
-import navigation from '../../../_nav';
+import navigation from './_nav';
 // routes config
 import adminRoutes from './adminRoutes';
 import AdmintAside from './AdmintAside';
 import AdminFooter from './AdminFooter';
 import AdminHeader from './AdminHeader';
 
-import {APP_LOAD} from '../../../constants/actionTypes';
-import agent from '../../../agent';
+import {APP_LOAD} from 'constants/actionTypes';
+import agent from 'agent';
 
 class AdminLayout extends Component {
 

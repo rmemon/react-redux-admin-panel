@@ -1,6 +1,6 @@
 import React from "react";
 import {Redirect, Route} from "react-router-dom";
-import agent from '../../../agent';
+import agent from 'agent';
 
 export const AdminPrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={props => (

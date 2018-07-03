@@ -7,10 +7,10 @@ import {AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler} from '@coreui/reac
 
 import {connect} from 'react-redux';
 
-import logo from '../../../assets/img/brand/logo.svg';
-import sygnet from '../../../assets/img/brand/sygnet.svg';
+import logo from 'assets/img/brand/logo.svg';
+import sygnet from 'assets/img/brand/sygnet.svg';
 
-import {LOGOUT} from '../../../constants/actionTypes';
+import {LOGOUT} from 'constants/actionTypes';
 
 const propTypes = {
     children: PropTypes.node,
