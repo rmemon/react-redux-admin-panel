@@ -1,15 +1,8 @@
 import {applyMiddleware, createStore} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 
-import createReducer from './reducers';
-import {localStorageMiddleware, promiseMiddleware} from './middleware';
-
-
-// export const store = createStore(
-//     createReducer(),
-//     composeWithDevTools(applyMiddleware(promiseMiddleware, localStorageMiddleware))
-// );
-
+import createReducer from 'reducers';
+import {localStorageMiddleware, promiseMiddleware} from 'middleware';
 
 export default function configureStore(initialState = {}) {
     // Create the store with two middlewares

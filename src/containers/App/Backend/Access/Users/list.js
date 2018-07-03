@@ -19,7 +19,7 @@ import {
     Table
 } from 'reactstrap';
 
-import agent from '../../../../../agent'
+import agent from 'agent'
 import {USER_DELETE, USER_PAGE_LOADED, USER_PAGE_UNLOADED,
     USER_PAGE_REQUESTED} from './constants';
 import {Link} from 'react-router-dom';
@@ -29,7 +29,7 @@ import ReactTable from 'react-table';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-import injectReducer from '../../../../../utils/injectReducer';
+import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 
 const MySwal = withReactContent(Swal)

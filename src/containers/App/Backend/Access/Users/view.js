@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import agent from '../../../../../agent';
+import agent from 'agent';
 import {USER_VIEW_PAGE_LOADED, USER_VIEW_PAGE_UNLOADED} from './constants';
 
 import {Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, FormGroup, Label, Row} from 'reactstrap';

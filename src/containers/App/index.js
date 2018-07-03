@@ -9,11 +9,11 @@ import Login from "./Backend/Auth/Login";
 import AdminLayout from './Backend';
 import ClientLayout from './Frontend';
 
-import agent from '../../agent';
+import agent from 'agent';
 
-import { APP_LOAD, REDIRECT } from '../../constants/actionTypes';
+import { APP_LOAD, REDIRECT } from 'constants/actionTypes';
 // Styles
-import '../../index.css';
+import 'index.css';
 // CoreUI Icons Set
 import '@coreui/icons/css/coreui-icons.min.css';
 // Import Flag Icons Set
@@ -23,7 +23,7 @@ import 'font-awesome/css/font-awesome.min.css';
 // Import Simple Line Icons Set
 import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
-import '../../scss/style.css';
+import 'scss/style.css';
 import "react-table/react-table.css";
 
 class App extends React.Component {

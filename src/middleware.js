@@ -1,5 +1,5 @@
-import agent from './agent';
-import {ASYNC_END, ASYNC_START, LOGIN, LOGOUT, REGISTER} from './constants/actionTypes';
+import agent from 'agent';
+import {ASYNC_END, ASYNC_START, LOGIN, LOGOUT, REGISTER} from 'constants/actionTypes';
 
 const promiseMiddleware = store => next => action => {
     if (isPromise(action.payload)) {
