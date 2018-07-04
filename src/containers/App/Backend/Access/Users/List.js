@@ -44,9 +44,9 @@ class List extends Component {
         this.state = {
             dropdownOpen: false,
             sorted: [],
+            page:0
         };
-        this.props.onLoadRequest();
-        this.props.onLoad(userAgent.list(this.state.page));
+        this.loadUserData();
 
         this.toggle = this.toggle.bind(this);
 
@@ -79,11 +79,12 @@ class List extends Component {
           {
               if(result.value)
               {
+                //   this.props.onClickDelete(Promise.all([
+                //     userAgent.del(userId)
+                //   ])).then(this.loadUserData);
                   this.props.onClickDelete(Promise.all([
                     userAgent.del(userId)
-                  ]).then(() => {
-                      this.props.onLoad(userAgent.list());
-                  }));
+                  ]).then(this.loadUserData));
               }
           })
 
@@ -91,45 +92,32 @@ class List extends Component {
 
     fetchData(state)
     {
-        this.setState({sorted: []})
-        this.props.onLoadRequest();
-
-        this.props.onLoad(userAgent.list(state + 1));
+        this.setState({page: state}, this.loadUserData)
     }
 
     sortedChange(sorted)
     {
-        let pre, next, type;
-        const isDate = function(date) {
-            return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
+        this.setState({sorted: sorted, page : 0}, this.loadUserData)
+    }
+
+    loadUserData()
+    {
+        this.props.onLoadRequest();
+
+        const props = {
+            page : this.state.page || 0,
+            orderBy : '',
+            sortBy : ''
+        };
+
+        if(this.state.sorted.length > 0)
+        {
+            props.sortBy  = this.state.sorted[0].id;
+            props.orderBy = this.state.sorted[0].desc ? 'DESC' : 'ASC';
         }
 
-        this.props.users.data.sort((a,b)=> {
-            pre = a[sorted[0].id];
-            next= b[sorted[0].id];
-            type = typeof pre;
-            if(pre === null || next === null)
-            {
-                return -1;
-            }
-            if(type === 'string' && isDate(pre))
-            {
-                pre = new Date(pre);
-                next = new Date(next);
-            } else if(type === 'string')
-            {
-                pre = pre[0].toUpperCase();
-                next = next[0].toUpperCase();
-            }
-            if(sorted[0].desc)
-            {
-                return pre < next ? 1 : -1;
-            } else
-            {
-                return pre > next ? 1 : -1;
-            }
-        })
-        this.setState({ sorted })
+        this.props.onLoad(userAgent.list(props));
+
     }
 
     render() {
@@ -139,7 +127,7 @@ class List extends Component {
             return null;
         }
 
-        const noRecords = users ? users.data.length == 0 ? true : false: false;
+        const noRecords = users && users.data ? users.data.length == 0 ? true : false: false;
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -224,7 +212,7 @@ class List extends Component {
                                         },
                                         {
                                             Header: 'Created On',
-                                            accessor: 'registered_at',
+                                            accessor: 'created_at',
                                             Cell: row => (
                                                 <span>
                                                     {new Date(row.value).toLocaleString('en-US')}
@@ -266,7 +254,7 @@ class List extends Component {
                                 onPageChange={this.fetchData}
                                 sorted={this.state.sorted}
                                 onSortedChange={ (sort) => this.sortedChange(sort)}
-
+                                multiSort={false}
                                 />
                             </CardBody>
                         </Card>
