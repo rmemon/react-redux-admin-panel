@@ -201,6 +201,7 @@ class List extends Component {
                                         {
                                             Header: 'Role',
                                             accessor: 'role',
+                                            sortable: false,
                                         },
                                         {
                                             Header: 'Status',
@@ -241,7 +242,8 @@ class List extends Component {
                                                         <i className="fa fa-trash"></i>
                                                     </Button>
                                                 </span>
-                                            )
+                                            ),
+                                            sortable: false,
                                         },
                                     ]}
                                 defaultPageSize={25}
