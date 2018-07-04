@@ -5,7 +5,7 @@ import {Container} from 'reactstrap';
 import {connect} from 'react-redux';
 
 import injectReducer from 'utils/injectReducer';
-import reducer from './backendCommonReducer';
+import reducer from '../backendCommonReducer';
 
 import {
     AppAside,
@@ -23,14 +23,10 @@ import {
 import navigation from './_nav';
 // routes config
 import adminRoutes from './adminRoutes';
-import AdmintAside from './AdmintAside';
-import AdminFooter from './AdminFooter';
-import AdminHeader from './AdminHeader';
-
-import { APP_LOAD } from 'constants/actionTypes';
-import { setToken } from 'utils/requests';
-import { BACKEND_REDIRECT } from './constant'
-import authAgent from './Auth/agent'
+import AdmintAside from './Aside';
+import AdminFooter from './Footer';
+import AdminHeader from './Header';
+import { BACKEND_REDIRECT } from '../constant';
 
 class AdminLayout extends Component {
 

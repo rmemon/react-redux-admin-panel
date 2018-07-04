@@ -174,7 +174,7 @@ const withConnect = connect(
 
 const withReducer = injectReducer({ key: 'roles', reducer });
 
-export default compose(    
-    withReducer,    
-    withConnect,    
+export default compose(
+    withReducer,
+    withConnect,
   )(List);

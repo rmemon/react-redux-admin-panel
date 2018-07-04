@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import logo from 'assets/img/brand/logo.svg';
 import sygnet from 'assets/img/brand/sygnet.svg';
 
-import {BACKEND_LOGOUT} from './Auth/constants';
+import {BACKEND_LOGOUT} from '../Auth/constants';
 
 const propTypes = {
     children: PropTypes.node,
@@ -43,9 +43,6 @@ class AdminHeader extends Component {
                     <NavItem className="px-3">
                         <NavLink tag={Link} to='/access/role'>Roles</NavLink>
                     </NavItem>
-                    {/* <NavItem className="px-3">
-                        <NavLink href="#">Settings</NavLink>
-                    </NavItem> */}
                 </Nav>
 
                 <Nav className="ml-auto" navbar>

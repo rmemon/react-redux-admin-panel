@@ -50,7 +50,7 @@ const roleMap = {
 class Editor extends Component {
     constructor(props) {
         super(props)
-        
+
         if (this.props.match.params.id) {
             return this.props.onLoad(userAgent.get(this.props.match.params.id));
         }
@@ -58,7 +58,7 @@ class Editor extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.match.params.id !== nextProps.match.params.id) {            
+        if (this.props.match.params.id !== nextProps.match.params.id) {
             if (nextProps.match.params.id) {
                 this.props.onUnload();
                 return this.props.onLoad(userAgent.get(this.props.match.params.id));
@@ -66,7 +66,7 @@ class Editor extends Component {
             this.props.onLoad(null);
         }
     }
-    
+
     componentWillUnmount() {
         this.props.onUnload();
     }
@@ -262,7 +262,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    /*onSubmit: (values) => {        
+    /*onSubmit: (values) => {
         if (values.id) {
             dispatch({type: ROLE_UPDATE, payload: userAgent.update(values)})
         }

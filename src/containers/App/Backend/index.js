@@ -1,3 +1,3 @@
-import AdminLayout from './AdminLayout';
+import Layout from './Layouts';
 
-export default AdminLayout;
+export default Layout;
