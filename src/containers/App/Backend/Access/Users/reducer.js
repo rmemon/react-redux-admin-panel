@@ -11,7 +11,7 @@ import {
     USER_VIEW_PAGE_UNLOADED,
 } from './constants';
 
-const initialState = { users: { data: [], meta: { last_page: 1 } } };
+const initialState = { users: [], meta: { last_page: 1 } };
 export default (state = initialState, action) => {
     switch (action.type) {
         case USER_LIST_PAGE_REQUESTED:
@@ -22,7 +22,9 @@ export default (state = initialState, action) => {
         case USER_LIST_PAGE_LOADED:
             return {
                 ...state,
-                users: action.payload,
+                users: action.payload.data,
+                meta: action.payload.meta,
+                link: action.payload.link,
                 inProgress: false,
                 errors: action.error ? action.payload.error : null
             };
@@ -49,7 +51,8 @@ export default (state = initialState, action) => {
             };
         case USER_DELETE:
             return {
-                ...state
+                ...state,
+                users : state.users.filter((user) => user.id !== action.payload.data)
             };
 
         case USER_EDITOR_PAGE_UNLOADED:

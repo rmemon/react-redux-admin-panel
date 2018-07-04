@@ -79,12 +79,7 @@ class List extends Component {
           {
               if(result.value)
               {
-                //   this.props.onClickDelete(Promise.all([
-                //     userAgent.del(userId)
-                //   ])).then(this.loadUserData);
-                  this.props.onClickDelete(Promise.all([
-                    userAgent.del(userId)
-                  ]).then(this.loadUserData));
+                  this.props.onClickDelete(userAgent.del(userId));
               }
           })
 
@@ -121,13 +116,13 @@ class List extends Component {
     }
 
     render() {
-        const {users, inProgress } = this.props;
+        const {users, inProgress, meta } = this.props;
 
         if (!users) {
             return null;
         }
 
-        const noRecords = users && users.data ? users.data.length == 0 ? true : false: false;
+        const noRecords = users ? users.length == 0 ? true : false: false;
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -180,7 +175,7 @@ class List extends Component {
                                     </Col>
                                 </Row>
                                 <ReactTable
-                                data={users.data}
+                                data={users}
                                 noDataText="No Data to Display"
                                 minRows = {0}
                                 columns={
@@ -248,7 +243,7 @@ class List extends Component {
                                     ]}
                                 defaultPageSize={25}
                                 showPageSizeOptions={false}
-                                pages={users.meta.last_page}
+                                pages={meta.last_page}
                                 manual
                                 loading={inProgress}
                                 // onFetchData={this.fetchData}
