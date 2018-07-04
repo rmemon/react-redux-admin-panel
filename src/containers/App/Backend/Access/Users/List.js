@@ -18,9 +18,12 @@ import {
     Row,
 } from 'reactstrap';
 
-import userAgent from './agent'
-import {USER_DELETE, USER_LIST_PAGE_LOADED, USER_LIST_PAGE_UNLOADED,
-    USER_LIST_PAGE_REQUESTED} from './constants';
+
+import {onUnloadAction,
+    onClickDeleteAction,
+    onLoadAction,
+    onLoadRequestAction} from './actions';
+
 import {Link} from 'react-router-dom';
 
 
@@ -60,7 +63,7 @@ class List extends Component {
     }
 
     componentWillUnmount(){
-        this.props.onUnload();
+        this.props.onUnloadAction();
     }
 
     onClickDelete(userId) {
@@ -79,7 +82,7 @@ class List extends Component {
           {
               if(result.value)
               {
-                  this.props.onClickDelete(userAgent.del(userId));
+                  this.props.onClickDeleteAction(userId);
               }
           })
 
@@ -97,7 +100,7 @@ class List extends Component {
 
     loadUserData()
     {
-        this.props.onLoadRequest();
+        this.props.onLoadRequestAction();
 
         const props = {
             page : this.state.page || 0,
@@ -111,7 +114,7 @@ class List extends Component {
             props.orderBy = this.state.sorted[0].desc ? 'DESC' : 'ASC';
         }
 
-        this.props.onLoad(userAgent.list(props));
+        this.props.onLoadAction(props);
 
     }
 
@@ -246,7 +249,6 @@ class List extends Component {
                                 pages={meta.last_page}
                                 manual
                                 loading={inProgress}
-                                // onFetchData={this.fetchData}
                                 className="-striped -highlight"
                                 onPageChange={this.fetchData}
                                 sorted={this.state.sorted}
@@ -266,22 +268,14 @@ const mapStateToProps = state => ({
     ...state.users,
 });
 
-const mapDispatchToProps = dispatch => ({
-    onLoad: payload =>
-        dispatch({ type: USER_LIST_PAGE_LOADED, payload }),
-    onLoadRequest: () =>
-        dispatch({ type: USER_LIST_PAGE_REQUESTED }),
-    onClickDelete: payload =>
-        dispatch({type: USER_DELETE, payload}),
-    onUnload: () =>
-        dispatch({type: USER_LIST_PAGE_UNLOADED})
-});
-
 const withReducer = injectReducer({ key: 'users', reducer });
 
 const withConnect = connect(
     mapStateToProps,
-    mapDispatchToProps,
+    {onUnloadAction,
+    onClickDeleteAction,
+    onLoadAction,
+    onLoadRequestAction},
 );
 
 export default compose(
