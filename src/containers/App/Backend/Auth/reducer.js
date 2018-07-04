@@ -1,21 +1,21 @@
 import {ASYNC_START} from 'constants/actionTypes';
 
-import {LOGIN, LOGIN_PAGE_UNLOADED, REGISTER, REGISTER_PAGE_UNLOADED} from './constants';
+import {BACKEND_LOGIN, BACKEND_LOGIN_PAGE_UNLOADED, BACKEND_REGISTER, BACKEND_REGISTER_PAGE_UNLOADED} from './constants';
 
 export default (state = {}, action) => {
     switch (action.type) {
-        case LOGIN:
-        case REGISTER:
+        case BACKEND_LOGIN:
+        case BACKEND_REGISTER:
             return {
                 ...state,
                 inProgress: false,
                 errors: action.error ? action.payload.error : null
             };
-        case LOGIN_PAGE_UNLOADED:
-        case REGISTER_PAGE_UNLOADED:
+        case BACKEND_LOGIN_PAGE_UNLOADED:
+        case BACKEND_REGISTER_PAGE_UNLOADED:
             return {};
         case ASYNC_START:
-            if (action.subtype === LOGIN || action.subtype === REGISTER) {
+            if (action.subtype === BACKEND_LOGIN || action.subtype === BACKEND_REGISTER) {
                 return {...state, inProgress: true};
             }
             break;

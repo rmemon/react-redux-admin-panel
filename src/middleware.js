@@ -1,5 +1,5 @@
 import {ASYNC_END, ASYNC_START} from 'constants/actionTypes';
-import {LOGIN, LOGOUT, REGISTER} from './containers/App/Backend/Auth/constants';
+import {BACKEND_LOGIN, BACKEND_LOGOUT, BACKEND_REGISTER} from './containers/App/Backend/Auth/constants';
 import { setToken } from 'utils/requests';
 
 const promiseMiddleware = store => next => action => {
@@ -27,7 +27,7 @@ const promiseMiddleware = store => next => action => {
                 action.error = true;
                 action.payload = error.response.body;
                 if (action.payload.error && action.payload.error.status_code == '401') {
-                    store.dispatch({type: LOGOUT});
+                    store.dispatch({type: BACKEND_LOGOUT});
                 }
                 if (!action.skipTracking) {
                     store.dispatch({type: ASYNC_END, promise: action.payload.error});
@@ -47,12 +47,12 @@ function isPromise(v) {
 }
 
 const localStorageMiddleware = store => next => action => {
-    if (action.type === REGISTER || action.type === LOGIN) {
+    if (action.type === BACKEND_REGISTER || action.type === BACKEND_LOGIN) {
         if (!action.error) {
             window.localStorage.setItem('jwt', action.payload.token || action.payload.data.token);
             setToken(action.payload.token || action.payload.data.token);
         }
-    } else if (action.type === LOGOUT) {
+    } else if (action.type === BACKEND_LOGOUT) {
         window.localStorage.setItem('jwt', '');
         setToken(null);
     }

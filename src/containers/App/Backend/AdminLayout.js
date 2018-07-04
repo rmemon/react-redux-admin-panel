@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {Container} from 'reactstrap';
 import {connect} from 'react-redux';
+
 import injectReducer from 'utils/injectReducer';
 import reducer from './backendCommonReducer';
 
@@ -26,19 +27,26 @@ import AdmintAside from './AdmintAside';
 import AdminFooter from './AdminFooter';
 import AdminHeader from './AdminHeader';
 
-import {APP_LOAD} from 'constants/actionTypes';
+import { APP_LOAD } from 'constants/actionTypes';
 import { setToken } from 'utils/requests';
-
+import { BACKEND_REDIRECT } from './constant'
 import authAgent from './Auth/agent'
 
 class AdminLayout extends Component {
 
-    componentDidMount() {
-        const token = window.localStorage.getItem('jwt');
-        if (token) {
-            setToken(token);
+    // componentDidMount() {
+    //     const token = window.localStorage.getItem('jwt');
+    //     if (token) {
+    //         setToken(token);
+    //     }
+    //     this.props.onLoad(token ? authAgent.current() : null, token);
+    // }
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.redirectTo) {
+            this.props.history.push(nextProps.redirectTo);
+            this.props.onRedirect();
         }
-        this.props.onLoad(token ? authAgent.current() : null, token);
     }
 
     render() {
@@ -87,18 +95,14 @@ class AdminLayout extends Component {
 
 const mapStateToProps = state => {
     return {
-        appLoaded: state.common.appLoaded,
-        appName: state.common.appName,
-        currentUser: state.common.currentUser,
-        redirectTo: state.common.redirectTo
+        ...state.backendCommon
     }
 };
 
 const mapDispatchToProps = dispatch => ({
-    onLoad: (payload, token) =>
-        dispatch({type: APP_LOAD, payload, token, skipTracking: true}),
+    onRedirect: () =>
+        dispatch({ type: BACKEND_REDIRECT })
 });
-
 
 const withConnect = connect(
     mapStateToProps,

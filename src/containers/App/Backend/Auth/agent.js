@@ -6,12 +6,7 @@ const Auth = {
         requests.post('/auth/login', values),
     register: (values) =>
         requests.post('/auth/register', values),
-    current: () => {
-        console.log(getToken())
-        console.log(parseJwt)
-        console.log(parseJwt(getToken()))
-        return parseJwt(getToken());
-    }
+    current: () => parseJwt(getToken())
 };
 
 export default Auth;

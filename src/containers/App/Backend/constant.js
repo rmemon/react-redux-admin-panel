@@ -1,0 +1,1 @@
+export const BACKEND_REDIRECT = 'BACKEND_REDIRECT';

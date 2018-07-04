@@ -4,7 +4,7 @@ import ListErrors from 'components/ListErrors';
 import React from 'react';
 import authAgent from './agent';
 import {connect} from 'react-redux';
-import {REGISTER, REGISTER_PAGE_UNLOADED} from './constants';
+import {BACKEND_REGISTER, BACKEND_REGISTER_PAGE_UNLOADED} from './constants';
 import {Button, Card, CardBody, Col, Container, InputGroup, InputGroupAddon, InputGroupText, Row,} from 'reactstrap';
 
 import {Field, reduxForm} from "redux-form";
@@ -17,10 +17,10 @@ const mapStateToProps = state => ({...state.auth});
 const mapDispatchToProps = dispatch => ({
     onSubmit: (values) => {
         const payload = authAgent.register(values);
-        dispatch({type: REGISTER, payload})
+        dispatch({type: BACKEND_REGISTER, payload})
     },
     onUnload: () =>
-        dispatch({type: REGISTER_PAGE_UNLOADED})
+        dispatch({type: BACKEND_REGISTER_PAGE_UNLOADED})
 });
 
 class Register extends React.Component {

@@ -29,23 +29,23 @@ import authAgent from './Backend/Auth/agent'
 class App extends React.Component {
   constructor(props) {
     super(props);
-    
-    const token = window.localStorage.getItem('jwt');    
+
+    const token = window.localStorage.getItem('jwt');
     if (token) {
       setToken(token);
-    }    
+    }
     this.props.onLoad(token ? authAgent.current() : null, token);
   }
-  componentWillReceiveProps(nextProps) {    
+  componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
       this.context.router.history.push(nextProps.redirectTo);
       this.props.onRedirect();
     }
   }
-  
+
   render() {
     return (
-      <Switch>        
+      <Switch>
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <AdminPrivateRoute path="/" name="Home" component={AdminLayout} />

@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import logo from 'assets/img/brand/logo.svg';
 import sygnet from 'assets/img/brand/sygnet.svg';
 
-import {LOGOUT} from './Auth/constants';
+import {BACKEND_LOGOUT} from './Auth/constants';
 
 const propTypes = {
     children: PropTypes.node,
@@ -75,7 +75,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onClickLogout: () => dispatch({type: LOGOUT}),
+    onClickLogout: () => dispatch({type: BACKEND_LOGOUT}),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminHeader);

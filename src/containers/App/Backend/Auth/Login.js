@@ -4,7 +4,7 @@ import ListErrors from 'components/ListErrors';
 import React from 'react';
 import authAgent from './agent';
 import {connect} from 'react-redux';
-import {LOGIN, LOGIN_PAGE_UNLOADED} from './constants';
+import {BACKEND_LOGIN, BACKEND_LOGIN_PAGE_UNLOADED} from './constants';
 import {
     Button,
     Card,
@@ -26,9 +26,9 @@ const mapStateToProps = state => ({...state.auth});
 
 const mapDispatchToProps = dispatch => ({
     onSubmit: (values) =>
-        dispatch({type: LOGIN, payload: authAgent.login(values)}),
+        dispatch({type: BACKEND_LOGIN, payload: authAgent.login(values)}),
     onUnload: () =>
-        dispatch({type: LOGIN_PAGE_UNLOADED}),
+        dispatch({type: BACKEND_LOGIN_PAGE_UNLOADED}),
 });
 
 class Login extends React.Component {
