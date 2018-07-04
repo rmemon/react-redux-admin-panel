@@ -18,9 +18,12 @@ import {
     Row,
 } from 'reactstrap';
 
-import userAgent from './agent'
-import {USER_DELETE, USER_LIST_PAGE_LOADED, USER_LIST_PAGE_UNLOADED,
-    USER_LIST_PAGE_REQUESTED} from './constants';
+
+import {onUnloadAction,
+    onClickDeleteAction,
+    onLoadAction,
+    onLoadRequestAction} from './actions';
+
 import {Link} from 'react-router-dom';
 
 
@@ -60,7 +63,7 @@ class List extends Component {
     }
 
     componentWillUnmount(){
-        this.props.onUnload();
+        this.props.onUnloadAction();
     }
 
     onClickDelete(userId) {
@@ -79,12 +82,7 @@ class List extends Component {
           {
               if(result.value)
               {
-                //   this.props.onClickDelete(Promise.all([
-                //     userAgent.del(userId)
-                //   ])).then(this.loadUserData);
-                  this.props.onClickDelete(Promise.all([
-                    userAgent.del(userId)
-                  ]).then(this.loadUserData));
+                  this.props.onClickDeleteAction(userId);
               }
           })
 
@@ -102,7 +100,7 @@ class List extends Component {
 
     loadUserData()
     {
-        this.props.onLoadRequest();
+        this.props.onLoadRequestAction();
 
         const props = {
             page : this.state.page || 0,
@@ -116,18 +114,18 @@ class List extends Component {
             props.orderBy = this.state.sorted[0].desc ? 'DESC' : 'ASC';
         }
 
-        this.props.onLoad(userAgent.list(props));
+        this.props.onLoadAction(props);
 
     }
 
     render() {
-        const {users, inProgress } = this.props;
+        const {users, inProgress, meta } = this.props;
 
         if (!users) {
             return null;
         }
 
-        const noRecords = users && users.data ? users.data.length == 0 ? true : false: false;
+        const noRecords = users ? users.length == 0 ? true : false: false;
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -180,7 +178,7 @@ class List extends Component {
                                     </Col>
                                 </Row>
                                 <ReactTable
-                                data={users.data}
+                                data={users}
                                 noDataText="No Data to Display"
                                 minRows = {0}
                                 columns={
@@ -201,6 +199,7 @@ class List extends Component {
                                         {
                                             Header: 'Role',
                                             accessor: 'role',
+                                            sortable: false,
                                         },
                                         {
                                             Header: 'Status',
@@ -241,15 +240,15 @@ class List extends Component {
                                                         <i className="fa fa-trash"></i>
                                                     </Button>
                                                 </span>
-                                            )
+                                            ),
+                                            sortable: false,
                                         },
                                     ]}
                                 defaultPageSize={25}
                                 showPageSizeOptions={false}
-                                pages={users.meta.last_page}
+                                pages={meta.last_page}
                                 manual
                                 loading={inProgress}
-                                // onFetchData={this.fetchData}
                                 className="-striped -highlight"
                                 onPageChange={this.fetchData}
                                 sorted={this.state.sorted}
@@ -269,22 +268,14 @@ const mapStateToProps = state => ({
     ...state.users,
 });
 
-const mapDispatchToProps = dispatch => ({
-    onLoad: payload =>
-        dispatch({ type: USER_LIST_PAGE_LOADED, payload }),
-    onLoadRequest: () =>
-        dispatch({ type: USER_LIST_PAGE_REQUESTED }),
-    onClickDelete: payload =>
-        dispatch({type: USER_DELETE, payload}),
-    onUnload: () =>
-        dispatch({type: USER_LIST_PAGE_UNLOADED})
-});
-
 const withReducer = injectReducer({ key: 'users', reducer });
 
 const withConnect = connect(
     mapStateToProps,
-    mapDispatchToProps,
+    {onUnloadAction,
+    onClickDeleteAction,
+    onLoadAction,
+    onLoadRequestAction},
 );
 
 export default compose(
