@@ -19,8 +19,8 @@ import {
 } from 'reactstrap';
 
 import userAgent from './agent'
-import {USER_DELETE, USER_PAGE_LOADED, USER_PAGE_UNLOADED,
-    USER_PAGE_REQUESTED} from './constants';
+import {USER_DELETE, USER_LIST_PAGE_LOADED, USER_LIST_PAGE_UNLOADED,
+    USER_LIST_PAGE_REQUESTED} from './constants';
 import {Link} from 'react-router-dom';
 
 
@@ -283,13 +283,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onLoad: payload =>
-        dispatch({ type: USER_PAGE_LOADED, payload }),
+        dispatch({ type: USER_LIST_PAGE_LOADED, payload }),
     onLoadRequest: () =>
-        dispatch({ type: USER_PAGE_REQUESTED }),
+        dispatch({ type: USER_LIST_PAGE_REQUESTED }),
     onClickDelete: payload =>
         dispatch({type: USER_DELETE, payload}),
     onUnload: () =>
-        dispatch({type: USER_PAGE_UNLOADED})
+        dispatch({type: USER_LIST_PAGE_UNLOADED})
 });
 
 const withReducer = injectReducer({ key: 'users', reducer });

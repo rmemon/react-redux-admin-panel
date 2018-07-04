@@ -159,8 +159,8 @@ const withreduxForm = reduxForm({
     form: "RegisterForm"
 });
 
-export default compose(    
+export default compose(
     withReducer,
     withreduxForm,
-    withConnect,    
+    withConnect,
 )(Register);

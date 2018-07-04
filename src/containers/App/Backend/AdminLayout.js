@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
+import { compose } from 'redux';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {Container} from 'reactstrap';
 import {connect} from 'react-redux';
+import injectReducer from 'utils/injectReducer';
+import reducer from './backendCommonReducer';
 
 import {
     AppAside,
@@ -96,4 +99,15 @@ const mapDispatchToProps = dispatch => ({
         dispatch({type: APP_LOAD, payload, token, skipTracking: true}),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminLayout);
+
+const withConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+);
+
+const withReducer = injectReducer({ key: 'backendCommon', reducer });
+
+export default compose(
+    withReducer,
+    withConnect,
+)(AdminLayout);

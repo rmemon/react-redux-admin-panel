@@ -24,27 +24,6 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
     switch (action.type) {
-        case APP_LOAD:
-            return {
-                ...state,
-                token: action.token || null,
-                appLoaded: true,
-                currentUser: action.payload ? action.payload : null,
-                email: '',
-                password: ''
-            };
-        case REDIRECT:
-            return {...state, redirectTo: null};
-        case LOGOUT:
-            return {...state, redirectTo: '/', token: null, currentUser: null};
-        case LOGIN:
-        case REGISTER:
-            return {
-                ...state,
-                redirectTo: action.error ? null : '/',
-                token: action.error ? null : action.payload.token,
-                currentUser: action.error ? null : action.payload
-            };
         case USER_CREATE:
         case USER_UPDATE:
             return {

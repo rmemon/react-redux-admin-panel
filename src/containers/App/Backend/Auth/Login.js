@@ -135,8 +135,8 @@ const withreduxForm = reduxForm({
     form: "LoginForm"
 });
 
-export default compose(    
+export default compose(
     withReducer,
     withreduxForm,
-    withConnect,    
+    withConnect,
   )(Login);
