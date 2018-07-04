@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import { compose } from 'redux';
 import ListErrors from 'components/ListErrors';
 import React from 'react';
-import agent from 'agent';
+import authAgent from './agent';
 import {connect} from 'react-redux';
 import {REGISTER, REGISTER_PAGE_UNLOADED} from 'constants/actionTypes';
 import {Button, Card, CardBody, Col, Container, InputGroup, InputGroupAddon, InputGroupText, Row,} from 'reactstrap';
@@ -16,7 +16,7 @@ const mapStateToProps = state => ({...state.auth});
 
 const mapDispatchToProps = dispatch => ({
     onSubmit: (values) => {
-        const payload = agent.Auth.register(values);
+        const payload = authAgent.register(values);
         dispatch({type: REGISTER, payload})
     },
     onUnload: () =>

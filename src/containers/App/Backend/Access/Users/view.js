@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import agent from 'agent';
+import userAgent from './agent';
 import {USER_VIEW_PAGE_LOADED, USER_VIEW_PAGE_UNLOADED} from './constants';
 
 import {Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, FormGroup, Label, Row} from 'reactstrap';
@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom';
 class View extends Component {
     componentDidMount() {
         const {id} = this.props.match.params
-        this.props.onLoad(agent.User.get(id));
+        this.props.onLoad(userAgent.get(id));
     }
 
     render() {

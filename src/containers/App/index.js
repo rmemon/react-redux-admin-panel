@@ -9,8 +9,6 @@ import Login from "./Backend/Auth/Login";
 import AdminLayout from './Backend';
 import ClientLayout from './Frontend';
 
-import agent from 'agent';
-
 import { APP_LOAD, REDIRECT } from 'constants/actionTypes';
 // Styles
 import 'index.css';
@@ -25,6 +23,8 @@ import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
 import 'scss/style.css';
 import "react-table/react-table.css";
+import { setToken } from 'utils/requests';
+import authAgent from './Backend/Auth/agent'
 
 class App extends React.Component {
   constructor(props) {
@@ -32,9 +32,9 @@ class App extends React.Component {
     
     const token = window.localStorage.getItem('jwt');    
     if (token) {
-      agent.setToken(token);
+      setToken(token);
     }    
-    this.props.onLoad(token ? agent.Auth.current() : null, token);
+    this.props.onLoad(token ? authAgent.current() : null, token);
   }
   componentWillReceiveProps(nextProps) {    
     if (nextProps.redirectTo) {

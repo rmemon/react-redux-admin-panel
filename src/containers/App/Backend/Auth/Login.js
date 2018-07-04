@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import { compose } from 'redux';
 import ListErrors from 'components/ListErrors';
 import React from 'react';
-import agent from 'agent';
+import authAgent from './agent';
 import {connect} from 'react-redux';
 import {LOGIN, LOGIN_PAGE_UNLOADED} from 'constants/actionTypes';
 import {
@@ -26,7 +26,7 @@ const mapStateToProps = state => ({...state.auth});
 
 const mapDispatchToProps = dispatch => ({
     onSubmit: (values) =>
-        dispatch({type: LOGIN, payload: agent.Auth.login(values)}),
+        dispatch({type: LOGIN, payload: authAgent.login(values)}),
     onUnload: () =>
         dispatch({type: LOGIN_PAGE_UNLOADED}),
 });
@@ -139,4 +139,4 @@ export default compose(
     withReducer,
     withreduxForm,
     withConnect,    
-  )(Login);  
+  )(Login);

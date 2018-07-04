@@ -1,5 +1,5 @@
-import agent from 'agent';
 import {ASYNC_END, ASYNC_START, LOGIN, LOGOUT, REGISTER} from 'constants/actionTypes';
+import { setToken } from 'utils/requests';
 
 const promiseMiddleware = store => next => action => {
     if (isPromise(action.payload)) {
@@ -49,11 +49,11 @@ const localStorageMiddleware = store => next => action => {
     if (action.type === REGISTER || action.type === LOGIN) {
         if (!action.error) {
             window.localStorage.setItem('jwt', action.payload.token || action.payload.data.token);
-            agent.setToken(action.payload.token || action.payload.data.token);
+            setToken(action.payload.token || action.payload.data.token);
         }
     } else if (action.type === LOGOUT) {
         window.localStorage.setItem('jwt', '');
-        agent.setToken(null);
+        setToken(null);
     }
 
     next(action);

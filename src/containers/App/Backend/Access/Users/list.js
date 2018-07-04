@@ -19,7 +19,7 @@ import {
     Table
 } from 'reactstrap';
 
-import agent from 'agent'
+import userAgent from './agent'
 import {USER_DELETE, USER_PAGE_LOADED, USER_PAGE_UNLOADED,
     USER_PAGE_REQUESTED} from './constants';
 import {Link} from 'react-router-dom';
@@ -47,7 +47,7 @@ class List extends Component {
             sorted: [],
         };
         this.props.onLoadRequest();
-        this.props.onLoad(agent.User.list(this.state.page));
+        this.props.onLoad(userAgent.list(this.state.page));
 
         this.toggle = this.toggle.bind(this);
 
@@ -77,9 +77,9 @@ class List extends Component {
               if(result.value)
               {
                   this.props.onClickDelete(Promise.all([
-                      agent.User.del(userId)
+                    userAgent.del(userId)
                   ]).then(() => {
-                      this.props.onLoad(agent.User.list());
+                      this.props.onLoad(userAgent.list());
                   }));
               }
           })
@@ -91,7 +91,7 @@ class List extends Component {
         this.setState({sorted: []})
         this.props.onLoadRequest();
 
-        this.props.onLoad(agent.User.list(state + 1));
+        this.props.onLoad(userAgent.list(state + 1));
     }
 
     sortedChange(sorted)

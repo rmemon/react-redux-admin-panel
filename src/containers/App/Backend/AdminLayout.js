@@ -24,16 +24,18 @@ import AdminFooter from './AdminFooter';
 import AdminHeader from './AdminHeader';
 
 import {APP_LOAD} from 'constants/actionTypes';
-import agent from 'agent';
+import { setToken } from 'utils/requests';
+
+import authAgent from './Auth/agent'
 
 class AdminLayout extends Component {
 
     componentDidMount() {
         const token = window.localStorage.getItem('jwt');
         if (token) {
-            agent.setToken(token);
+            setToken(token);
         }
-        this.props.onLoad(token ? agent.Auth.current() : null, token);
+        this.props.onLoad(token ? authAgent.current() : null, token);
     }
 
     render() {

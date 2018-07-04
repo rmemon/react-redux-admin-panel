@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import agent from 'agent';
+import roleAgent from './agent';
 import {ROLE_DELETE, ROLE_PAGE_LOADED, ROLE_PAGE_UNLOADED} from './constants';
 
 import { compose } from 'redux';
@@ -38,7 +38,7 @@ class List extends Component {
     }
 
     componentDidMount() {
-        this.props.onLoad(agent.Role.list());
+        this.props.onLoad(roleAgent.list());
     }
 
     toggle() {

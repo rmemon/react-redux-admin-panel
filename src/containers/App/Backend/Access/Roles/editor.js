@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import agent from 'agent';
+import userAgent from './agent';
 import {
     ROLE_CREATE,
     ROLE_EDITOR_PAGE_LOADED,
@@ -52,7 +52,7 @@ class Editor extends Component {
         super(props)
         
         if (this.props.match.params.id) {
-            return this.props.onLoad(agent.User.get(this.props.match.params.id));
+            return this.props.onLoad(userAgent.get(this.props.match.params.id));
         }
         this.props.onLoad(null);
     }
@@ -61,7 +61,7 @@ class Editor extends Component {
         if (this.props.match.params.id !== nextProps.match.params.id) {            
             if (nextProps.match.params.id) {
                 this.props.onUnload();
-                return this.props.onLoad(agent.User.get(this.props.match.params.id));
+                return this.props.onLoad(userAgent.get(this.props.match.params.id));
             }
             this.props.onLoad(null);
         }
@@ -264,10 +264,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     /*onSubmit: (values) => {        
         if (values.id) {
-            dispatch({type: ROLE_UPDATE, payload: agent.User.update(values)})
+            dispatch({type: ROLE_UPDATE, payload: userAgent.update(values)})
         }
         else {
-            dispatch({type: ROLE_CREATE, payload: agent.User.create(values)})
+            dispatch({type: ROLE_CREATE, payload: userAgent.create(values)})
         }
     },*/
     onLoad: payload =>

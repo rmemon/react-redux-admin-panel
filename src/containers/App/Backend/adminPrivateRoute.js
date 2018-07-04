@@ -1,10 +1,11 @@
 import React from "react";
 import {Redirect, Route} from "react-router-dom";
-import agent from 'agent';
+
+import { getToken } from 'utils/requests';
 
 export const AdminPrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={props => (
-        agent.getToken()
+            getToken()
             ? <Component {...props} />
             : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
     )}/>
