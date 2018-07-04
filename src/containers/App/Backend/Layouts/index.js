@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 
 import injectReducer from 'utils/injectReducer';
 import reducer from '../backendCommonReducer';
+import { getToken } from 'utils/requests';
+import authAgent from '../Auth/agent';
 
 import {
     AppAside,
@@ -19,6 +21,9 @@ import {
     AppSidebarMinimizer,
     AppSidebarNav,
 } from '@coreui/react';
+
+import { APP_LOAD } from 'constants/actionTypes';
+
 // sidebar nav config
 import navigation from './_nav';
 // routes config
@@ -26,17 +31,17 @@ import adminRoutes from './adminRoutes';
 import AdmintAside from './Aside';
 import AdminFooter from './Footer';
 import AdminHeader from './Header';
-import { BACKEND_REDIRECT } from '../constant';
+import { BACKEND_REDIRECT, BACKEND_APP_LOAD } from '../constant';
 
 class AdminLayout extends Component {
-
-    // componentDidMount() {
-    //     const token = window.localStorage.getItem('jwt');
-    //     if (token) {
-    //         setToken(token);
-    //     }
-    //     this.props.onLoad(token ? authAgent.current() : null, token);
+    // constructor(props) {
+    //     super(props);
+    //     this.props.onLoad(getToken() ? authAgent.current() : null, getToken());
     // }
+
+    componentDidMount() {
+        this.props.onLoad(getToken() ? authAgent.current() : null, getToken());
+    }
 
     componentWillReceiveProps(nextProps){
         if (nextProps.redirectTo) {
@@ -91,13 +96,16 @@ class AdminLayout extends Component {
 
 const mapStateToProps = state => {
     return {
-        ...state.backendCommon
+        ...state.backendCommon,
+        currentUser: state.common.currentUser,
     }
 };
 
 const mapDispatchToProps = dispatch => ({
     onRedirect: () =>
-        dispatch({ type: BACKEND_REDIRECT })
+        dispatch({ type: BACKEND_REDIRECT }),
+    onLoad: (payload, token) =>
+        dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
 });
 
 const withConnect = connect(

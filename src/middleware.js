@@ -49,11 +49,11 @@ function isPromise(v) {
 const localStorageMiddleware = store => next => action => {
     if (action.type === BACKEND_REGISTER || action.type === BACKEND_LOGIN) {
         if (!action.error) {
-            window.localStorage.setItem('jwt', action.payload.token || action.payload.data.token);
+            window.localStorage.setItem('backend-jwt-token', action.payload.token || action.payload.data.token);
             setToken(action.payload.token || action.payload.data.token);
         }
     } else if (action.type === BACKEND_LOGOUT) {
-        window.localStorage.setItem('jwt', '');
+        window.localStorage.setItem('backend-jwt-token', '');
         setToken(null);
     }
 

@@ -30,7 +30,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const token = window.localStorage.getItem('jwt');
+    const token = window.localStorage.getItem('backend-jwt-token');
     if (token) {
       setToken(token);
     }

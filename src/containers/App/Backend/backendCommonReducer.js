@@ -4,7 +4,8 @@ import {
 } from 'containers/App/Backend/Auth/constants';
 
 import {
-    BACKEND_REDIRECT
+    BACKEND_REDIRECT,
+    BACKEND_APP_LOAD
 } from './constant';
 
 import {
@@ -14,6 +15,10 @@ import {
 
 export default (state = {}, action) => {
     switch (action.type) {
+        case BACKEND_APP_LOAD:
+            return {
+                ...state,
+            };
         case USER_CREATE:
         case USER_UPDATE:
             return {
