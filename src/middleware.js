@@ -1,10 +1,10 @@
-import {ASYNC_END, ASYNC_START} from 'constants/actionTypes';
-import {BACKEND_LOGIN, BACKEND_LOGOUT, BACKEND_REGISTER} from './containers/App/Backend/Auth/constants';
+import { ASYNC_END, ASYNC_START } from 'constants/actionTypes';
+import { BACKEND_LOGIN, BACKEND_LOGOUT, BACKEND_REGISTER } from './containers/App/Backend/Auth/constants';
 import { setToken } from 'utils/requests';
 
 const promiseMiddleware = store => next => action => {
     if (isPromise(action.payload)) {
-        store.dispatch({type: ASYNC_START, subtype: action.type});
+        store.dispatch({ type: ASYNC_START, subtype: action.type });
 
         const currentView = store.getState().viewChangeCounter;
         const skipTracking = action.skipTracking;
@@ -16,7 +16,7 @@ const promiseMiddleware = store => next => action => {
                     return
                 }
                 action.payload = res;
-                store.dispatch({type: ASYNC_END, promise: action.payload});
+                store.dispatch({ type: ASYNC_END, promise: action.payload });
                 store.dispatch(action);
             },
             error => {
@@ -27,10 +27,10 @@ const promiseMiddleware = store => next => action => {
                 action.error = true;
                 action.payload = error.response.body;
                 if (action.payload.error && action.payload.error.status_code == '401') {
-                    store.dispatch({type: BACKEND_LOGOUT});
+                    store.dispatch({ type: BACKEND_LOGOUT });
                 }
                 if (!action.skipTracking) {
-                    store.dispatch({type: ASYNC_END, promise: action.payload.error});
+                    store.dispatch({ type: ASYNC_END, promise: action.payload.error });
                 }
                 store.dispatch(action);
             }
@@ -60,4 +60,4 @@ const localStorageMiddleware = store => next => action => {
     next(action);
 };
 
-export {promiseMiddleware, localStorageMiddleware}
+export { promiseMiddleware, localStorageMiddleware }

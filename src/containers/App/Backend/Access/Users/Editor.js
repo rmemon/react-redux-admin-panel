@@ -1,14 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { compose } from 'redux';
-import {connect} from 'react-redux';
-import userAgent from './agent';
-import {
-    USER_CREATE,
-    USER_EDITOR_PAGE_LOADED,
-    USER_EDITOR_PAGE_UNLOADED,
-    USER_UPDATE
-} from './constants';
-
+import { connect } from 'react-redux';
 import {
     Button,
     Card,
@@ -23,13 +15,13 @@ import {
     Label,
     Row
 } from 'reactstrap';
+
 import ListErrors from 'components/ListErrors';
-
-import {Field, reduxForm} from 'redux-form';
-import {Link} from 'react-router-dom';
-
+import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
+import { postUser, onEditorLoad, onEditorUnLoad } from './actions';
 
 let data = {
     id: null,
@@ -59,30 +51,30 @@ class Editor extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.match.params.id !== nextProps.match.params.id) {
             if (nextProps.match.params.id) {
-                this.props.onUnload();
-                return this.props.onLoad(userAgent.get(this.props.match.params.id));
+                this.props.onEditorUnLoad();
+                return this.props.onEditorLoad(this.props.match.params.id);
             }
-            this.props.onLoad(null);
+            this.props.onEditorLoad(null);
         }
     }
 
     componentDidMount() {
         if (this.props.match.params.id) {
-            return this.props.onLoad(userAgent.get(this.props.match.params.id));
+            return this.props.onEditorLoad(this.props.match.params.id);
         }
-        this.props.onLoad(null);
+        this.props.onEditorLoad(null);
     }
 
     componentWillUnmount() {
-        this.props.onUnload();
+        this.props.onEditorUnLoad();
     }
 
     render() {
-        const {handleSubmit} = this.props;
-        const {invalid} = this.props;
-        const {user} = this.props;
+        const { handleSubmit } = this.props;
+        const { invalid } = this.props;
+        const { user } = this.props;
         const isEditMode = user ? true : false;
-        const {errors} = this.props;
+        const { errors } = this.props;
 
         console.log(user);
 
@@ -103,7 +95,7 @@ class Editor extends Component {
             <div className="animated fadeIn">
                 <Row>
                     <Col xs="12">
-                        <form onSubmit={handleSubmit(this.props.onSubmit.bind(this))} className="form-horizontal">
+                        <form onSubmit={handleSubmit(this.props.postUser.bind(this))} className="form-horizontal">
                             <Card>
                                 <CardHeader>
                                     <i className="fa fa fa-user-plus"></i> {isEditMode ? 'Update' : 'Create'} User
@@ -111,7 +103,7 @@ class Editor extends Component {
                                 <CardBody>
                                     <Row>
                                         <Col sm="8">
-                                            <ListErrors errors={this.props.errors}/>
+                                            <ListErrors errors={this.props.errors} />
 
                                             <FormGroup row>
                                                 <Label className="col-md-3 col-form-label" htmlFor="first_name">First
@@ -119,8 +111,8 @@ class Editor extends Component {
                                                 <Col md="9">
                                                     <InputGroup>
                                                         <Field className="form-control" component="input" type="text"
-                                                               id="first_name" name="first_name"
-                                                               placeholder="Enter First Name..." required/>
+                                                            id="first_name" name="first_name"
+                                                            placeholder="Enter First Name..." required />
                                                         <InputGroupAddon addonType="append">
                                                             <InputGroupText><i
                                                                 className="fa fa-user"></i></InputGroupText>
@@ -134,8 +126,8 @@ class Editor extends Component {
                                                 <Col md="9">
                                                     <InputGroup>
                                                         <Field className="form-control" component="input" type="text"
-                                                               id="last_name" name="last_name"
-                                                               placeholder="Enter Last Name..." required/>
+                                                            id="last_name" name="last_name"
+                                                            placeholder="Enter Last Name..." required />
                                                         <InputGroupAddon addonType="append">
                                                             <InputGroupText><i
                                                                 className="fa fa-user"></i></InputGroupText>
@@ -145,12 +137,12 @@ class Editor extends Component {
                                             </FormGroup>
                                             <FormGroup row>
                                                 <Label className="col-md-3 col-form-label"
-                                                       htmlFor="email">Email*</Label>
+                                                    htmlFor="email">Email*</Label>
                                                 <Col md="9">
                                                     <InputGroup>
                                                         <Field className="form-control" component="input" type="email"
-                                                               id="email" name="email" placeholder="Enter Email..."
-                                                               required/>
+                                                            id="email" name="email" placeholder="Enter Email..."
+                                                            required />
                                                         <InputGroupAddon addonType="append">
                                                             <InputGroupText><i
                                                                 className="fa fa-envelope"></i></InputGroupText>
@@ -159,39 +151,39 @@ class Editor extends Component {
                                                 </Col>
                                             </FormGroup>
                                             {!isEditMode &&
-                                            <div>
-                                                <FormGroup row>
-                                                    <Label className="col-md-3 col-form-label"
-                                                           htmlFor="password">Password*</Label>
-                                                    <Col md="9">
-                                                        <InputGroup>
-                                                            <Field className="form-control" component="input"
-                                                                   type="password" id="password" name="password"
-                                                                   placeholder="Enter Password..." required/>
-                                                            <InputGroupAddon addonType="append">
-                                                                <InputGroupText><i
-                                                                    className="fa fa-lock"></i></InputGroupText>
-                                                            </InputGroupAddon>
-                                                        </InputGroup>
-                                                    </Col>
-                                                </FormGroup>
-                                                <FormGroup row>
-                                                    <Label className="col-md-3 col-form-label" htmlFor="password">Confirm
+                                                <div>
+                                                    <FormGroup row>
+                                                        <Label className="col-md-3 col-form-label"
+                                                            htmlFor="password">Password*</Label>
+                                                        <Col md="9">
+                                                            <InputGroup>
+                                                                <Field className="form-control" component="input"
+                                                                    type="password" id="password" name="password"
+                                                                    placeholder="Enter Password..." required />
+                                                                <InputGroupAddon addonType="append">
+                                                                    <InputGroupText><i
+                                                                        className="fa fa-lock"></i></InputGroupText>
+                                                                </InputGroupAddon>
+                                                            </InputGroup>
+                                                        </Col>
+                                                    </FormGroup>
+                                                    <FormGroup row>
+                                                        <Label className="col-md-3 col-form-label" htmlFor="password">Confirm
                                                         Password*</Label>
-                                                    <Col md="9">
-                                                        <InputGroup>
-                                                            <Field className="form-control" component="input"
-                                                                   type="password" id="password_confirmation"
-                                                                   name="password_confirmation"
-                                                                   placeholder="Enter Confirm Password..." required/>
-                                                            <InputGroupAddon addonType="append">
-                                                                <InputGroupText><i
-                                                                    className="fa fa-lock"></i></InputGroupText>
-                                                            </InputGroupAddon>
-                                                        </InputGroup>
-                                                    </Col>
-                                                </FormGroup>
-                                            </div>
+                                                        <Col md="9">
+                                                            <InputGroup>
+                                                                <Field className="form-control" component="input"
+                                                                    type="password" id="password_confirmation"
+                                                                    name="password_confirmation"
+                                                                    placeholder="Enter Confirm Password..." required />
+                                                                <InputGroupAddon addonType="append">
+                                                                    <InputGroupText><i
+                                                                        className="fa fa-lock"></i></InputGroupText>
+                                                                </InputGroupAddon>
+                                                            </InputGroup>
+                                                        </Col>
+                                                    </FormGroup>
+                                                </div>
                                             }
 
                                             <FormGroup row>
@@ -199,7 +191,7 @@ class Editor extends Component {
                                                     Active</Label>
                                                 <Col md="9">
                                                     <Field type="checkbox" id="status" name="status" component="input"
-                                                           className="centered-checkbox"/>
+                                                        className="centered-checkbox" />
                                                 </Col>
                                             </FormGroup>
                                             <FormGroup row>
@@ -207,7 +199,7 @@ class Editor extends Component {
                                                     Confirmed</Label>
                                                 <Col md="9">
                                                     <Field type="checkbox" id="confirmed" name="confirmed"
-                                                           component="input" className="centered-checkbox"/>
+                                                        component="input" className="centered-checkbox" />
                                                 </Col>
                                             </FormGroup>
                                             <FormGroup row>
@@ -215,8 +207,8 @@ class Editor extends Component {
                                                     Confirmation</Label>
                                                 <Col md="9">
                                                     <Field type="checkbox" id="confirmation_email"
-                                                           name="confirmation_email" component="input"
-                                                           className="centered-checkbox"/>
+                                                        name="confirmation_email" component="input"
+                                                        className="centered-checkbox" />
                                                 </Col>
                                             </FormGroup>
                                             <FormGroup row>
@@ -226,24 +218,24 @@ class Editor extends Component {
                                                 <Col md="9">
                                                     <FormGroup check inline className="col-md-3">
                                                         <Field component="input" type="radio" id="inline-radio1"
-                                                               name="assignees_roles" value="1"
-                                                               className="form-check-input"/>
+                                                            name="assignees_roles" value="1"
+                                                            className="form-check-input" />
                                                         <Label className="form-check-label" check
-                                                               htmlFor="inline-radio1"> Administrator</Label>
+                                                            htmlFor="inline-radio1"> Administrator</Label>
                                                     </FormGroup>
                                                     <FormGroup check inline className="col-md-3">
                                                         <Field component="input" type="radio" id="inline-radio2"
-                                                               name="assignees_roles" value="2"
-                                                               className="form-check-input"/>
+                                                            name="assignees_roles" value="2"
+                                                            className="form-check-input" />
                                                         <Label className="form-check-label" check
-                                                               htmlFor="inline-radio2"> Executive</Label>
+                                                            htmlFor="inline-radio2"> Executive</Label>
                                                     </FormGroup>
                                                     <FormGroup check inline className="col-md-3">
                                                         <Field component="input" type="radio" id="inline-radio3"
-                                                               name="assignees_roles" value="3"
-                                                               className="form-check-input"/>
+                                                            name="assignees_roles" value="3"
+                                                            className="form-check-input" />
                                                         <Label className="form-check-label" check
-                                                               htmlFor="inline-radio3"> User</Label>
+                                                            htmlFor="inline-radio3"> User</Label>
                                                     </FormGroup>
                                                 </Col>
                                             </FormGroup>
@@ -270,20 +262,20 @@ const mapStateToProps = state => ({
     ...state.users,
 });
 
-const mapDispatchToProps = dispatch => ({
-    onSubmit: (values) => {
-        if (values.id) {
-            dispatch({type: USER_UPDATE, payload: userAgent.update(values)})
-        }
-        else {
-            dispatch({type: USER_CREATE, payload: userAgent.create(values)})
-        }
-    },
-    onLoad: payload =>
-        dispatch({type: USER_EDITOR_PAGE_LOADED, payload}),
-    onUnload: () =>
-        dispatch({type: USER_EDITOR_PAGE_UNLOADED})
-});
+// const mapDispatchToProps = dispatch => ({
+//     onSubmit: (values) => {
+//         if (values.id) {
+//             dispatch({type: USER_UPDATE, payload: userAgent.update(values)})
+//         }
+//         else {
+//             dispatch({type: USER_CREATE, payload: userAgent.create(values)})
+//         }
+//     },
+//     onLoad: payload =>
+//         dispatch({type: USER_EDITOR_PAGE_LOADED, payload}),
+//     onUnload: () =>
+//         dispatch({type: USER_EDITOR_PAGE_UNLOADED})
+// });
 
 const withreduxForm = reduxForm({
     form: "CreateUserForm",
@@ -294,7 +286,7 @@ const withReducer = injectReducer({ key: 'users', reducer });
 
 const withConnect = connect(
     mapStateToProps,
-    mapDispatchToProps,
+    { postUser, onEditorLoad, onEditorUnLoad },
 );
 
 export default compose(

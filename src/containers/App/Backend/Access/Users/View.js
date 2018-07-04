@@ -1,28 +1,26 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { compose } from 'redux';
-import {connect} from 'react-redux';
-import userAgent from './agent';
-import {USER_VIEW_PAGE_LOADED, USER_VIEW_PAGE_UNLOADED} from './constants';
-
-import {Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, FormGroup, Label, Row} from 'reactstrap';
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, FormGroup, Label, Row } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
+import { onViewPageLoad, onViewUnload } from './actions';
 
 class View extends Component {
     componentDidMount() {
-        const {id} = this.props.match.params
-        this.props.onLoad(userAgent.get(id));
+        const { id } = this.props.match.params
+        this.props.onViewPageLoad(id);
     }
 
     componentWillUnmount() {
-        this.props.onUnload();
+        this.props.onViewUnload();
     }
 
     render() {
-        const {user} = this.props;
-        const {errors} = this.props;
+        const { user } = this.props;
+        const { errors } = this.props;
 
         if (errors) {
             this.props.history.push('/access/user');
@@ -148,19 +146,12 @@ const mapStateToProps = state => ({
     ...state.users,
 });
 
-const mapDispatchToProps = dispatch => ({
-    onLoad: payload =>
-        dispatch({type: USER_VIEW_PAGE_LOADED, payload}),
-    onUnload: () =>
-        dispatch({type: USER_VIEW_PAGE_UNLOADED})
-});
-
 
 const withReducer = injectReducer({ key: 'users', reducer });
 
 const withConnect = connect(
     mapStateToProps,
-    mapDispatchToProps,
+    { onViewPageLoad, onViewUnload }
 );
 
 export default compose(
