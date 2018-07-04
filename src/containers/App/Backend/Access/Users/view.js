@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { compose } from 'redux';
 import {connect} from 'react-redux';
 import userAgent from './agent';
 import {USER_VIEW_PAGE_LOADED, USER_VIEW_PAGE_UNLOADED} from './constants';
@@ -6,10 +7,17 @@ import {USER_VIEW_PAGE_LOADED, USER_VIEW_PAGE_UNLOADED} from './constants';
 import {Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, FormGroup, Label, Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
 
+import injectReducer from 'utils/injectReducer';
+import reducer from './reducer';
+
 class View extends Component {
     componentDidMount() {
         const {id} = this.props.match.params
         this.props.onLoad(userAgent.get(id));
+    }
+
+    componentWillUnmount() {
+        this.props.onUnload();
     }
 
     render() {
@@ -147,4 +155,15 @@ const mapDispatchToProps = dispatch => ({
         dispatch({type: USER_VIEW_PAGE_UNLOADED})
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(View);
+
+const withReducer = injectReducer({ key: 'users', reducer });
+
+const withConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+);
+
+export default compose(
+    withReducer,
+    withConnect,
+)(View);

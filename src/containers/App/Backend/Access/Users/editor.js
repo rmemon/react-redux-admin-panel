@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { compose } from 'redux';
 import {connect} from 'react-redux';
 import userAgent from './agent';
 import {
@@ -26,6 +27,9 @@ import ListErrors from 'components/ListErrors';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router-dom';
 
+import injectReducer from 'utils/injectReducer';
+import reducer from './reducer';
+
 let data = {
     id: null,
     first_name: "",
@@ -52,7 +56,7 @@ class Editor extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.match.params.id !== nextProps.match.params.id) {            
+        if (this.props.match.params.id !== nextProps.match.params.id) {
             if (nextProps.match.params.id) {
                 this.props.onUnload();
                 return this.props.onLoad(userAgent.get(this.props.match.params.id));
@@ -78,6 +82,9 @@ class Editor extends Component {
         const {user} = this.props;
         const isEditMode = user ? true : false;
         const {errors} = this.props;
+
+        console.log(user);
+
         if (user) {
             data.first_name = user.first_name;
             data.id = user.id;
@@ -263,7 +270,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onSubmit: (values) => {        
+    onSubmit: (values) => {
         if (values.id) {
             dispatch({type: USER_UPDATE, payload: userAgent.update(values)})
         }
@@ -277,8 +284,20 @@ const mapDispatchToProps = dispatch => ({
         dispatch({type: USER_EDITOR_PAGE_UNLOADED})
 });
 
-
-export default reduxForm({
+const withreduxForm = reduxForm({
     form: "CreateUserForm",
     initialValues: data
-})(connect(mapStateToProps, mapDispatchToProps)(Editor));
+});
+
+const withReducer = injectReducer({ key: 'users', reducer });
+
+const withConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+);
+
+export default compose(
+    withReducer,
+    withreduxForm,
+    withConnect,
+)(Editor);

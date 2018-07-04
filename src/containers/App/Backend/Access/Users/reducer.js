@@ -2,22 +2,24 @@ import {
     USER_CREATE,
     USER_DELETE,
     USER_EDITOR_PAGE_LOADED,
-    USER_EDITOR_PAGE_UNLOADED,
     USER_PAGE_LOADED,
     USER_UPDATE,
     USER_VIEW_PAGE_LOADED,
-    USER_PAGE_REQUESTED
+    USER_PAGE_REQUESTED,
+    USER_EDITOR_PAGE_UNLOADED,
+    USER_PAGE_UNLOADED,
+    USER_VIEW_PAGE_UNLOADED,
 } from './constants';
 
-export default (state = {users: { data:[], pages:1,meta: {last_page : 1}}}, action) => {
+export default (state = { users: { data: [], pages: 1, meta: { last_page: 1 } } }, action) => {
     switch (action.type) {
         case USER_PAGE_REQUESTED:
-        return {
+            return {
                 ...state,
                 inProgress: true
             };
         case USER_PAGE_LOADED:
-        return {
+            return {
                 ...state,
                 users: action.payload,
                 inProgress: false,
@@ -44,15 +46,15 @@ export default (state = {users: { data:[], pages:1,meta: {last_page : 1}}}, acti
                 user: action.payload ? action.payload.data : '',
                 errors: action.error ? action.payload.error : null,
             };
-        case USER_EDITOR_PAGE_UNLOADED:
-            return {
-                ...state,
-                user: {}
-            };
         case USER_DELETE:
             return {
                 ...state
             };
+
+        case USER_EDITOR_PAGE_UNLOADED:
+        case USER_PAGE_UNLOADED:
+        case USER_VIEW_PAGE_UNLOADED:
+            return {}
         default:
             return state;
     }

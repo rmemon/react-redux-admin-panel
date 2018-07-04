@@ -16,7 +16,6 @@ import {
     DropdownMenu,
     DropdownToggle,
     Row,
-    Table
 } from 'reactstrap';
 
 import userAgent from './agent'
@@ -58,6 +57,10 @@ class List extends Component {
         this.setState({
             dropdownOpen: !this.state.dropdownOpen
         });
+    }
+
+    componentWillUnmount(){
+        this.props.onUnload();
     }
 
     onClickDelete(userId) {
@@ -280,14 +283,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onLoad: payload =>
-    {
-        console.log("before");
-        dispatch({type: USER_PAGE_LOADED, payload})
-    },
+        dispatch({ type: USER_PAGE_LOADED, payload }),
     onLoadRequest: () =>
-    {
-        dispatch({type: USER_PAGE_REQUESTED})
-    },
+        dispatch({ type: USER_PAGE_REQUESTED }),
     onClickDelete: payload =>
         dispatch({type: USER_DELETE, payload}),
     onUnload: () =>
