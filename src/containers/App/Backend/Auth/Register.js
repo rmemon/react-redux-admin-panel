@@ -2,9 +2,7 @@ import {Link} from 'react-router-dom';
 import { compose } from 'redux';
 import ListErrors from 'components/ListErrors';
 import React from 'react';
-import authAgent from './agent';
 import {connect} from 'react-redux';
-import {BACKEND_REGISTER, BACKEND_REGISTER_PAGE_UNLOADED} from './constants';
 import {Button, Card, CardBody, Col, Container, InputGroup, InputGroupAddon, InputGroupText, Row,} from 'reactstrap';
 
 import {Field, reduxForm} from "redux-form";
@@ -12,16 +10,10 @@ import {Field, reduxForm} from "redux-form";
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 
+import { onRegisterSubmit, onRegisterUnload } from "./actions";
+
 const mapStateToProps = state => ({...state.auth});
 
-const mapDispatchToProps = dispatch => ({
-    onSubmit: (values) => {
-        const payload = authAgent.register(values);
-        dispatch({type: BACKEND_REGISTER, payload})
-    },
-    onUnload: () =>
-        dispatch({type: BACKEND_REGISTER_PAGE_UNLOADED})
-});
 
 class Register extends React.Component {
     componentWillUnmount() {
@@ -149,7 +141,7 @@ class Register extends React.Component {
 
 const withConnect = connect(
     mapStateToProps,
-    mapDispatchToProps,
+    { onRegisterSubmit, onRegisterUnload },
 );
 
 

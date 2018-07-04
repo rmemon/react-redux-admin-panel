@@ -2,9 +2,7 @@ import {Link} from 'react-router-dom';
 import { compose } from 'redux';
 import ListErrors from 'components/ListErrors';
 import React from 'react';
-import authAgent from './agent';
 import {connect} from 'react-redux';
-import {BACKEND_LOGIN, BACKEND_LOGIN_PAGE_UNLOADED} from './constants';
 import {
     Button,
     Card,
@@ -18,18 +16,13 @@ import {
     Row
 } from 'reactstrap';
 import {Field, reduxForm} from "redux-form";
+import { onLoginSubmit, onLoginUnload } from "./actions";
+
 
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 
 const mapStateToProps = state => ({...state.auth});
-
-const mapDispatchToProps = dispatch => ({
-    onSubmit: (values) =>
-        dispatch({type: BACKEND_LOGIN, payload: authAgent.login(values)}),
-    onUnload: () =>
-        dispatch({type: BACKEND_LOGIN_PAGE_UNLOADED}),
-});
 
 class Login extends React.Component {
     // constructor(props) {
@@ -40,7 +33,7 @@ class Login extends React.Component {
     // }
 
     componentWillUnmount() {
-        this.props.onUnload();
+        this.props.onLoginUnload();
     }
 
     render() {
@@ -55,7 +48,7 @@ class Login extends React.Component {
                             <CardGroup>
                                 <Card className="p-4">
                                     <CardBody>
-                                        <form onSubmit={handleSubmit(this.props.onSubmit.bind(this))}>
+                                        <form onSubmit={handleSubmit(this.props.onLoginSubmit.bind(this))}>
                                             <h1>Login</h1>
                                             <p className="text-muted">Sign In to your account</p>
                                             <InputGroup className="mb-3">
@@ -125,7 +118,7 @@ class Login extends React.Component {
 
 const withConnect = connect(
     mapStateToProps,
-    mapDispatchToProps,
+    { onLoginSubmit, onLoginUnload }
 );
 
 
