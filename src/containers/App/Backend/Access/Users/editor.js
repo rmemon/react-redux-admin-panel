@@ -277,6 +277,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch({type: USER_EDITOR_PAGE_UNLOADED})
 });
 
+
 export default reduxForm({
     form: "CreateUserForm",
     initialValues: data

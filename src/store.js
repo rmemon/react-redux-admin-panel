@@ -26,7 +26,7 @@ export default function configureStore(initialState = {}) {
     const store = createStore(
       createReducer(),
       composeWithDevTools(applyMiddleware(promiseMiddleware, localStorageMiddleware)),
-      composeEnhancers(...enhancers),      
+      // composeEnhancers(...enhancers),
     );
       
     store.injectedReducers = {}; // Reducer registry    
