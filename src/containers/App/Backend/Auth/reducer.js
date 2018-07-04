@@ -1,4 +1,6 @@
-import {ASYNC_START, LOGIN, LOGIN_PAGE_UNLOADED, REGISTER, REGISTER_PAGE_UNLOADED} from 'constants/actionTypes';
+import {ASYNC_START} from 'constants/actionTypes';
+
+import {LOGIN, LOGIN_PAGE_UNLOADED, REGISTER, REGISTER_PAGE_UNLOADED} from './constants';
 
 export default (state = {}, action) => {
     switch (action.type) {

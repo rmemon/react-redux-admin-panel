@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import logo from 'assets/img/brand/logo.svg';
 import sygnet from 'assets/img/brand/sygnet.svg';
 
-import {LOGOUT} from 'constants/actionTypes';
+import {LOGOUT} from './Auth/constants';
 
 const propTypes = {
     children: PropTypes.node,

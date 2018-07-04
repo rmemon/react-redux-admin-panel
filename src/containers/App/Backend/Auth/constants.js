@@ -1,0 +1,8 @@
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const REGISTER = 'REGISTER';
+export const AUTH_USER = 'AUTH_USER';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const LOGIN_PAGE_UNLOADED = 'LOGIN_PAGE_UNLOADED';
+export const REGISTER_PAGE_UNLOADED = 'LOGIN_PAGE_UNLOADED';
+export const REGISTER_PAGE_LOADED = 'REGISTER_PAGE_LOADED';

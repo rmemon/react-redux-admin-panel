@@ -4,7 +4,7 @@ import ListErrors from 'components/ListErrors';
 import React from 'react';
 import authAgent from './agent';
 import {connect} from 'react-redux';
-import {REGISTER, REGISTER_PAGE_UNLOADED} from 'constants/actionTypes';
+import {REGISTER, REGISTER_PAGE_UNLOADED} from './constants';
 import {Button, Card, CardBody, Col, Container, InputGroup, InputGroupAddon, InputGroupText, Row,} from 'reactstrap';
 
 import {Field, reduxForm} from "redux-form";

@@ -4,7 +4,7 @@ import ListErrors from 'components/ListErrors';
 import React from 'react';
 import authAgent from './agent';
 import {connect} from 'react-redux';
-import {LOGIN, LOGIN_PAGE_UNLOADED} from 'constants/actionTypes';
+import {LOGIN, LOGIN_PAGE_UNLOADED} from './constants';
 import {
     Button,
     Card,

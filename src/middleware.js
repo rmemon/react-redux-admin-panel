@@ -1,4 +1,5 @@
-import {ASYNC_END, ASYNC_START, LOGIN, LOGOUT, REGISTER} from 'constants/actionTypes';
+import {ASYNC_END, ASYNC_START} from 'constants/actionTypes';
+import {LOGIN, LOGOUT, REGISTER} from './containers/App/Backend/Auth/constants';
 import { setToken } from 'utils/requests';
 
 const promiseMiddleware = store => next => action => {

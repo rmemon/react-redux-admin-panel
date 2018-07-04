@@ -1,17 +1,20 @@
 import {
     APP_LOAD,
+    REDIRECT,    
+} from 'constants/actionTypes';
+
+import {
     LOGIN,
     LOGIN_PAGE_UNLOADED,
     LOGOUT,
-    REDIRECT,
     REGISTER,
     REGISTER_PAGE_UNLOADED
-} from '../constants/actionTypes';
+} from 'containers/App/Backend/Auth/constants';
 
 import {
     USER_CREATE,
     USER_UPDATE
-} from '../containers/App/Backend/Access/Users/constants'
+} from 'containers/App/Backend/Access/Users/constants'
 
 const defaultState = {
     appName: process.env.REACT_APP_NAME,
