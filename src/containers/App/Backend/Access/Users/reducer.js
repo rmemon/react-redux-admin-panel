@@ -11,7 +11,8 @@ import {
     USER_VIEW_PAGE_UNLOADED,
 } from './constants';
 
-export default (state = { users: { data: [], pages: 1, meta: { last_page: 1 } } }, action) => {
+const initialState = { users: { data: [], meta: { last_page: 1 } } };
+export default (state = initialState, action) => {
     switch (action.type) {
         case USER_LIST_PAGE_REQUESTED:
             return {

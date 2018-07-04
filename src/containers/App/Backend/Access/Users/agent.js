@@ -1,8 +1,8 @@
 import { requests } from 'utils/requests';
 
 const User = {
-    list: (page = 1) =>
-        requests.get('/users?page=' + page),
+    list: (requestObj) =>
+        requests.get(`/users?page=${requestObj.page + 1}&orderBy=${requestObj.orderBy}&sortBy=${requestObj.sortBy}`),
     get: (id) =>
         requests.get(`/users/${id}`),
     del: (id) =>
