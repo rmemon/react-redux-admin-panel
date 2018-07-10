@@ -1,9 +1,5 @@
-import List from './List';
-import Editor from './Editor';
-import View from './View';
+import List from "./List";
+import Editor from "./Editor";
+import View from "./View";
 
-export {
-    Editor,
-    List,
-    View
-};
+export { Editor, List, View };
