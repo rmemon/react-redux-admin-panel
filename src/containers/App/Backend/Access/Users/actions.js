@@ -60,7 +60,11 @@ export const postUser = values => {
 };
 
 export const onEditorLoad = id => {
-  return { type: USER_EDITOR_PAGE_LOADED, payload: agent.get(id) };
+  let payload =null;
+  if(id) {
+    payload = agent.get(id);
+  }
+  return { type: USER_EDITOR_PAGE_LOADED, payload };
 };
 
 export const onEditorUnLoad = id => {

@@ -73,8 +73,6 @@ class Editor extends Component {
     const isEditMode = user ? true : false;
     const { errors } = this.props;
 
-    console.log(user);
-
     if (user) {
       data.first_name = user.first_name;
       data.id = user.id;
@@ -85,9 +83,11 @@ class Editor extends Component {
       data.confirmation_email = user.confirmation_email;
       data.assignees_roles = roleMap[user.role];
     }
+
     if (this.props.match.params.id && errors) {
       this.props.history.push("/access/user");
     }
+    
     return (
       <div className="animated fadeIn">
         <Row>
