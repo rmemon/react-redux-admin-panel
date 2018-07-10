@@ -32,6 +32,16 @@ const RoleList = Loadable({
     loading: Loading,
 });
 
+const RoleForm = Loadable({
+    loader: () => import( '../Access/Roles/Form'),
+    loading: Loading,
+});
+
+const RoleView = Loadable({
+    loader: () => import( '../Access/Roles/View'),
+    loading: Loading,
+});
+
 const adminRoutes = [
     {path: '/dashboard', name: 'Dashboard', component: Home},
     {path: '/access', exact: true, name: 'Access', component: UserList},
@@ -42,6 +52,9 @@ const adminRoutes = [
 
     // Roles
     {path: '/access/role', exact: true, name: 'Roles', component: RoleList},
+    {path: '/access/role/create', exact: true, name: 'Create', component: RoleForm},
+    {path: '/access/role/update/:id', exact: true, name: 'Update', component: RoleForm},
+    {path: '/access/role/view/:id', exact: true, name: 'View', component: RoleView},
 ];
 
 export default adminRoutes;

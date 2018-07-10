@@ -6,8 +6,8 @@ import {
   ROLE_VIEW_PAGE_UNLOADED,
   ROLE_CREATE,
   ROLE_UPDATE,
-  ROLE_EDITOR_PAGE_LOADED,
-  ROLE_EDITOR_PAGE_UNLOADED,
+  ROLE_FORM_PAGE_LOADED,
+  ROLE_FORM_PAGE_UNLOADED,
   ROLE_DELETE
 } from "./constants";
 
@@ -60,10 +60,10 @@ export const postUser = values => {
   }
 };
 
-export const onEditorLoad = id => {
-  return { type: ROLE_EDITOR_PAGE_LOADED, payload: agent.get(id) };
+export const onFormLoad = id => {
+  return { type: ROLE_FORM_PAGE_LOADED, payload: agent.get(id) };
 };
 
-export const onEditorUnLoad = id => {
-  return { type: ROLE_EDITOR_PAGE_UNLOADED };
+export const onFormUnLoad = id => {
+  return { type: ROLE_FORM_PAGE_UNLOADED };
 };
