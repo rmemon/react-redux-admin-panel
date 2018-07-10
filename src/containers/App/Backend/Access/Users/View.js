@@ -57,7 +57,7 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>First Name: </strong>{" "}
+                        <strong>First Name: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
                         {user.first_name}
@@ -72,7 +72,7 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>Last Name: </strong>{" "}
+                        <strong>Last Name: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
                         {user.last_name}
@@ -87,7 +87,7 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>Email: </strong>{" "}
+                        <strong>Email: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
                         {user.email}
@@ -102,7 +102,7 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>Role: </strong>{" "}
+                        <strong>Role: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
                         {user.role}
@@ -117,7 +117,7 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>Status: </strong>{" "}
+                        <strong>Status: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
                         <Badge color={user.status === 1 ? "success" : "danger"}>
@@ -134,7 +134,7 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>Confirmed: </strong>{" "}
+                        <strong>Confirmed: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
                         <Badge
@@ -153,10 +153,10 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>Created On: </strong>{" "}
+                        <strong>Created On: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        {new Date(user.registered_at).toLocaleString("en-US")}
+                        {new Date(user.created_at).toLocaleString("en-US")}
                       </Col>
                     </FormGroup>
                   </Col>
@@ -168,10 +168,10 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>Updated On: </strong>{" "}
+                        <strong>Updated On: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        {new Date(user.last_updated_at).toLocaleString("en-US")}
+                        {new Date(user.updated_at).toLocaleString("en-US")}
                       </Col>
                     </FormGroup>
                   </Col>
@@ -183,8 +183,8 @@ class View extends Component {
                   to={`/access/user`}
                   className="btn btn-outline-danger"
                 >
-                  {" "}
-                  <i className="fa fa-arrow-left" /> Go Back{" "}
+
+                  <i className="fa fa-arrow-left" /> Go Back
                 </Button>
               </CardFooter>
             </Card>

@@ -20,6 +20,7 @@ import reducer from "./reducer";
 import { onViewPageLoad, onViewUnload } from "./actions";
 
 class View extends Component {
+
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.onViewPageLoad(id);
@@ -30,24 +31,29 @@ class View extends Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { role } = this.props;
     const { errors } = this.props;
 
     if (errors) {
-      this.props.history.push("/access/user");
+      this.props.history.push("/access/role");
       return null;
     }
 
-    if (!user) {
+    if (!role) {
       return null;
     }
+
+    const permissions = role.permissions.constructor == Array
+        ? role.permissions.join('<br/>')
+        : role.permissions;
+
     return (
       <div className="animated fadeIn">
         <Row>
           <Col xs="12" lg="12">
             <Card>
               <CardHeader>
-                <i className="fa fa-user" /> View User
+                <i className="fa fa-user" /> View Role
               </CardHeader>
               <CardBody>
                 <Row>
@@ -57,10 +63,10 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>First Name: </strong>{" "}
+                        <strong>Name: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        {user.first_name}
+                        {role.name}
                       </Col>
                     </FormGroup>
                   </Col>
@@ -72,10 +78,10 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>Last Name: </strong>{" "}
+                        <strong>Associated Permissions </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        {user.last_name}
+                        <div dangerouslySetInnerHTML={{__html: permissions}} />
                       </Col>
                     </FormGroup>
                   </Col>
@@ -87,10 +93,10 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>Email: </strong>{" "}
+                        <strong>Sort: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        {user.email}
+                        {role.sort}
                       </Col>
                     </FormGroup>
                   </Col>
@@ -102,10 +108,10 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>Role: </strong>{" "}
+                        <strong>Created On: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        {user.role}
+                        {new Date(role.created_at).toLocaleString("en-US")}
                       </Col>
                     </FormGroup>
                   </Col>
@@ -117,61 +123,10 @@ class View extends Component {
                         className="col-md-3 col-form-label"
                         htmlFor="text-input"
                       >
-                        <strong>Status: </strong>{" "}
+                        <strong>Updated On: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        <Badge color={user.status === 1 ? "success" : "danger"}>
-                          {user.status === 1 ? "Active" : "InActive"}
-                        </Badge>
-                      </Col>
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm="8">
-                    <FormGroup row>
-                      <Label
-                        className="col-md-3 col-form-label"
-                        htmlFor="text-input"
-                      >
-                        <strong>Confirmed: </strong>{" "}
-                      </Label>
-                      <Col xs="6" md="6" className="centered-checkbox">
-                        <Badge
-                          color={user.confirmed === 1 ? "success" : "danger"}
-                        >
-                          {user.confirmed === 1 ? "Yes" : "No"}
-                        </Badge>
-                      </Col>
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm="8">
-                    <FormGroup row>
-                      <Label
-                        className="col-md-3 col-form-label"
-                        htmlFor="text-input"
-                      >
-                        <strong>Created On: </strong>{" "}
-                      </Label>
-                      <Col xs="6" md="6" className="centered-checkbox">
-                        {new Date(user.registered_at).toLocaleString("en-US")}
-                      </Col>
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm="8">
-                    <FormGroup row>
-                      <Label
-                        className="col-md-3 col-form-label"
-                        htmlFor="text-input"
-                      >
-                        <strong>Updated On: </strong>{" "}
-                      </Label>
-                      <Col xs="6" md="6" className="centered-checkbox">
-                        {new Date(user.last_updated_at).toLocaleString("en-US")}
+                        {new Date(role.updated_at).toLocaleString("en-US")}
                       </Col>
                     </FormGroup>
                   </Col>
@@ -180,11 +135,11 @@ class View extends Component {
               <CardFooter>
                 <Button
                   tag={Link}
-                  to={`/access/user`}
+                  to={`/access/role`}
                   className="btn btn-outline-danger"
                 >
-                  {" "}
-                  <i className="fa fa-arrow-left" /> Go Back{" "}
+
+                  <i className="fa fa-arrow-left" /> Go Back
                 </Button>
               </CardFooter>
             </Card>
@@ -196,10 +151,10 @@ class View extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.users
+  ...state.roles
 });
 
-const withReducer = injectReducer({ key: "users", reducer });
+const withReducer = injectReducer({ key: "roles", reducer });
 
 const withConnect = connect(
   mapStateToProps,
