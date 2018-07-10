@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { compose } from "redux";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import {
   Badge,
   Button,
@@ -11,16 +11,15 @@ import {
   Col,
   FormGroup,
   Label,
-  Row
-} from "reactstrap";
-import { Link } from "react-router-dom";
+  Row,
+} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
-import injectReducer from "utils/injectReducer";
-import reducer from "./reducer";
-import { onViewPageLoad, onViewUnload } from "./actions";
+import injectReducer from 'utils/injectReducer';
+import reducer from './reducer';
+import { onViewPageLoad, onViewUnload } from './actions';
 
 class View extends Component {
-
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.onViewPageLoad(id);
@@ -35,7 +34,7 @@ class View extends Component {
     const { errors } = this.props;
 
     if (errors) {
-      this.props.history.push("/access/role");
+      this.props.history.push('/access/role');
       return null;
     }
 
@@ -43,7 +42,8 @@ class View extends Component {
       return null;
     }
 
-    const permissions = role.permissions.constructor == Array
+    const permissions =
+      role.permissions.constructor == Array
         ? role.permissions.join('<br/>')
         : role.permissions;
 
@@ -81,7 +81,9 @@ class View extends Component {
                         <strong>Associated Permissions </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        <div dangerouslySetInnerHTML={{__html: permissions}} />
+                        <div
+                          dangerouslySetInnerHTML={{ __html: permissions }}
+                        />
                       </Col>
                     </FormGroup>
                   </Col>
@@ -111,7 +113,7 @@ class View extends Component {
                         <strong>Created On: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        {new Date(role.created_at).toLocaleString("en-US")}
+                        {new Date(role.created_at).toLocaleString('en-US')}
                       </Col>
                     </FormGroup>
                   </Col>
@@ -126,7 +128,7 @@ class View extends Component {
                         <strong>Updated On: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        {new Date(role.updated_at).toLocaleString("en-US")}
+                        {new Date(role.updated_at).toLocaleString('en-US')}
                       </Col>
                     </FormGroup>
                   </Col>
@@ -138,7 +140,6 @@ class View extends Component {
                   to={`/access/role`}
                   className="btn btn-outline-danger"
                 >
-
                   <i className="fa fa-arrow-left" /> Go Back
                 </Button>
               </CardFooter>
@@ -151,10 +152,10 @@ class View extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.roles
+  ...state.roles,
 });
 
-const withReducer = injectReducer({ key: "roles", reducer });
+const withReducer = injectReducer({ key: 'roles', reducer });
 
 const withConnect = connect(
   mapStateToProps,

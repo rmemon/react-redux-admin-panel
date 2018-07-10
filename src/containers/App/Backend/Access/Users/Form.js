@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { compose } from "redux";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import {
   Button,
   Card,
@@ -13,38 +13,37 @@ import {
   InputGroupAddon,
   InputGroupText,
   Label,
-  Row
-} from "reactstrap";
+  Row,
+} from 'reactstrap';
 
-import ListErrors from "components/ListErrors";
-import { Field, reduxForm } from "redux-form";
-import { Link } from "react-router-dom";
-import injectReducer from "utils/injectReducer";
-import reducer from "./reducer";
-import { postUser, onFormLoad, onFormUnLoad } from "./actions";
+import ListErrors from 'components/ListErrors';
+import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
+import injectReducer from 'utils/injectReducer';
+import reducer from './reducer';
+import { postUser, onFormLoad, onFormUnLoad } from './actions';
 
 let data = {
   id: null,
-  first_name: "",
-  last_name: "",
-  email: "",
-  password: "",
-  password_confirmation: "",
+  first_name: '',
+  last_name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
   confirmed: true,
   status: true,
   confirmation_email: false,
-  assignees_roles: "3",
-  permissions: [1]
+  assignees_roles: '3',
+  permissions: [1],
 };
 
 const roleMap = {
-  Administrator: "1",
-  Executive: "2",
-  User: "3"
+  Administrator: '1',
+  Executive: '2',
+  User: '3',
 };
 
-class Form extends Component {  
-
+class Form extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.id !== nextProps.match.params.id) {
       if (nextProps.match.params.id) {
@@ -85,9 +84,9 @@ class Form extends Component {
     }
 
     if (this.props.match.params.id && errors) {
-      this.props.history.push("/access/user");
+      this.props.history.push('/access/user');
     }
-    
+
     return (
       <div className="animated fadeIn">
         <Row>
@@ -98,8 +97,8 @@ class Form extends Component {
             >
               <Card>
                 <CardHeader>
-                  <i className="fa fa fa-user-plus" />{" "}
-                  {isEditMode ? "Update" : "Create"} User
+                  <i className="fa fa fa-user-plus" />{' '}
+                  {isEditMode ? 'Update' : 'Create'} User
                 </CardHeader>
                 <CardBody>
                   <Row>
@@ -311,7 +310,7 @@ class Form extends Component {
                               check
                               htmlFor="inline-radio1"
                             >
-                              {" "}
+                              {' '}
                               Administrator
                             </Label>
                           </FormGroup>
@@ -329,7 +328,7 @@ class Form extends Component {
                               check
                               htmlFor="inline-radio2"
                             >
-                              {" "}
+                              {' '}
                               Executive
                             </Label>
                           </FormGroup>
@@ -347,7 +346,7 @@ class Form extends Component {
                               check
                               htmlFor="inline-radio3"
                             >
-                              {" "}
+                              {' '}
                               User
                             </Label>
                           </FormGroup>
@@ -365,14 +364,14 @@ class Form extends Component {
                     type="submit"
                   >
                     <i className="fa fa-save" /> Submit
-                  </Button>{" "}
+                  </Button>{' '}
                   <Button
                     tag={Link}
                     to={`/access/user`}
                     className="btn btn-outline-danger"
                   >
-                    {" "}
-                    <i className="fa fa-arrow-left" /> Go Back{" "}
+                    {' '}
+                    <i className="fa fa-arrow-left" /> Go Back{' '}
                   </Button>
                 </CardFooter>
               </Card>
@@ -385,15 +384,15 @@ class Form extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.users
+  ...state.users,
 });
 
 const withreduxForm = reduxForm({
-  form: "CreateUserForm",
-  initialValues: data
+  form: 'CreateUserForm',
+  initialValues: data,
 });
 
-const withReducer = injectReducer({ key: "users", reducer });
+const withReducer = injectReducer({ key: 'users', reducer });
 
 const withConnect = connect(
   mapStateToProps,

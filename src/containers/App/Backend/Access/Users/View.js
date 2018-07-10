@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { compose } from "redux";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import {
   Badge,
   Button,
@@ -11,13 +11,13 @@ import {
   Col,
   FormGroup,
   Label,
-  Row
-} from "reactstrap";
-import { Link } from "react-router-dom";
+  Row,
+} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
-import injectReducer from "utils/injectReducer";
-import reducer from "./reducer";
-import { onViewPageLoad, onViewUnload } from "./actions";
+import injectReducer from 'utils/injectReducer';
+import reducer from './reducer';
+import { onViewPageLoad, onViewUnload } from './actions';
 
 class View extends Component {
   componentDidMount() {
@@ -34,7 +34,7 @@ class View extends Component {
     const { errors } = this.props;
 
     if (errors) {
-      this.props.history.push("/access/user");
+      this.props.history.push('/access/user');
       return null;
     }
 
@@ -120,8 +120,8 @@ class View extends Component {
                         <strong>Status: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        <Badge color={user.status === 1 ? "success" : "danger"}>
-                          {user.status === 1 ? "Active" : "InActive"}
+                        <Badge color={user.status === 1 ? 'success' : 'danger'}>
+                          {user.status === 1 ? 'Active' : 'InActive'}
                         </Badge>
                       </Col>
                     </FormGroup>
@@ -138,9 +138,9 @@ class View extends Component {
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
                         <Badge
-                          color={user.confirmed === 1 ? "success" : "danger"}
+                          color={user.confirmed === 1 ? 'success' : 'danger'}
                         >
-                          {user.confirmed === 1 ? "Yes" : "No"}
+                          {user.confirmed === 1 ? 'Yes' : 'No'}
                         </Badge>
                       </Col>
                     </FormGroup>
@@ -156,7 +156,7 @@ class View extends Component {
                         <strong>Created On: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        {new Date(user.created_at).toLocaleString("en-US")}
+                        {new Date(user.created_at).toLocaleString('en-US')}
                       </Col>
                     </FormGroup>
                   </Col>
@@ -171,7 +171,7 @@ class View extends Component {
                         <strong>Updated On: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        {new Date(user.updated_at).toLocaleString("en-US")}
+                        {new Date(user.updated_at).toLocaleString('en-US')}
                       </Col>
                     </FormGroup>
                   </Col>
@@ -183,7 +183,6 @@ class View extends Component {
                   to={`/access/user`}
                   className="btn btn-outline-danger"
                 >
-
                   <i className="fa fa-arrow-left" /> Go Back
                 </Button>
               </CardFooter>
@@ -196,10 +195,10 @@ class View extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.users
+  ...state.users,
 });
 
-const withReducer = injectReducer({ key: "users", reducer });
+const withReducer = injectReducer({ key: 'users', reducer });
 
 const withConnect = connect(
   mapStateToProps,

@@ -16,17 +16,14 @@ export default function configureStore(initialState = {}) {
   /* eslint-disable no-underscore-dangle, indent */
   const composeEnhancers =
     process.env.NODE_ENV !== 'production' &&
-      typeof window === 'object' &&
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        shouldHotReload: false,
-      })
+          shouldHotReload: false,
+        })
       : compose;
 
-  const store = createStore(
-    createReducer(),
-    composeEnhancers(...enhancers),
-  );
+  const store = createStore(createReducer(), composeEnhancers(...enhancers));
 
   store.injectedReducers = {}; // Reducer registry
 
