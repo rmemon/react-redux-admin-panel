@@ -1,6 +1,7 @@
 import { ASYNC_END, ASYNC_START } from 'constants/actionTypes';
 import { BACKEND_LOGIN, BACKEND_LOGOUT, BACKEND_REGISTER } from './containers/App/Backend/Auth/constants';
 import { setToken } from 'utils/requests';
+import { serverDownError } from 'utils'
 
 const promiseMiddleware = store => next => action => {
     if (isPromise(action.payload)) {
@@ -25,7 +26,14 @@ const promiseMiddleware = store => next => action => {
                     return
                 }
                 action.error = true;
-                action.payload = error.response.body;
+                if(error.status === undefined)
+                {
+                    action.payload = serverDownError;
+                }
+                else
+                {
+                    action.payload = error.response.body;
+                }
                 if (action.payload.error && action.payload.error.status_code === 401) {
                     store.dispatch({ type: BACKEND_LOGOUT });
                 }
