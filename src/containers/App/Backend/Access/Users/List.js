@@ -61,7 +61,8 @@ class List extends Component {
     });
   }
 
-  onClickDelete(userId) {
+  onClickDelete(userId)
+  {
     MySwal.fire({
       type: 'question',
       title: title,
