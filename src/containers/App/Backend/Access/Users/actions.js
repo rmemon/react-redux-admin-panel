@@ -6,8 +6,8 @@ import {
   USER_VIEW_PAGE_UNLOADED,
   USER_CREATE,
   USER_UPDATE,
-  USER_EDITOR_PAGE_LOADED,
-  USER_EDITOR_PAGE_UNLOADED,
+  USER_FORM_PAGE_LOADED,
+  USER_FORM_PAGE_UNLOADED,
   USER_DELETE
 } from "./constants";
 import agent from "./agent";
@@ -59,10 +59,14 @@ export const postUser = values => {
   }
 };
 
-export const onEditorLoad = id => {
-  return { type: USER_EDITOR_PAGE_LOADED, payload: agent.get(id) };
+export const onFormLoad = id => {
+  let payload =null;
+  if(id) {
+    payload = agent.get(id);
+  }
+  return { type: USER_FORM_PAGE_LOADED, payload };
 };
 
-export const onEditorUnLoad = id => {
-  return { type: USER_EDITOR_PAGE_UNLOADED };
+export const onFormUnLoad = id => {
+  return { type: USER_FORM_PAGE_UNLOADED };
 };

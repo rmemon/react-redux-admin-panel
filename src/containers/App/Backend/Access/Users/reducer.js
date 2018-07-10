@@ -1,12 +1,12 @@
 import {
   USER_CREATE,
   USER_DELETE,
-  USER_EDITOR_PAGE_LOADED,
+  USER_FORM_PAGE_LOADED,
   USER_LIST_PAGE_LOADED,
   USER_UPDATE,
   USER_VIEW_PAGE_LOADED,
   USER_LIST_PAGE_REQUESTED,
-  USER_EDITOR_PAGE_UNLOADED,
+  USER_FORM_PAGE_UNLOADED,
   USER_LIST_PAGE_UNLOADED,
   USER_VIEW_PAGE_UNLOADED
 } from "./constants";
@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
         errors: action.error ? action.payload.error : null,
         redirectTo: action.error ? null : "/access/user"
       };
-    case USER_EDITOR_PAGE_LOADED:
+    case USER_FORM_PAGE_LOADED:
       return {
         ...state,
         user: action.payload ? action.payload.data : "",
@@ -56,7 +56,7 @@ export default (state = initialState, action) => {
         users: state.users.filter(user => user.id !== action.payload.data)
       };
 
-    case USER_EDITOR_PAGE_UNLOADED:
+    case USER_FORM_PAGE_UNLOADED:
     case USER_LIST_PAGE_UNLOADED:
     case USER_VIEW_PAGE_UNLOADED:
       return {};

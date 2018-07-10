@@ -21,7 +21,7 @@ import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 import injectReducer from "utils/injectReducer";
 import reducer from "./reducer";
-import { postUser, onEditorLoad, onEditorUnLoad } from "./actions";
+import { postUser, onFormLoad, onFormUnLoad } from "./actions";
 
 let data = {
   id: null,
@@ -43,27 +43,27 @@ const roleMap = {
   User: "3"
 };
 
-class Editor extends Component {  
+class Form extends Component {  
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.id !== nextProps.match.params.id) {
       if (nextProps.match.params.id) {
-        this.props.onEditorUnLoad();
-        return this.props.onEditorLoad(this.props.match.params.id);
+        this.props.onFormUnLoad();
+        return this.props.onFormLoad(this.props.match.params.id);
       }
-      this.props.onEditorLoad(null);
+      this.props.onFormLoad(null);
     }
   }
 
   componentDidMount() {
     if (this.props.match.params.id) {
-      return this.props.onEditorLoad(this.props.match.params.id);
+      return this.props.onFormLoad(this.props.match.params.id);
     }
-    this.props.onEditorLoad(null);
+    this.props.onFormLoad(null);
   }
 
   componentWillUnmount() {
-    this.props.onEditorUnLoad();
+    this.props.onFormUnLoad();
   }
 
   render() {
@@ -72,8 +72,6 @@ class Editor extends Component {
     const { user } = this.props;
     const isEditMode = user ? true : false;
     const { errors } = this.props;
-
-    console.log(user);
 
     if (user) {
       data.first_name = user.first_name;
@@ -85,9 +83,11 @@ class Editor extends Component {
       data.confirmation_email = user.confirmation_email;
       data.assignees_roles = roleMap[user.role];
     }
+
     if (this.props.match.params.id && errors) {
       this.props.history.push("/access/user");
     }
+    
     return (
       <div className="animated fadeIn">
         <Row>
@@ -397,11 +397,11 @@ const withReducer = injectReducer({ key: "users", reducer });
 
 const withConnect = connect(
   mapStateToProps,
-  { postUser, onEditorLoad, onEditorUnLoad }
+  { postUser, onFormLoad, onFormUnLoad }
 );
 
 export default compose(
   withReducer,
   withreduxForm,
   withConnect
-)(Editor);
+)(Form);
