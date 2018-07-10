@@ -86,8 +86,8 @@ class List extends Component {
 
     const props = {
       page: this.state.page || 0,
-      orderBy: "",
-      sortBy: ""
+      orderBy: '',
+      sortBy: ''
     };
 
     if (this.state.sorted.length > 0) {
@@ -103,8 +103,6 @@ class List extends Component {
     if (!roles) {
       return null;
     }
-
-    console.log(roles);
 
     const noRecords = roles ? (roles.length == 0 ? true : false) : false;
     return (
@@ -223,6 +221,13 @@ class List extends Component {
                     {
                       Header: "Permissions",
                       accessor: "permissions",
+                      Cell: row => {
+                        const permissions =
+                        row.value.constructor == Array
+                          ? row.value.join("<br/>")
+                          : row.value;
+                          return <div dangerouslySetInnerHTML={{__html: permissions}} />;
+                      },
                       sortable: false
                     },
                     {
