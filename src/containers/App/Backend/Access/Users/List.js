@@ -51,14 +51,14 @@ class List extends Component {
     this.fetchData = this.fetchData.bind(this);
   }
 
+  componentWillUnmount() {
+    this.props.onUnloadAction();
+  }
+
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     });
-  }
-
-  componentWillUnmount() {
-    this.props.onUnloadAction();
   }
 
   onClickDelete(userId) {

@@ -43,12 +43,45 @@ class List extends Component {
       page: 0
     };
 
-    this.loadData();
+    this.loadRoleData();
 
     this.toggle = this.toggle.bind(this);
+    this.fetchData = this.fetchData.bind(this);
   }
 
-  loadData() {
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
+  // onClickDelete(userId) {
+  //   MySwal.fire({
+  //     type: "question",
+  //     title: title,
+  //     text: content,
+  //     // confirmButtonText: 'Yes',
+  //     cancelButtonText: "Cancel",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#4dbd74",
+  //     cancelButtonColor: "#f64846",
+  //     focusConfirm: true
+  //   }).then(result => {
+  //     if (result.value) {
+  //       this.props.onClickDeleteAction(userId);
+  //     }
+  //   });
+  // }
+
+  fetchData(state) {
+    this.setState({ page: state }, this.loadRoleData);
+  }
+
+  sortedChange(sorted) {
+    this.setState({ sorted: sorted, page: 0 }, this.loadRoleData);
+  }
+
+  loadRoleData() {
     this.props.onLoadRequestAction();
 
     const props = {
@@ -65,19 +98,15 @@ class List extends Component {
     this.props.onLoadAction(props);
   }
 
-  toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
-  }
-
   render() {
-    const { roles } = this.props;
+    const { roles, inProgress, meta } = this.props;
     if (!roles) {
       return null;
     }
 
-    const noRecords = roles.length == 0 ? true : false;
+    console.log(roles);
+
+    const noRecords = roles ? (roles.length == 0 ? true : false) : false;
     return (
       <div className="animated fadeIn">
         <Row>
@@ -134,7 +163,7 @@ class List extends Component {
                     </ButtonGroup>
                   </Col>
                 </Row>
-                <Table responsive striped>
+                {/* <Table responsive striped>
                   <thead>
                     <tr>
                       <th>Role</th>
@@ -180,7 +209,102 @@ class List extends Component {
                       </tr>
                     )}
                   </tbody>
-                </Table>
+                </Table> */}
+                <ReactTable
+                  data={roles}
+                  noDataText="No Data to Display"
+                  minRows={0}
+                  columns={[
+                    {
+                      Header: "Role",
+                      accessor: "name",
+                      className: "text-left"
+                    },
+                    {
+                      Header: "Permissions",
+                      accessor: "permissions",
+                      sortable: false
+                    },
+                    {
+                      Header: "Number of Users",
+                      accessor: "number_of_users",
+                      className: "text-center",
+                      sortable: false
+                    },
+                    {
+                      Header: "Sort",
+                      accessor: "sort"
+                    },
+                    {
+                      Header: "Status",
+                      accessor: "status",
+                      Cell: row => (
+                        <Badge color={row.value === 1 ? "success" : "danger"}>
+                          {row.value === 1 ? "Active" : "InActive"}
+                        </Badge>
+                      )
+                    },
+                    {
+                      Header: "Created On",
+                      accessor: "created_at",
+                      Cell: row => (
+                        <span>
+                          {new Date(row.value).toLocaleString("en-US")}
+                        </span>
+                      )
+                    },
+                    {
+                      Header: "Actions",
+                      accessor: "id",
+                      Cell: row => (
+                        <span>
+                          <Button
+                            block={false}
+                            tag={Link}
+                            to={`/access/role/view/${row.value}`}
+                            outline
+                            color="primary"
+                            size="sm"
+                          >
+                            <i className="fa fa-eye" />
+                          </Button>
+                          &nbsp;
+                          <Button
+                            tag={Link}
+                            to={`/access/role/update/${row.value}`}
+                            block={false}
+                            outline
+                            color="success"
+                            size="sm"
+                          >
+                            <i className="fa fa-edit" />
+                          </Button>
+                          &nbsp;
+                          <Button
+                            onClick={() => this.onClickDelete(row.value)}
+                            block={false}
+                            outline
+                            color="danger"
+                            size="sm"
+                          >
+                            <i className="fa fa-trash" />
+                          </Button>
+                        </span>
+                      ),
+                      sortable: false
+                    }
+                  ]}
+                  defaultPageSize={25}
+                  showPageSizeOptions={false}
+                  pages={meta.last_page}
+                  manual
+                  loading={inProgress}
+                  className="-striped -highlight"
+                  onPageChange={this.fetchData}
+                  sorted={this.state.sorted}
+                  onSortedChange={sort => this.sortedChange(sort)}
+                  multiSort={false}
+                />
               </CardBody>
             </Card>
           </Col>
