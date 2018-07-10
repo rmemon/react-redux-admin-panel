@@ -25,13 +25,7 @@ import reducer from './reducer';
 const mapStateToProps = state => ({...state.auth});
 
 class Login extends React.Component {
-    // constructor(props) {
-    //   super(props);
-    //   // this.onSubmit = (values) => {
-    //   //   this.props.onSubmit(values);
-    //   // };
-    // }
-
+        
     componentWillUnmount() {
         this.props.onLoginUnload();
     }

@@ -7,7 +7,8 @@ import { AdminPrivateRoute } from "./Backend/adminPrivateRoute";
 import Register from "./Backend/Auth/Register";
 import Login from "./Backend/Auth/Login";
 import AdminLayout from './Backend';
-import ClientLayout from './Frontend';
+
+// import ClientLayout from './Frontend';
 
 import { APP_LOAD, REDIRECT } from 'constants/actionTypes';
 // Styles

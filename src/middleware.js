@@ -26,7 +26,7 @@ const promiseMiddleware = store => next => action => {
                 }
                 action.error = true;
                 action.payload = error.response.body;
-                if (action.payload.error && action.payload.error.status_code == '401') {
+                if (action.payload.error && action.payload.error.status_code === '401') {
                     store.dispatch({ type: BACKEND_LOGOUT });
                 }
                 if (!action.skipTracking) {

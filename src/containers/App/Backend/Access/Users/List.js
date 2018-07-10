@@ -123,9 +123,7 @@ class List extends Component {
 
         if (!users) {
             return null;
-        }
-
-        const noRecords = users ? users.length == 0 ? true : false: false;
+        }        
         return (
             <div className="animated fadeIn">
                 <Row>

@@ -44,9 +44,6 @@ const roleMap = {
 }
 
 class Editor extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.match.params.id !== nextProps.match.params.id) {
@@ -261,21 +258,6 @@ class Editor extends Component {
 const mapStateToProps = state => ({
     ...state.users,
 });
-
-// const mapDispatchToProps = dispatch => ({
-//     onSubmit: (values) => {
-//         if (values.id) {
-//             dispatch({type: USER_UPDATE, payload: userAgent.update(values)})
-//         }
-//         else {
-//             dispatch({type: USER_CREATE, payload: userAgent.create(values)})
-//         }
-//     },
-//     onLoad: payload =>
-//         dispatch({type: USER_EDITOR_PAGE_LOADED, payload}),
-//     onUnload: () =>
-//         dispatch({type: USER_EDITOR_PAGE_UNLOADED})
-// });
 
 const withreduxForm = reduxForm({
     form: "CreateUserForm",

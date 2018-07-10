@@ -31,7 +31,7 @@ import adminRoutes from './adminRoutes';
 import AdmintAside from './Aside';
 import AdminFooter from './Footer';
 import AdminHeader from './Header';
-import { BACKEND_REDIRECT, BACKEND_APP_LOAD } from '../constant';
+import { BACKEND_REDIRECT } from '../constant';
 
 class AdminLayout extends Component {
     // constructor(props) {
