@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
+import userAgent from './agent';
+import {
+  ROLE_CREATE,
+  ROLE_FORM_PAGE_LOADED,
+  ROLE_FORM_PAGE_UNLOADED,
+  ROLE_UPDATE,
+} from './constants';
+
 import {
   Button,
   Card,
@@ -15,13 +22,10 @@ import {
   Label,
   Row,
 } from 'reactstrap';
-
 import ListErrors from 'components/ListErrors';
+
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
-import injectReducer from 'utils/injectReducer';
-import reducer from './reducer';
-import { postUser, onFormLoad, onFormUnLoad } from './actions';
 
 let data = {
   id: null,
@@ -44,25 +48,27 @@ const roleMap = {
 };
 
 class Form extends Component {
+  constructor(props) {
+    super(props);
+
+    if (this.props.match.params.id) {
+      return this.props.onLoad(userAgent.get(this.props.match.params.id));
+    }
+    this.props.onLoad(null);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.id !== nextProps.match.params.id) {
       if (nextProps.match.params.id) {
-        this.props.onFormUnLoad();
-        return this.props.onFormLoad(this.props.match.params.id);
+        this.props.onUnload();
+        return this.props.onLoad(userAgent.get(this.props.match.params.id));
       }
-      this.props.onFormLoad(null);
+      this.props.onLoad(null);
     }
-  }
-
-  componentDidMount() {
-    if (this.props.match.params.id) {
-      return this.props.onFormLoad(this.props.match.params.id);
-    }
-    this.props.onFormLoad(null);
   }
 
   componentWillUnmount() {
-    this.props.onFormUnLoad();
+    this.props.onUnload();
   }
 
   render() {
@@ -71,7 +77,6 @@ class Form extends Component {
     const { user } = this.props;
     const isEditMode = user ? true : false;
     const { errors } = this.props;
-
     if (user) {
       data.first_name = user.first_name;
       data.id = user.id;
@@ -82,17 +87,15 @@ class Form extends Component {
       data.confirmation_email = user.confirmation_email;
       data.assignees_roles = roleMap[user.role];
     }
-
     if (this.props.match.params.id && errors) {
       this.props.history.push('/access/user');
     }
-
     return (
       <div className="animated fadeIn">
         <Row>
           <Col xs="12">
             <form
-              onSubmit={handleSubmit(this.props.postUser.bind(this))}
+              onSubmit={handleSubmit(this.props.onSubmit.bind(this))}
               className="form-horizontal"
             >
               <Card>
@@ -384,23 +387,28 @@ class Form extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.users,
+  ...state.roles,
 });
 
-const withreduxForm = reduxForm({
+const mapDispatchToProps = dispatch => ({
+  /*onSubmit: (values) => {
+        if (values.id) {
+            dispatch({type: ROLE_UPDATE, payload: userAgent.update(values)})
+        }
+        else {
+            dispatch({type: ROLE_CREATE, payload: userAgent.create(values)})
+        }
+    },*/
+  onLoad: payload => dispatch({ type: ROLE_FORM_PAGE_LOADED, payload }),
+  onUnload: () => dispatch({ type: ROLE_FORM_PAGE_UNLOADED }),
+});
+
+export default reduxForm({
   form: 'CreateUserForm',
   initialValues: data,
-});
-
-const withReducer = injectReducer({ key: 'users', reducer });
-
-const withConnect = connect(
-  mapStateToProps,
-  { postUser, onFormLoad, onFormUnLoad }
+})(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Form)
 );
-
-export default compose(
-  withReducer,
-  withreduxForm,
-  withConnect
-)(Form);

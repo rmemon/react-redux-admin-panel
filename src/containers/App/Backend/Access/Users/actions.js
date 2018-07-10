@@ -8,46 +8,46 @@ import {
   USER_UPDATE,
   USER_FORM_PAGE_LOADED,
   USER_FORM_PAGE_UNLOADED,
-  USER_DELETE
-} from "./constants";
-import agent from "./agent";
+  USER_DELETE,
+} from './constants';
+import agent from './agent';
 
 export const onLoadRequestAction = () => {
   return {
-    type: USER_LIST_PAGE_REQUESTED
+    type: USER_LIST_PAGE_REQUESTED,
   };
 };
 
 export const onLoadAction = props => {
   return {
     type: USER_LIST_PAGE_LOADED,
-    payload: agent.list(props)
+    payload: agent.list(props),
   };
 };
 
 export const onClickDeleteAction = id => {
   return {
     type: USER_DELETE,
-    payload: agent.del(id)
+    payload: agent.del(id),
   };
 };
 
 export const onUnloadAction = () => {
   return {
-    type: USER_LIST_PAGE_UNLOADED
+    type: USER_LIST_PAGE_UNLOADED,
   };
 };
 
 export const onViewPageLoad = id => {
   return {
     type: USER_VIEW_PAGE_LOADED,
-    payload: agent.get(id)
+    payload: agent.get(id),
   };
 };
 
 export const onViewUnload = () => {
   return {
-    type: USER_VIEW_PAGE_UNLOADED
+    type: USER_VIEW_PAGE_UNLOADED,
   };
 };
 
@@ -60,8 +60,8 @@ export const postUser = values => {
 };
 
 export const onFormLoad = id => {
-  let payload =null;
-  if(id) {
+  let payload = null;
+  if (id) {
     payload = agent.get(id);
   }
   return { type: USER_FORM_PAGE_LOADED, payload };

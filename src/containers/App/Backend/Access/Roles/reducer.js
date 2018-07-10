@@ -4,12 +4,12 @@ import {
   ROLE_LIST_PAGE_REQUESTED,
   ROLE_VIEW_PAGE_UNLOADED,
   ROLE_VIEW_PAGE_LOADED,
-  ROLE_EDITOR_PAGE_UNLOADED,
-  ROLE_EDITOR_PAGE_LOADED,
+  ROLE_FORM_PAGE_UNLOADED,
+  ROLE_FORM_PAGE_LOADED,
   ROLE_CREATE,
   ROLE_UPDATE,
-  ROLE_DELETE
-} from "./constants";
+  ROLE_DELETE,
+} from './constants';
 
 const initialState = { roles: [], meta: { last_page: 1 } };
 
@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
     case ROLE_LIST_PAGE_REQUESTED:
       return {
         ...state,
-        inProgress: true
+        inProgress: true,
       };
     case ROLE_LIST_PAGE_LOADED:
       return {
@@ -27,14 +27,14 @@ export default (state = initialState, action) => {
         meta: action.payload.meta,
         link: action.payload.link,
         inProgress: false,
-        errors: action.error ? action.payload.error : null
+        errors: action.error ? action.payload.error : null,
       };
     case ROLE_VIEW_PAGE_LOADED:
       return {
         ...state,
         role: action.payload.data,
         inProgress: false,
-        errors: action.error ? action.payload.error : null
+        errors: action.error ? action.payload.error : null,
       };
     case ROLE_CREATE:
     case ROLE_UPDATE:
@@ -42,21 +42,21 @@ export default (state = initialState, action) => {
         ...state,
         inProgress: false,
         errors: action.error ? action.payload.error : null,
-        redirectTo: action.error ? null : "/access/role"
+        redirectTo: action.error ? null : '/access/role',
       };
-    case ROLE_EDITOR_PAGE_LOADED:
+    case ROLE_FORM_PAGE_LOADED:
       return {
         ...state,
-        role: action.payload ? action.payload.data : "",
-        errors: action.error ? action.payload.error : null
+        role: action.payload ? action.payload.data : '',
+        errors: action.error ? action.payload.error : null,
       };
     case ROLE_DELETE:
       return {
         ...state,
-        roles: state.roles.filter(role => role.id !== action.payload.data)
+        roles: state.roles.filter(role => role.id !== action.payload.data),
       };
 
-    case ROLE_EDITOR_PAGE_UNLOADED:
+    case ROLE_FORM_PAGE_UNLOADED:
     case ROLE_LIST_PAGE_UNLOADED:
     case ROLE_VIEW_PAGE_UNLOADED:
       return {};

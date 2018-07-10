@@ -6,49 +6,49 @@ import {
   ROLE_VIEW_PAGE_UNLOADED,
   ROLE_CREATE,
   ROLE_UPDATE,
-  ROLE_EDITOR_PAGE_LOADED,
-  ROLE_EDITOR_PAGE_UNLOADED,
-  ROLE_DELETE
-} from "./constants";
+  ROLE_FORM_PAGE_LOADED,
+  ROLE_FORM_PAGE_UNLOADED,
+  ROLE_DELETE,
+} from './constants';
 
-import agent from "./agent";
+import agent from './agent';
 
 export const onLoadRequestAction = () => {
   return {
-    type: ROLE_LIST_PAGE_REQUESTED
+    type: ROLE_LIST_PAGE_REQUESTED,
   };
 };
 
 export const onLoadAction = props => {
   return {
     type: ROLE_LIST_PAGE_LOADED,
-    payload: agent.list(props)
+    payload: agent.list(props),
   };
 };
 
 export const onClickDeleteAction = id => {
   return {
     type: ROLE_DELETE,
-    payload: agent.del(id)
+    payload: agent.del(id),
   };
 };
 
 export const onUnloadAction = () => {
   return {
-    type: ROLE_LIST_PAGE_UNLOADED
+    type: ROLE_LIST_PAGE_UNLOADED,
   };
 };
 
 export const onViewPageLoad = id => {
   return {
     type: ROLE_VIEW_PAGE_LOADED,
-    payload: agent.get(id)
+    payload: agent.get(id),
   };
 };
 
 export const onViewUnload = () => {
   return {
-    type: ROLE_VIEW_PAGE_UNLOADED
+    type: ROLE_VIEW_PAGE_UNLOADED,
   };
 };
 
@@ -60,10 +60,10 @@ export const postUser = values => {
   }
 };
 
-export const onEditorLoad = id => {
-  return { type: ROLE_EDITOR_PAGE_LOADED, payload: agent.get(id) };
+export const onFormLoad = id => {
+  return { type: ROLE_FORM_PAGE_LOADED, payload: agent.get(id) };
 };
 
-export const onEditorUnLoad = id => {
-  return { type: ROLE_EDITOR_PAGE_UNLOADED };
+export const onFormUnLoad = id => {
+  return { type: ROLE_FORM_PAGE_UNLOADED };
 };

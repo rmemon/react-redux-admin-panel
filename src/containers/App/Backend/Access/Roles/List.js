@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { Link } from "react-router-dom";
-import ReactTable from "react-table";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { Link } from 'react-router-dom';
+import ReactTable from 'react-table';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import {
   Badge,
@@ -19,19 +19,19 @@ import {
   DropdownMenu,
   DropdownToggle,
   Row,
-  Table
-} from "reactstrap";
+  Table,
+} from 'reactstrap';
 
 import {
   onUnloadAction,
   onClickDeleteAction,
   onLoadAction,
-  onLoadRequestAction
-} from "./actions";
+  onLoadRequestAction,
+} from './actions';
 
-import reducer from "./reducer";
-import injectReducer from "utils/injectReducer";
-import roleAgent from "./agent";
+import reducer from './reducer';
+import injectReducer from 'utils/injectReducer';
+import roleAgent from './agent';
 
 class List extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class List extends Component {
     this.state = {
       dropdownOpen: false,
       sorted: [],
-      page: 0
+      page: 0,
     };
 
     this.loadRoleData();
@@ -51,7 +51,7 @@ class List extends Component {
 
   toggle() {
     this.setState({
-      dropdownOpen: !this.state.dropdownOpen
+      dropdownOpen: !this.state.dropdownOpen,
     });
   }
 
@@ -86,13 +86,13 @@ class List extends Component {
 
     const props = {
       page: this.state.page || 0,
-      orderBy: "",
-      sortBy: ""
+      orderBy: '',
+      sortBy: '',
     };
 
     if (this.state.sorted.length > 0) {
       props.sortBy = this.state.sorted[0].id;
-      props.orderBy = this.state.sorted[0].desc ? "DESC" : "ASC";
+      props.orderBy = this.state.sorted[0].desc ? 'DESC' : 'ASC';
     }
 
     this.props.onLoadAction(props);
@@ -103,8 +103,6 @@ class List extends Component {
     if (!roles) {
       return null;
     }
-
-    console.log(roles);
 
     const noRecords = roles ? (roles.length == 0 ? true : false) : false;
     return (
@@ -163,99 +161,63 @@ class List extends Component {
                     </ButtonGroup>
                   </Col>
                 </Row>
-                {/* <Table responsive striped>
-                  <thead>
-                    <tr>
-                      <th>Role</th>
-                      <th>Permissions</th>
-                      <th>Number of Users</th>
-                      <th>Sort</th>
-                      <th>Status</th>
-                      <th>Created On</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {roles.map(role => {
-                      const permissions =
-                        role.permissions.constructor == Array
-                          ? role.permissions.join("<br/>")
-                          : role.permissions;
-                      return (
-                        <tr key={role.id}>
-                          <td>{role.name}</td>
-                          <td
-                            dangerouslySetInnerHTML={{ __html: permissions }}
-                          />
-                          <td>{role.number_of_users}</td>
-                          <td>{role.sort}</td>
-                          <td>
-                            <Badge
-                              color={role.status === 1 ? "success" : "danger"}
-                            >
-                              {role.status === 1 ? "Active" : "InActive"}
-                            </Badge>
-                          </td>
-                          <td>
-                            {new Date(role.registered_at).toLocaleString(
-                              "en-US"
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                    {noRecords && (
-                      <tr>
-                        <td colSpan="7">No Data to Display</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </Table> */}
                 <ReactTable
                   data={roles}
                   noDataText="No Data to Display"
                   minRows={0}
                   columns={[
                     {
-                      Header: "Role",
-                      accessor: "name",
-                      className: "text-left"
+                      Header: 'Role',
+                      accessor: 'name',
+                      className: 'text-left',
                     },
                     {
-                      Header: "Permissions",
-                      accessor: "permissions",
-                      sortable: false
+                      Header: 'Permissions',
+                      accessor: 'permissions',
+                      Cell: row => {
+                        const permissions =
+                          row.value.constructor == Array
+                            ? row.value.join('<br/>')
+                            : row.value;
+                        return (
+                          <div
+                            dangerouslySetInnerHTML={{ __html: permissions }}
+                          />
+                        );
+                      },
+                      sortable: false,
                     },
                     {
-                      Header: "Number of Users",
-                      accessor: "number_of_users",
-                      className: "text-center",
-                      sortable: false
+                      Header: 'Number of Users',
+                      accessor: 'number_of_users',
+                      className: 'text-center',
+                      sortable: false,
                     },
                     {
-                      Header: "Sort",
-                      accessor: "sort"
+                      Header: 'Sort',
+                      accessor: 'sort',
                     },
                     {
-                      Header: "Status",
-                      accessor: "status",
+                      Header: 'Status',
+                      accessor: 'status',
                       Cell: row => (
-                        <Badge color={row.value === 1 ? "success" : "danger"}>
-                          {row.value === 1 ? "Active" : "InActive"}
+                        <Badge color={row.value === 1 ? 'success' : 'danger'}>
+                          {row.value === 1 ? 'Active' : 'InActive'}
                         </Badge>
-                      )
+                      ),
                     },
                     {
-                      Header: "Created On",
-                      accessor: "created_at",
+                      Header: 'Created On',
+                      accessor: 'created_at',
                       Cell: row => (
                         <span>
-                          {new Date(row.value).toLocaleString("en-US")}
+                          {new Date(row.value).toLocaleString('en-US')}
                         </span>
-                      )
+                      ),
                     },
                     {
-                      Header: "Actions",
-                      accessor: "id",
+                      Header: 'Actions',
+                      accessor: 'id',
                       Cell: row => (
                         <span>
                           <Button
@@ -291,8 +253,8 @@ class List extends Component {
                           </Button>
                         </span>
                       ),
-                      sortable: false
-                    }
+                      sortable: false,
+                    },
                   ]}
                   defaultPageSize={25}
                   showPageSizeOptions={false}
@@ -315,10 +277,10 @@ class List extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.users
+  ...state.users,
 });
 
-const withReducer = injectReducer({ key: "users", reducer });
+const withReducer = injectReducer({ key: 'users', reducer });
 
 const withConnect = connect(
   mapStateToProps,
@@ -326,7 +288,7 @@ const withConnect = connect(
     onUnloadAction,
     onClickDeleteAction,
     onLoadAction,
-    onLoadRequestAction
+    onLoadRequestAction,
   }
 );
 

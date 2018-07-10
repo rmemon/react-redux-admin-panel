@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { Link } from "react-router-dom";
-import ReactTable from "react-table";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { Link } from 'react-router-dom';
+import ReactTable from 'react-table';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import {
   Badge,
@@ -18,23 +18,23 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  Row
-} from "reactstrap";
+  Row,
+} from 'reactstrap';
 
 import {
   onUnloadAction,
   onClickDeleteAction,
   onLoadAction,
-  onLoadRequestAction
-} from "./actions";
+  onLoadRequestAction,
+} from './actions';
 
-import reducer from "./reducer";
-import injectReducer from "utils/injectReducer";
+import reducer from './reducer';
+import injectReducer from 'utils/injectReducer';
 
 const MySwal = withReactContent(Swal);
 
-const title = "Want To Delete ?";
-const content = "This User will be deleted permanently and cannot be undone";
+const title = 'Want To Delete ?';
+const content = 'This User will be deleted permanently and cannot be undone';
 
 class List extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class List extends Component {
     this.state = {
       dropdownOpen: false,
       sorted: [],
-      page: 0
+      page: 0,
     };
     this.loadUserData();
 
@@ -57,21 +57,21 @@ class List extends Component {
 
   toggle() {
     this.setState({
-      dropdownOpen: !this.state.dropdownOpen
+      dropdownOpen: !this.state.dropdownOpen,
     });
   }
 
   onClickDelete(userId) {
     MySwal.fire({
-      type: "question",
+      type: 'question',
       title: title,
       text: content,
       // confirmButtonText: 'Yes',
-      cancelButtonText: "Cancel",
+      cancelButtonText: 'Cancel',
       showCancelButton: true,
-      confirmButtonColor: "#4dbd74",
-      cancelButtonColor: "#f64846",
-      focusConfirm: true
+      confirmButtonColor: '#4dbd74',
+      cancelButtonColor: '#f64846',
+      focusConfirm: true,
     }).then(result => {
       if (result.value) {
         this.props.onClickDeleteAction(userId);
@@ -92,13 +92,13 @@ class List extends Component {
 
     const props = {
       page: this.state.page || 0,
-      orderBy: "",
-      sortBy: ""
+      orderBy: '',
+      sortBy: '',
     };
 
     if (this.state.sorted.length > 0) {
       props.sortBy = this.state.sorted[0].id;
-      props.orderBy = this.state.sorted[0].desc ? "DESC" : "ASC";
+      props.orderBy = this.state.sorted[0].desc ? 'DESC' : 'ASC';
     }
 
     this.props.onLoadAction(props);
@@ -110,7 +110,7 @@ class List extends Component {
     if (!users) {
       return null;
     }
-    
+
     return (
       <div className="animated fadeIn">
         <Row>
@@ -176,44 +176,44 @@ class List extends Component {
                   minRows={0}
                   columns={[
                     {
-                      Header: "First Name",
-                      accessor: "first_name",
-                      className: "text-left"
+                      Header: 'First Name',
+                      accessor: 'first_name',
+                      className: 'text-left',
                     },
                     {
-                      Header: "Last Name",
-                      accessor: "last_name"
+                      Header: 'Last Name',
+                      accessor: 'last_name',
                     },
                     {
-                      Header: "Email",
-                      accessor: "email"
+                      Header: 'Email',
+                      accessor: 'email',
                     },
                     {
-                      Header: "Role",
-                      accessor: "role",
-                      sortable: false
+                      Header: 'Role',
+                      accessor: 'role',
+                      sortable: false,
                     },
                     {
-                      Header: "Status",
-                      accessor: "status",
+                      Header: 'Status',
+                      accessor: 'status',
                       Cell: row => (
-                        <Badge color={row.value === 1 ? "success" : "danger"}>
-                          {row.value === 1 ? "Active" : "InActive"}
+                        <Badge color={row.value === 1 ? 'success' : 'danger'}>
+                          {row.value === 1 ? 'Active' : 'InActive'}
                         </Badge>
-                      )
+                      ),
                     },
                     {
-                      Header: "Created On",
-                      accessor: "created_at",
+                      Header: 'Created On',
+                      accessor: 'created_at',
                       Cell: row => (
                         <span>
-                          {new Date(row.value).toLocaleString("en-US")}
+                          {new Date(row.value).toLocaleString('en-US')}
                         </span>
-                      )
+                      ),
                     },
                     {
-                      Header: "Actions",
-                      accessor: "id",
+                      Header: 'Actions',
+                      accessor: 'id',
                       Cell: row => (
                         <span>
                           <Button
@@ -249,8 +249,8 @@ class List extends Component {
                           </Button>
                         </span>
                       ),
-                      sortable: false
-                    }
+                      sortable: false,
+                    },
                   ]}
                   defaultPageSize={25}
                   showPageSizeOptions={false}
@@ -273,10 +273,10 @@ class List extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.users
+  ...state.users,
 });
 
-const withReducer = injectReducer({ key: "users", reducer });
+const withReducer = injectReducer({ key: 'users', reducer });
 
 const withConnect = connect(
   mapStateToProps,
@@ -284,7 +284,7 @@ const withConnect = connect(
     onUnloadAction,
     onClickDeleteAction,
     onLoadAction,
-    onLoadRequestAction
+    onLoadRequestAction,
   }
 );
 

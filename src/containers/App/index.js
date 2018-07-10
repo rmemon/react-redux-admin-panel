@@ -1,11 +1,11 @@
-import React from "react";
-import { Route, Switch, Redirect, withRouter } from "react-router-dom";
+import React from 'react';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { AdminPrivateRoute } from "./Backend/adminPrivateRoute";
-import Register from "./Backend/Auth/Register";
-import Login from "./Backend/Auth/Login";
+import { AdminPrivateRoute } from './Backend/adminPrivateRoute';
+import Register from './Backend/Auth/Register';
+import Login from './Backend/Auth/Login';
 import AdminLayout from './Backend';
 
 // import ClientLayout from './Frontend';
@@ -23,9 +23,9 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
 import 'scss/style.css';
-import "react-table/react-table.css";
+import 'react-table/react-table.css';
 import { setToken } from 'utils/requests';
-import authAgent from './Backend/Auth/agent'
+import authAgent from './Backend/Auth/agent';
 
 class App extends React.Component {
   constructor(props) {
@@ -56,25 +56,28 @@ class App extends React.Component {
   }
 }
 
-
 const mapStateToProps = state => {
   return {
     appLoaded: state.common.appLoaded,
     appName: state.common.appName,
     currentUser: state.common.currentUser,
-    redirectTo: state.common.redirectTo
-  }
+    redirectTo: state.common.redirectTo,
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
   onLoad: (payload, token) =>
     dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
-  onRedirect: () =>
-    dispatch({ type: REDIRECT })
+  onRedirect: () => dispatch({ type: REDIRECT }),
 });
 
 App.contextTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);
