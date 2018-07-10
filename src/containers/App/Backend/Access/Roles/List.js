@@ -153,8 +153,8 @@ class List extends Component {
                           Action
                         </DropdownToggle>
                         <DropdownMenu right>
-                          <DropdownItem tag={Link} to="/access/user/create">
-                            <i className="fa fa-user-plus" />Create User
+                          <DropdownItem tag={Link} to="/access/role/create">
+                            <i className="fa fa-user-plus" />Create Role
                           </DropdownItem>
                         </DropdownMenu>
                       </ButtonDropdown>
@@ -242,15 +242,18 @@ class List extends Component {
                             <i className="fa fa-edit" />
                           </Button>
                           &nbsp;
-                          <Button
-                            onClick={() => this.onClickDelete(row.value)}
-                            block={false}
-                            outline
-                            color="danger"
-                            size="sm"
-                          >
-                            <i className="fa fa-trash" />
-                          </Button>
+                          {row.value != 1 ? (
+                            <Button
+                              onClick={() => this.onClickDelete(row.value)}
+                              block={false}
+                              outline
+                              color="danger"
+                              size="sm"
+                            >
+                              {' '}
+                              <i className="fa fa-trash" />
+                            </Button>
+                          ) : null}
                         </span>
                       ),
                       sortable: false,
