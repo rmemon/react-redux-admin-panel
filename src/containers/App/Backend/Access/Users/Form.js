@@ -21,7 +21,7 @@ import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 import injectReducer from "utils/injectReducer";
 import reducer from "./reducer";
-import { postUser, onEditorLoad, onEditorUnLoad } from "./actions";
+import { postUser, onFormLoad, onFormUnLoad } from "./actions";
 
 let data = {
   id: null,
@@ -43,27 +43,27 @@ const roleMap = {
   User: "3"
 };
 
-class Editor extends Component {  
+class Form extends Component {  
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.id !== nextProps.match.params.id) {
       if (nextProps.match.params.id) {
-        this.props.onEditorUnLoad();
-        return this.props.onEditorLoad(this.props.match.params.id);
+        this.props.onFormUnLoad();
+        return this.props.onFormLoad(this.props.match.params.id);
       }
-      this.props.onEditorLoad(null);
+      this.props.onFormLoad(null);
     }
   }
 
   componentDidMount() {
     if (this.props.match.params.id) {
-      return this.props.onEditorLoad(this.props.match.params.id);
+      return this.props.onFormLoad(this.props.match.params.id);
     }
-    this.props.onEditorLoad(null);
+    this.props.onFormLoad(null);
   }
 
   componentWillUnmount() {
-    this.props.onEditorUnLoad();
+    this.props.onFormUnLoad();
   }
 
   render() {
@@ -397,11 +397,11 @@ const withReducer = injectReducer({ key: "users", reducer });
 
 const withConnect = connect(
   mapStateToProps,
-  { postUser, onEditorLoad, onEditorUnLoad }
+  { postUser, onFormLoad, onFormUnLoad }
 );
 
 export default compose(
   withReducer,
   withreduxForm,
   withConnect
-)(Editor);
+)(Form);

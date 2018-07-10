@@ -16,8 +16,8 @@ const UserList = Loadable({
     loading: Loading,
 });
 
-const UserEditor = Loadable({
-    loader: () => import( '../Access/Users/Editor'),
+const UserForm = Loadable({
+    loader: () => import( '../Access/Users/Form'),
     loading: Loading,
 });
 
@@ -36,8 +36,8 @@ const adminRoutes = [
     {path: '/dashboard', name: 'Dashboard', component: Home},
     {path: '/access', exact: true, name: 'Access', component: UserList},
     {path: '/access/user', exact: true, name: 'Users', component: UserList},
-    {path: '/access/user/create', exact: true, name: 'Create', component: UserEditor},
-    {path: '/access/user/update/:id', exact: true, name: 'Update', component: UserEditor},
+    {path: '/access/user/create', exact: true, name: 'Create', component: UserForm},
+    {path: '/access/user/update/:id', exact: true, name: 'Update', component: UserForm},
     {path: '/access/user/view/:id', exact: true, name: 'View', component: UserView},
 
     // Roles
