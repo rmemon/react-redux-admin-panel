@@ -4,8 +4,8 @@ import {
   ROLE_LIST_PAGE_REQUESTED,
   ROLE_VIEW_PAGE_UNLOADED,
   ROLE_VIEW_PAGE_LOADED,
-  ROLE_EDITOR_PAGE_UNLOADED,
-  ROLE_EDITOR_PAGE_LOADED,
+  ROLE_FORM_PAGE_UNLOADED,
+  ROLE_FORM_PAGE_LOADED,
   ROLE_CREATE,
   ROLE_UPDATE,
   ROLE_DELETE
@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
         errors: action.error ? action.payload.error : null,
         redirectTo: action.error ? null : "/access/role"
       };
-    case ROLE_EDITOR_PAGE_LOADED:
+    case ROLE_FORM_PAGE_LOADED:
       return {
         ...state,
         role: action.payload ? action.payload.data : "",
@@ -56,7 +56,7 @@ export default (state = initialState, action) => {
         roles: state.roles.filter(role => role.id !== action.payload.data)
       };
 
-    case ROLE_EDITOR_PAGE_UNLOADED:
+    case ROLE_FORM_PAGE_UNLOADED:
     case ROLE_LIST_PAGE_UNLOADED:
     case ROLE_VIEW_PAGE_UNLOADED:
       return {};

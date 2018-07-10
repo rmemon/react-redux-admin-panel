@@ -86,8 +86,8 @@ class List extends Component {
 
     const props = {
       page: this.state.page || 0,
-      orderBy: "",
-      sortBy: ""
+      orderBy: '',
+      sortBy: ''
     };
 
     if (this.state.sorted.length > 0) {
@@ -103,8 +103,6 @@ class List extends Component {
     if (!roles) {
       return null;
     }
-
-    console.log(roles);
 
     const noRecords = roles ? (roles.length == 0 ? true : false) : false;
     return (
@@ -163,53 +161,6 @@ class List extends Component {
                     </ButtonGroup>
                   </Col>
                 </Row>
-                {/* <Table responsive striped>
-                  <thead>
-                    <tr>
-                      <th>Role</th>
-                      <th>Permissions</th>
-                      <th>Number of Users</th>
-                      <th>Sort</th>
-                      <th>Status</th>
-                      <th>Created On</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {roles.map(role => {
-                      const permissions =
-                        role.permissions.constructor == Array
-                          ? role.permissions.join("<br/>")
-                          : role.permissions;
-                      return (
-                        <tr key={role.id}>
-                          <td>{role.name}</td>
-                          <td
-                            dangerouslySetInnerHTML={{ __html: permissions }}
-                          />
-                          <td>{role.number_of_users}</td>
-                          <td>{role.sort}</td>
-                          <td>
-                            <Badge
-                              color={role.status === 1 ? "success" : "danger"}
-                            >
-                              {role.status === 1 ? "Active" : "InActive"}
-                            </Badge>
-                          </td>
-                          <td>
-                            {new Date(role.registered_at).toLocaleString(
-                              "en-US"
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                    {noRecords && (
-                      <tr>
-                        <td colSpan="7">No Data to Display</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </Table> */}
                 <ReactTable
                   data={roles}
                   noDataText="No Data to Display"
@@ -223,6 +174,13 @@ class List extends Component {
                     {
                       Header: "Permissions",
                       accessor: "permissions",
+                      Cell: row => {
+                        const permissions =
+                        row.value.constructor == Array
+                          ? row.value.join("<br/>")
+                          : row.value;
+                          return <div dangerouslySetInnerHTML={{__html: permissions}} />;
+                      },
                       sortable: false
                     },
                     {

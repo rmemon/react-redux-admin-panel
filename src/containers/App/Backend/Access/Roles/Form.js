@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import userAgent from './agent';
 import {
     ROLE_CREATE,
-    ROLE_EDITOR_PAGE_LOADED,
-    ROLE_EDITOR_PAGE_UNLOADED,
+    ROLE_FORM_PAGE_LOADED,
+    ROLE_FORM_PAGE_UNLOADED,
     ROLE_UPDATE
 } from './constants';
 
@@ -47,7 +47,7 @@ const roleMap = {
     User: '3'
 }
 
-class Editor extends Component {
+class Form extends Component {
     constructor(props) {
         super(props)
 
@@ -271,12 +271,12 @@ const mapDispatchToProps = dispatch => ({
         }
     },*/
     onLoad: payload =>
-        dispatch({type: ROLE_EDITOR_PAGE_LOADED, payload}),
+        dispatch({type: ROLE_FORM_PAGE_LOADED, payload}),
     onUnload: () =>
-        dispatch({type: ROLE_EDITOR_PAGE_UNLOADED})
+        dispatch({type: ROLE_FORM_PAGE_UNLOADED})
 });
 
 export default reduxForm({
     form: "CreateUserForm",
     initialValues: data
-})(connect(mapStateToProps, mapDispatchToProps)(Editor));
+})(connect(mapStateToProps, mapDispatchToProps)(Form));
