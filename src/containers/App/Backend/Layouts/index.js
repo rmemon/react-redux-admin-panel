@@ -3,12 +3,6 @@ import { compose } from 'redux';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {Container} from 'reactstrap';
 import {connect} from 'react-redux';
-
-import injectReducer from 'utils/injectReducer';
-import reducer from '../backendCommonReducer';
-import { getToken } from 'utils/requests';
-import authAgent from '../Auth/agent';
-
 import {
     AppAside,
     AppBreadcrumb,
@@ -22,15 +16,27 @@ import {
     AppSidebarNav,
 } from '@coreui/react';
 
+import injectReducer from 'utils/injectReducer';
+import { getToken } from 'utils/requests';
+import reducer from '../backendCommonReducer';
+import authAgent from '../Auth/agent';
 import { APP_LOAD } from 'constants/actionTypes';
 
 // sidebar nav config
-import navigation from './_nav';
+import { navigation } from '../Routes';
+
 // routes config
-import adminRoutes from './adminRoutes';
+import { adminRoutes } from '../Routes';
+
+// Side Bar
 import AdmintAside from './Aside';
+
+// Footer
 import AdminFooter from './Footer';
+
+// Header
 import AdminHeader from './Header';
+
 import { BACKEND_REDIRECT } from '../constant';
 
 class AdminLayout extends Component {

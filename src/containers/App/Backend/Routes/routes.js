@@ -5,6 +5,7 @@ function Loading() {
     return <div>Loading...</div>;
 }
 
+// Home
 const Home = Loadable({
     loader: () => import('../Home/index'),
     loading: Loading,
