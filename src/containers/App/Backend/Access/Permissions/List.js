@@ -210,7 +210,7 @@ class List extends Component {
                           &nbsp;
                           <Button
                             tag={Link}
-                            to={`/access/permission/update/${row.value}`}
+                            to={`/access/permission/edit/${row.value}`}
                             block={false}
                             outline
                             color="success"

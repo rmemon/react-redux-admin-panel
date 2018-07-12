@@ -51,7 +51,7 @@ export const onViewUnload = () => {
   };
 };
 
-export const postUser = values => {
+export const postPermission = values => {
   if (values.id) {
     return { type: PERMISSION_UPDATE, payload: agent.update(values) };
   } else {
