@@ -1,6 +1,6 @@
 import { requests } from 'utils/requests';
 
-const User = {
+const Permission = {
   list: requestObj =>
     requests.get(
       `/permissions?page=${requestObj.page + 1}&orderBy=${
@@ -9,12 +9,14 @@ const User = {
     ),
   get: id => requests.get(`/permissions/${id}`),
   del: id => requests.del(`/permissions/${id}`),
-  create: ({ ...values }) => {
-    return requests.post('/permissions', values);
+  create: ({ ...values }, callback) => {
+    return requests.post('/permissions', values).then(() => callback());
   },
-  update: ({ ...values }) => {
-    return requests.put('/permissions/' + values.id, values);
+  update: ({ ...values }, callback) => {
+    return requests
+      .put('/permissions/' + values.id, values)
+      .then(() => callback());
   },
 };
 
-export default User;
+export default Permission;

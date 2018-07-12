@@ -52,6 +52,12 @@ class Form extends Component {
     this.props.onFormUnLoad();
   }
 
+  onSubmit(values) {
+    this.props.postPermission(values, () => {
+      this.props.history.push('/access/permission');
+    });
+  }
+
   render() {
     const { handleSubmit } = this.props;
     const { invalid } = this.props;
@@ -75,7 +81,7 @@ class Form extends Component {
         <Row>
           <Col xs="12">
             <form
-              onSubmit={handleSubmit(this.props.postPermission.bind(this))}
+              onSubmit={handleSubmit(this.onSubmit.bind(this))}
               className="form-horizontal"
             >
               <Card>

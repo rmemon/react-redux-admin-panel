@@ -27,12 +27,12 @@ export default (state = {}, action) => {
         ...state,
         redirectTo: action.error ? null : '/access/user',
       };
-    case PERMISSION_CREATE:
-    case PERMISSION_UPDATE:
-      return {
-        ...state,
-        redirectTo: action.error ? null : '/access/permission',
-      };
+    // case PERMISSION_CREATE:
+    // case PERMISSION_UPDATE:
+    //   return {
+    //     ...state,
+    //     redirectTo: action.error ? null : '/access/permission',
+    //   };
     case BACKEND_LOGIN_PAGE_UNLOADED:
     case BACKEND_REGISTER_PAGE_UNLOADED:
       return { ...state, viewChangeCounter: state.viewChangeCounter + 1 };
