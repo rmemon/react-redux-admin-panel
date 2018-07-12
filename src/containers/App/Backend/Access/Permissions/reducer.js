@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
     case PERMISSION_VIEW_PAGE_LOADED:
       return {
         ...state,
-        user: action.payload.data,
+        permission: action.payload.data,
         inProgress: false,
         errors: action.error ? action.payload.error : null,
       };
@@ -47,14 +47,14 @@ export default (state = initialState, action) => {
     case PERMISSION_FORM_PAGE_LOADED:
       return {
         ...state,
-        user: action.payload ? action.payload.data : '',
+        permission: action.payload ? action.payload.data : '',
         errors: action.error ? action.payload.error : null,
       };
     case PERMISSION_DELETE:
       return {
         ...state,
         permissions: state.permissions.filter(
-          user => user.id !== action.payload.data
+          permission => permission.id !== action.payload.data
         ),
       };
 
