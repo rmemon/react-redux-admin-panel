@@ -22,6 +22,8 @@ import reducer from '../backendCommonReducer';
 import authAgent from '../Auth/agent';
 import { APP_LOAD } from 'constants/actionTypes';
 
+import { toastr } from 'react-redux-toastr';
+
 // sidebar nav config
 import { navigation } from '../Routes';
 
@@ -38,6 +40,7 @@ import AdminFooter from './Footer';
 import AdminHeader from './Header';
 
 import { BACKEND_REDIRECT } from '../constant';
+import ReduxToastr from 'react-redux-toastr';
 
 class AdminLayout extends Component {
   // constructor(props) {
@@ -51,6 +54,7 @@ class AdminLayout extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
+      toastr.success('Success', 'The user updated Success.');
       this.props.history.push(nextProps.redirectTo);
       this.props.onRedirect();
     }
@@ -59,6 +63,16 @@ class AdminLayout extends Component {
   render() {
     return (
       <div className="app">
+        <ReduxToastr
+          timeOut={4000}
+          newestOnTop={false}
+          preventDuplicates
+          position="top-right"
+          transitionIn="fadeIn"
+          transitionOut="fadeOut"
+          progressBar
+        />
+
         <AppHeader fixed>
           <AdminHeader
             appName={this.props.appName}

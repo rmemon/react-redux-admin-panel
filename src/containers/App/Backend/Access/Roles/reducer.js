@@ -50,7 +50,6 @@ export default (state = initialState, action) => {
         ...state,
         inProgress: false,
         errors: action.error ? action.payload.error : null,
-        redirectTo: action.error ? null : '/access/role',
       };
     case ROLE_FORM_PAGE_LOADED:
       return {
