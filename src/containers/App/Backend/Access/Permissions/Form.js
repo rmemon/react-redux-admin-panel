@@ -80,7 +80,7 @@ class Form extends Component {
             >
               <Card>
                 <CardHeader>
-                  <i className="fa fa fa-user-plus" />{' '}
+                  <i className="fa fa fa-user-plus" />
                   {isEditMode ? 'Update' : 'Create'} Permission
                 </CardHeader>
                 <CardBody>
@@ -178,14 +178,13 @@ class Form extends Component {
                     type="submit"
                   >
                     <i className="fa fa-save" /> Submit
-                  </Button>{' '}
+                  </Button>
                   <Button
                     tag={Link}
                     to={`/access/permission`}
                     className="btn btn-outline-danger"
                   >
-                    {' '}
-                    <i className="fa fa-arrow-left" /> Go Back{' '}
+                    <i className="fa fa-arrow-left" /> Go Back
                   </Button>
                 </CardFooter>
               </Card>
