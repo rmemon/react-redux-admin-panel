@@ -12,8 +12,10 @@ const Permission = {
   create: ({ ...values }, callback) => {
     return requests.post('/permissions', values).then(() => callback());
   },
-  update: ({ ...values }) => {
-    return requests.put('/permissions/' + values.id, values);
+  update: ({ ...values }, callback) => {
+    return requests
+      .put('/permissions/' + values.id, values)
+      .then(() => callback());
   },
 };
 

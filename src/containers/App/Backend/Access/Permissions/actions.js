@@ -55,7 +55,7 @@ export const postPermission = (values, callback) => {
   if (values.id) {
     return {
       type: PERMISSION_UPDATE,
-      payload: agent.update(values),
+      payload: agent.update(values, callback),
     };
   } else {
     return {
