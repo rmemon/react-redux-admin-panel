@@ -51,11 +51,17 @@ export const onViewUnload = () => {
   };
 };
 
-export const postPermission = values => {
+export const postPermission = (values, callback) => {
   if (values.id) {
-    return { type: PERMISSION_UPDATE, payload: agent.update(values) };
+    return {
+      type: PERMISSION_UPDATE,
+      payload: agent.update(values),
+    };
   } else {
-    return { type: PERMISSION_CREATE, payload: agent.create(values) };
+    return {
+      type: PERMISSION_CREATE,
+      payload: agent.create(values, callback),
+    };
   }
 };
 
