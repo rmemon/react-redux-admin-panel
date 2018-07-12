@@ -43,6 +43,22 @@ const RoleView = Loadable({
   loading: Loading,
 });
 
+// Permissions
+const PermissionList = Loadable({
+  loader: () => import('../Access/Permissions/List'),
+  loading: Loading,
+});
+
+const PermissionForm = Loadable({
+  loader: () => import('../Access/Permissions/Form'),
+  loading: Loading,
+});
+
+const PermissionView = Loadable({
+  loader: () => import('../Access/Permissions/View'),
+  loading: Loading,
+});
+
 const adminRoutes = [
   { path: '/dashboard', name: 'Dashboard', component: Home },
   { path: '/access', exact: true, name: 'Access', component: UserList },
@@ -67,7 +83,12 @@ const adminRoutes = [
   },
 
   // Roles
-  { path: '/access/role', exact: true, name: 'Roles', component: RoleList },
+  {
+    path: '/access/role',
+    exact: true,
+    name: 'Roles',
+    component: RoleList,
+  },
   {
     path: '/access/role/create',
     exact: true,
@@ -85,6 +106,32 @@ const adminRoutes = [
     exact: true,
     name: 'View',
     component: RoleView,
+  },
+
+  // Permissions
+  {
+    path: '/access/permission',
+    exact: true,
+    name: 'Permissions',
+    component: PermissionList,
+  },
+  {
+    path: '/access/permission/create',
+    exact: true,
+    name: 'Create',
+    component: PermissionForm,
+  },
+  {
+    path: '/access/permission/edit/:id',
+    exact: true,
+    name: 'Update',
+    component: PermissionForm,
+  },
+  {
+    path: '/access/permission/view/:id',
+    exact: true,
+    name: 'View',
+    component: PermissionView,
   },
 ];
 

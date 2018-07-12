@@ -24,6 +24,11 @@ export default {
           url: '/access/role',
           icon: 'icon-puzzle',
         },
+        {
+          name: 'Mange Permissions',
+          url: '/access/permission',
+          icon: 'icon-puzzle',
+        },
       ],
     },
   ],
