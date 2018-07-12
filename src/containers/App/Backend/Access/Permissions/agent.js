@@ -1,7 +1,12 @@
 import { requests } from 'utils/requests';
 
+const initialRequestObj = {
+  page: 0,
+  orderBy: '',
+  sortBy: '',
+};
 const Permission = {
-  list: requestObj =>
+  list: (requestObj = initialRequestObj) =>
     requests.get(
       `/permissions?page=${requestObj.page + 1}&orderBy=${
         requestObj.orderBy

@@ -11,7 +11,9 @@ import {
   ROLE_DELETE,
 } from './constants';
 
-const initialState = { roles: [], meta: { last_page: 1 } };
+import { PERMISSION_LIST_PAGE_LOADED } from '../Permissions/constants';
+
+const initialState = { roles: [], meta: { last_page: 1 }, permissions: [] };
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -19,6 +21,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         inProgress: true,
+      };
+    case PERMISSION_LIST_PAGE_LOADED:
+      return {
+        ...state,
+        permissions: action.payload.data,
+        errors: action.error ? action.payload.error : null,
       };
     case ROLE_LIST_PAGE_LOADED:
       return {
