@@ -52,7 +52,7 @@ export const onViewUnload = () => {
   };
 };
 
-export const postUser = values => {
+export const postRole = values => {
   if (values.id) {
     return { type: ROLE_UPDATE, payload: agent.update(values) };
   } else {

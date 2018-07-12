@@ -24,6 +24,8 @@ import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
 import 'scss/style.css';
 import 'react-table/react-table.css';
+import 'react-select/dist/react-select.css';
+
 import { setToken } from 'utils/requests';
 import authAgent from './Backend/Auth/agent';
 

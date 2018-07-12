@@ -1,6 +1,8 @@
+// https://github.com/JedWatson/react-select/issues/1129#issuecomment-248240544
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import userAgent from './agent';
+import { compose } from 'redux';
+
 import {
   ROLE_CREATE,
   ROLE_FORM_PAGE_LOADED,
@@ -26,19 +28,16 @@ import ListErrors from 'components/ListErrors';
 
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { postRole, onFormLoad, onFormUnLoad } from './actions';
+import { onLoadAction as onLoadPermissionsAction } from '../Permissions/actions';
+import injectReducer from 'utils/injectReducer';
+import reducer from './reducer';
+import Select from 'react-select';
 
 let data = {
-  id: null,
-  first_name: '',
-  last_name: '',
-  email: '',
-  password: '',
-  password_confirmation: '',
-  confirmed: true,
-  status: true,
-  confirmation_email: false,
-  assignees_roles: '3',
-  permissions: [1],
+  name: '',
+  sort: null,
+  permissions: null,
 };
 
 const roleMap = {
@@ -48,46 +47,50 @@ const roleMap = {
 };
 
 class Form extends Component {
-  constructor(props) {
-    super(props);
-
-    if (this.props.match.params.id) {
-      return this.props.onLoad(userAgent.get(this.props.match.params.id));
-    }
-    this.props.onLoad(null);
-  }
+  state = {
+    permissions: [],
+  };
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.id !== nextProps.match.params.id) {
       if (nextProps.match.params.id) {
         this.props.onUnload();
-        return this.props.onLoad(userAgent.get(this.props.match.params.id));
+        return this.props.onFormLoad(this.props.match.params.id);
       }
       this.props.onLoad(null);
     }
   }
 
+  componentDidMount() {
+    this.props.onLoadPermissionsAction();
+
+    if (this.props.match.params.id) {
+      return this.props.onFormLoad(this.props.match.params.id);
+    }
+  }
+
   componentWillUnmount() {
-    this.props.onUnload();
+    this.props.onFormUnLoad();
   }
 
   render() {
     const { handleSubmit } = this.props;
     const { invalid } = this.props;
-    const { user } = this.props;
-    const isEditMode = user ? true : false;
+    const { role, permissions } = this.props;
+    const isEditMode = role ? true : false;
     const { errors } = this.props;
 
-    if (user) {
-      data.first_name = user.first_name;
-      data.id = user.id;
-      data.last_name = user.last_name;
-      data.email = user.email;
-      data.confirmed = user.confirmed;
-      data.status = user.status;
-      data.confirmation_email = user.confirmation_email;
-      data.assignees_roles = roleMap[user.role];
+    if (role) {
+      data.name = role.name;
+      data.sort = role.sort;
+      data.status = role.status;
+      data.permissions = role.permissions;
     }
+
+    // if(permissions.length) {
+    //   this.setState({permissions: permissions});
+    // }
+
     if (this.props.match.params.id && errors) {
       this.props.history.push('/access/role');
     }
@@ -96,7 +99,7 @@ class Form extends Component {
         <Row>
           <Col xs="12">
             <form
-              onSubmit={handleSubmit(this.props.onSubmit.bind(this))}
+              onSubmit={handleSubmit(this.props.postRole.bind(this))}
               className="form-horizontal"
             >
               <Card>
@@ -135,6 +138,79 @@ class Form extends Component {
                           </InputGroup>
                         </Col>
                       </FormGroup>
+
+                      <FormGroup row>
+                        <Label
+                          className="col-md-3 col-form-label"
+                          htmlFor="sort"
+                        >
+                          Sort*
+                        </Label>
+                        <Col md="9">
+                          <InputGroup>
+                            <Field
+                              className="form-control"
+                              component="input"
+                              type="number"
+                              id="sort"
+                              name="sort"
+                              placeholder="Enter Sort..."
+                              required
+                            />
+                            <InputGroupAddon addonType="append">
+                              <InputGroupText>
+                                <i className="fa fa-sort-numeric-desc" />
+                              </InputGroupText>
+                            </InputGroupAddon>
+                          </InputGroup>
+                        </Col>
+                      </FormGroup>
+                      <FormGroup row>
+                        <Label
+                          className="col-md-3 col-form-label"
+                          htmlFor="status"
+                        >
+                          Active
+                        </Label>
+                        <Col md="9">
+                          <Field
+                            type="checkbox"
+                            id="status"
+                            name="status"
+                            component="input"
+                            className="centered-checkbox"
+                          />
+                        </Col>
+                      </FormGroup>
+                      <FormGroup row>
+                        <Label
+                          className="col-md-3 col-form-label"
+                          htmlFor="status"
+                        >
+                          Active
+                        </Label>
+                        <Col md="9">
+                          <Field
+                            name="permissions"
+                            component={props => (
+                              <Select
+                                labelKey="display_name"
+                                valueKey="id"
+                                multi={true}
+                                value={props.input.value}
+                                onChange={props.input.onChange}
+                                onBlur={() =>
+                                  props.input.onBlur(props.input.value)
+                                }
+                                options={permissions}
+                                placeholder="Select"
+                                simpleValue
+                                closeOnSelect={false}
+                              />
+                            )}
+                          />
+                        </Col>
+                      </FormGroup>
                     </Col>
                   </Row>
                 </CardBody>
@@ -170,24 +246,20 @@ const mapStateToProps = state => ({
   ...state.roles,
 });
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: values => {
-    if (values.id) {
-      dispatch({ type: ROLE_UPDATE, payload: userAgent.update(values) });
-    } else {
-      dispatch({ type: ROLE_CREATE, payload: userAgent.create(values) });
-    }
-  },
-  onLoad: payload => dispatch({ type: ROLE_FORM_PAGE_LOADED, payload }),
-  onUnload: () => dispatch({ type: ROLE_FORM_PAGE_UNLOADED }),
-});
-
-export default reduxForm({
+const withreduxForm = reduxForm({
   form: 'CreateRoleForm',
   initialValues: data,
-})(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Form)
+});
+
+const withReducer = injectReducer({ key: 'roles', reducer });
+
+const withConnect = connect(
+  mapStateToProps,
+  { postRole, onFormLoad, onFormUnLoad, onLoadPermissionsAction }
 );
+
+export default compose(
+  withReducer,
+  withreduxForm,
+  withConnect
+)(Form);
