@@ -113,7 +113,7 @@ class View extends Component {
                         <strong>Created On: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        {new Date(role.created_at).toLocaleString('en-US')}
+                        {new Date(role.created_at).toMediumDate()}
                       </Col>
                     </FormGroup>
                   </Col>
@@ -128,7 +128,7 @@ class View extends Component {
                         <strong>Updated On: </strong>
                       </Label>
                       <Col xs="6" md="6" className="centered-checkbox">
-                        {new Date(role.updated_at).toLocaleString('en-US')}
+                        {new Date(role.updated_at).toMediumDate()}
                       </Col>
                     </FormGroup>
                   </Col>

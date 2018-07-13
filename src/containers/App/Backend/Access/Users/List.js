@@ -206,9 +206,7 @@ class List extends Component {
                       Header: 'Created On',
                       accessor: 'created_at',
                       Cell: row => (
-                        <span>
-                          {new Date(row.value).toLocaleString('en-US')}
-                        </span>
+                        <span>{new Date(row.value).toMediumDate()}</span>
                       ),
                     },
                     {
