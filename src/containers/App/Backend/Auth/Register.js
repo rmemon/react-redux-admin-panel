@@ -153,7 +153,7 @@ class Register extends React.Component {
 
 const withConnect = connect(
   mapStateToProps,
-  { onRegisterSubmit, onRegisterUnload }
+  { onRegisterSubmit, onRegisterUnload },
 );
 
 const withReducer = injectReducer({ key: 'auth', reducer });
@@ -165,5 +165,5 @@ const withreduxForm = reduxForm({
 export default compose(
   withReducer,
   withreduxForm,
-  withConnect
+  withConnect,
 )(Register);

@@ -80,6 +80,6 @@ App.contextTypes = {
 export default withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps
-  )(App)
+    mapDispatchToProps,
+  )(App),
 );

@@ -294,10 +294,10 @@ const withConnect = connect(
     onClickDeleteAction,
     onLoadAction,
     onLoadRequestAction,
-  }
+  },
 );
 
 export default compose(
   withReducer,
-  withConnect
+  withConnect,
 )(List);

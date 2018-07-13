@@ -5,7 +5,7 @@ import {
   BACKEND_REGISTER,
 } from './containers/App/Backend/Auth/constants';
 import { setToken } from 'utils/requests';
-import { serverDownError } from 'utils'
+import { serverDownError } from 'utils';
 
 const promiseMiddleware = store => next => action => {
   if (isPromise(action.payload)) {
@@ -30,12 +30,10 @@ const promiseMiddleware = store => next => action => {
           return;
         }
         action.error = true;
-        if(error.status === undefined)
-        {
-            action.payload = serverDownError;
-        }
-        else{
-            action.payload = error.response.body;
+        if (error.status === undefined) {
+          action.payload = serverDownError;
+        } else {
+          action.payload = error.response.body;
         }
         if (action.payload.error && action.payload.error.status_code === 401) {
           store.dispatch({ type: BACKEND_LOGOUT });
@@ -44,7 +42,7 @@ const promiseMiddleware = store => next => action => {
           store.dispatch({ type: ASYNC_END, promise: action.payload.error });
         }
         store.dispatch(action);
-      }
+      },
     );
 
     return;
@@ -62,7 +60,7 @@ const localStorageMiddleware = store => next => action => {
     if (!action.error) {
       window.localStorage.setItem(
         'backend-jwt-token',
-        action.payload.token || action.payload.data.token
+        action.payload.token || action.payload.data.token,
       );
       setToken(action.payload.token || action.payload.data.token);
     }

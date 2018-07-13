@@ -10,7 +10,7 @@ const Permission = {
     requests.get(
       `/permissions?page=${requestObj.page + 1}&orderBy=${
         requestObj.orderBy
-      }&sortBy=${requestObj.sortBy}`
+      }&sortBy=${requestObj.sortBy}`,
     ),
   get: id => requests.get(`/permissions/${id}`),
   del: id => requests.del(`/permissions/${id}`),

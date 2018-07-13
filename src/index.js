@@ -18,5 +18,5 @@ render(
       <App />
     </BrowserRouter>
   </Provider>,
-  MOUNT_NODE
+  MOUNT_NODE,
 );

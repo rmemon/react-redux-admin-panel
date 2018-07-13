@@ -53,7 +53,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         permissions: state.permissions.filter(
-          permission => permission.id !== action.payload.data
+          permission => permission.id !== action.payload.data,
         ),
       };
 
