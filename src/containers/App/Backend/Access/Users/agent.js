@@ -5,7 +5,7 @@ const User = {
     requests.get(
       `/users?page=${requestObj.page + 1}&orderBy=${
         requestObj.orderBy
-      }&sortBy=${requestObj.sortBy}`
+      }&sortBy=${requestObj.sortBy}`,
     ),
   get: id => requests.get(`/users/${id}`),
   del: id => requests.del(`/users/${id}`),

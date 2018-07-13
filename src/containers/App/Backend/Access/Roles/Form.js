@@ -249,11 +249,11 @@ const withReducer = injectReducer({ key: 'roles', reducer });
 
 const withConnect = connect(
   mapStateToProps,
-  { postRole, onFormLoad, onFormUnLoad, onLoadPermissionsAction }
+  { postRole, onFormLoad, onFormUnLoad, onLoadPermissionsAction },
 );
 
 export default compose(
   withReducer,
   withreduxForm,
-  withConnect
+  withConnect,
 )(Form);

@@ -5,7 +5,7 @@ const Role = {
     requests.get(
       `/roles?page=${requestObj.page + 1}&orderBy=${
         requestObj.orderBy
-      }&sortBy=${requestObj.sortBy}`
+      }&sortBy=${requestObj.sortBy}`,
     ),
   get: id => requests.get(`/roles/${id}`),
   del: id => requests.del(`/roles/${id}`),

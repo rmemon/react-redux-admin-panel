@@ -159,10 +159,10 @@ const withReducer = injectReducer({ key: 'roles', reducer });
 
 const withConnect = connect(
   mapStateToProps,
-  { onViewPageLoad, onViewUnload }
+  { onViewPageLoad, onViewUnload },
 );
 
 export default compose(
   withReducer,
-  withConnect
+  withConnect,
 )(View);

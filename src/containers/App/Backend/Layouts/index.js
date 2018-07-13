@@ -136,12 +136,12 @@ const mapDispatchToProps = dispatch => ({
 
 const withConnect = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 );
 
 const withReducer = injectReducer({ key: 'backendCommon', reducer });
 
 export default compose(
   withReducer,
-  withConnect
+  withConnect,
 )(AdminLayout);

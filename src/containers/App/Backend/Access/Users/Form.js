@@ -408,11 +408,11 @@ const withReducer = injectReducer({ key: 'users', reducer });
 
 const withConnect = connect(
   mapStateToProps,
-  { postUser, onFormLoad, onFormUnLoad }
+  { postUser, onFormLoad, onFormUnLoad },
 );
 
 export default compose(
   withReducer,
   withreduxForm,
-  withConnect
+  withConnect,
 )(Form);

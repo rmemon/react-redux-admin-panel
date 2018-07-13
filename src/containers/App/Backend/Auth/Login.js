@@ -43,7 +43,7 @@ class Login extends React.Component {
                   <CardBody>
                     <form
                       onSubmit={handleSubmit(
-                        this.props.onLoginSubmit.bind(this)
+                        this.props.onLoginSubmit.bind(this),
                       )}
                     >
                       <h1>Login</h1>
@@ -130,7 +130,7 @@ class Login extends React.Component {
 
 const withConnect = connect(
   mapStateToProps,
-  { onLoginSubmit, onLoginUnload }
+  { onLoginSubmit, onLoginUnload },
 );
 
 const withReducer = injectReducer({ key: 'auth', reducer });
@@ -142,5 +142,5 @@ const withreduxForm = reduxForm({
 export default compose(
   withReducer,
   withreduxForm,
-  withConnect
+  withConnect,
 )(Login);
