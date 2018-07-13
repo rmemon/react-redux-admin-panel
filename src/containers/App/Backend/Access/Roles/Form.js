@@ -4,13 +4,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import {
-  ROLE_CREATE,
-  ROLE_FORM_PAGE_LOADED,
-  ROLE_FORM_PAGE_UNLOADED,
-  ROLE_UPDATE,
-} from './constants';
-
-import {
   Button,
   Card,
   CardBody,
