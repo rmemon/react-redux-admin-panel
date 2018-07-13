@@ -81,6 +81,18 @@ class Form extends Component {
       data.status = user.status;
       data.confirmation_email = user.confirmation_email;
       data.assignees_roles = roleMap[user.role];
+    } else {
+      data.id = null;
+      data.first_name = '';
+      data.last_name = '';
+      data.email = '';
+      data.password = '';
+      data.password_confirmation = '';
+      data.confirmed = true;
+      data.status = true;
+      data.confirmation_email = false;
+      data.assignees_roles = '3';
+      data.permissions = [1];
     }
 
     if (this.props.match.params.id && errors) {
