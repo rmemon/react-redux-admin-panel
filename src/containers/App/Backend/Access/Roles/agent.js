@@ -12,16 +12,15 @@ const Role = {
   create: ({ ...values }) => {
     if (values.permissions !== '') {
       values.permissions = values.permissions.split(',');
-      values.permissions.forEach((value, index) => {
-        values[`permissions[${value}]`] = value;
-      });
+      values.associated_permissions = 'custom';
     }
-    values.permissions = 1;
-    values.associated_permissions = 'custom';
     return requests.post('/roles', values);
   },
   update: ({ ...values }) => {
-    values.assignees_roles = [values.assignees_roles];
+    if (values.permissions !== '') {
+      values.permissions = values.permissions.split(',');
+      values.associated_permissions = 'custom';
+    }
     return requests.put('/roles/' + values.id, values);
   },
 };

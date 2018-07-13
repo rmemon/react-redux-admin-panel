@@ -65,6 +65,7 @@ class Form extends Component {
     const { errors } = this.props;
 
     if (role) {
+      data.id = role.id;
       data.name = role.name;
       data.sort = role.sort;
       data.status = role.status;
@@ -73,6 +74,7 @@ class Form extends Component {
       data.sort = '';
       data.status = '';
       data.permissions = '';
+      delete data.id;
     }
 
     if (permissions && permissions.length && role) {
@@ -185,7 +187,7 @@ class Form extends Component {
                           className="col-md-3 col-form-label"
                           htmlFor="status"
                         >
-                          Active
+                          Associated Permissions
                         </Label>
                         <Col md="9">
                           <Field
