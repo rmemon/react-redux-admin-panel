@@ -31,7 +31,11 @@ import {
 
 import reducer from './reducer';
 import injectReducer from 'utils/injectReducer';
-import roleAgent from './agent';
+
+const MySwal = withReactContent(Swal);
+
+const title = 'Want To Delete ?';
+const content = 'This Role will be deleted permanently and cannot be undone';
 
 class List extends Component {
   constructor(props) {
@@ -55,23 +59,23 @@ class List extends Component {
     });
   }
 
-  // onClickDelete(userId) {
-  //   MySwal.fire({
-  //     type: "question",
-  //     title: title,
-  //     text: content,
-  //     // confirmButtonText: 'Yes',
-  //     cancelButtonText: "Cancel",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#4dbd74",
-  //     cancelButtonColor: "#f64846",
-  //     focusConfirm: true
-  //   }).then(result => {
-  //     if (result.value) {
-  //       this.props.onClickDeleteAction(userId);
-  //     }
-  //   });
-  // }
+  onClickDelete(userId) {
+    MySwal.fire({
+      type: 'question',
+      title: title,
+      text: content,
+      // confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
+      showCancelButton: true,
+      confirmButtonColor: '#4dbd74',
+      cancelButtonColor: '#f64846',
+      focusConfirm: true,
+    }).then(result => {
+      if (result.value) {
+        this.props.onClickDeleteAction(userId);
+      }
+    });
+  }
 
   fetchData(state) {
     this.setState({ page: state }, this.loadRoleData);
@@ -210,9 +214,7 @@ class List extends Component {
                       Header: 'Created On',
                       accessor: 'created_at',
                       Cell: row => (
-                        <span>
-                          {new Date(row.value).toLocaleString('en-US')}
-                        </span>
+                        <span>{new Date(row.value).toMediumDate()}</span>
                       ),
                     },
                     {
