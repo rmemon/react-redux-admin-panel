@@ -15,6 +15,11 @@ import {
   PERMISSION_UPDATE,
 } from 'containers/App/Backend/Access/Permissions/constants';
 
+import {
+  ROLE_CREATE,
+  ROLE_UPDATE,
+} from 'containers/App/Backend/Access/Roles/constants';
+
 export default (state = {}, action) => {
   switch (action.type) {
     case BACKEND_APP_LOAD:
@@ -27,12 +32,18 @@ export default (state = {}, action) => {
         ...state,
         redirectTo: action.error ? null : '/access/user',
       };
-    // case PERMISSION_CREATE:
-    // case PERMISSION_UPDATE:
-    //   return {
-    //     ...state,
-    //     redirectTo: action.error ? null : '/access/permission',
-    //   };
+    case ROLE_CREATE:
+    case ROLE_UPDATE:
+      return {
+        ...state,
+        redirectTo: action.error ? null : '/access/role',
+      };
+    case PERMISSION_CREATE:
+    case PERMISSION_UPDATE:
+      return {
+        ...state,
+        redirectTo: action.error ? null : '/access/permission',
+      };
     case BACKEND_LOGIN_PAGE_UNLOADED:
     case BACKEND_REGISTER_PAGE_UNLOADED:
       return { ...state, viewChangeCounter: state.viewChangeCounter + 1 };

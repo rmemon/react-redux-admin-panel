@@ -4,13 +4,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import {
-  ROLE_CREATE,
-  ROLE_FORM_PAGE_LOADED,
-  ROLE_FORM_PAGE_UNLOADED,
-  ROLE_UPDATE,
-} from './constants';
-
-import {
   Button,
   Card,
   CardBody,
@@ -38,26 +31,17 @@ let data = {
   name: '',
   sort: null,
   permissions: null,
-};
-
-const roleMap = {
-  Administrator: '1',
-  Executive: '2',
-  User: '3',
+  status: 0,
 };
 
 class Form extends Component {
-  state = {
-    permissions: [],
-  };
-
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.id !== nextProps.match.params.id) {
       if (nextProps.match.params.id) {
-        this.props.onUnload();
+        this.props.onFormUnLoad();
         return this.props.onFormLoad(this.props.match.params.id);
       }
-      this.props.onLoad(null);
+      this.props.onFormLoad(null);
     }
   }
 
@@ -84,12 +68,26 @@ class Form extends Component {
       data.name = role.name;
       data.sort = role.sort;
       data.status = role.status;
-      data.permissions = role.permissions;
+    } else {
+      data.name = '';
+      data.sort = '';
+      data.status = '';
+      data.permissions = '';
     }
 
-    // if(permissions.length) {
-    //   this.setState({permissions: permissions});
-    // }
+    if (permissions && permissions.length && role) {
+      let permissionTemp = [],
+        selectAll = role.permissions === 'All';
+      permissions.forEach(permission => {
+        if (
+          role.permissions.indexOf(permission.display_name) !== -1 ||
+          selectAll
+        ) {
+          permissionTemp.push(permission.id);
+        }
+      });
+      data.permissions = permissionTemp.join(',');
+    }
 
     if (this.props.match.params.id && errors) {
       this.props.history.push('/access/role');
