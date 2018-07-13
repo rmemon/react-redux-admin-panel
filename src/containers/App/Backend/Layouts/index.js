@@ -54,7 +54,10 @@ class AdminLayout extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
-      toastr.success('Success', 'The user updated Success.');
+      console.log(nextProps.redirectTo);
+      if (nextProps.toastSuccessMessage) {
+        toastr.success('Success', nextProps.toastSuccessMessage);
+      }
       this.props.history.push(nextProps.redirectTo);
       this.props.onRedirect();
     }

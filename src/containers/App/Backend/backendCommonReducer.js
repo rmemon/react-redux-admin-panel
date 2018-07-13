@@ -31,24 +31,33 @@ export default (state = {}, action) => {
       return {
         ...state,
         redirectTo: action.error ? null : '/access/user',
+        toastSuccessMessage: `User ${
+          action.type === USER_CREATE ? 'created' : 'updated'
+        } Successfully`,
       };
     case ROLE_CREATE:
     case ROLE_UPDATE:
       return {
         ...state,
         redirectTo: action.error ? null : '/access/role',
+        toastSuccessMessage: `Role ${
+          action.type === ROLE_CREATE ? 'created' : 'updated'
+        } Successfully`,
       };
     case PERMISSION_CREATE:
     case PERMISSION_UPDATE:
       return {
         ...state,
         redirectTo: action.error ? null : '/access/permission',
+        toastSuccessMessage: `Permission ${
+          action.type === ROLE_CREATE ? 'created' : 'updated'
+        } Successfully`,
       };
     case BACKEND_LOGIN_PAGE_UNLOADED:
     case BACKEND_REGISTER_PAGE_UNLOADED:
       return { ...state, viewChangeCounter: state.viewChangeCounter + 1 };
     case BACKEND_REDIRECT:
-      return { ...state, redirectTo: null };
+      return { ...state, redirectTo: null, toastSuccessMessage: null };
     default:
       return state;
   }

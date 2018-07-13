@@ -1,4 +1,3 @@
-// https://github.com/JedWatson/react-select/issues/1129#issuecomment-248240544
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -89,9 +88,6 @@ class Form extends Component {
       data.permissions = permissionTemp.join(',');
     }
 
-    if (this.props.match.params.id && errors) {
-      this.props.history.push('/access/role');
-    }
     return (
       <div className="animated fadeIn">
         <Row>
