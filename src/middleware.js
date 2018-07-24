@@ -11,7 +11,6 @@ const promiseMiddleware = store => next => action => {
   if (action && action.payload && action.payload.on) {
     action.payload.on('progress', e => {
       store.dispatch({ type: PROGRESSEVENT, payload: { progress: e } });
-      console.log(e.percent);
     });
   }
 
@@ -22,12 +21,12 @@ const promiseMiddleware = store => next => action => {
     const skipTracking = action.skipTracking;
 
     action.payload.then(
-      res => {
+      response => {
         const currentState = store.getState();
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return;
         }
-        action.payload = res;
+        action.payload = response.body || response;
         store.dispatch({ type: ASYNC_END, promise: action.payload });
         store.dispatch(action);
       },

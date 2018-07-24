@@ -16,16 +16,8 @@ const tokenPlugin = req => {
 };
 
 export const requests = {
-  del: url =>
-    superagent
-      .del(`${API_ROOT}${url}`)
-      .use(tokenPlugin)
-      .then(responseBody),
-  get: url =>
-    superagent
-      .get(`${API_ROOT}${url}`)
-      .use(tokenPlugin)
-      .then(responseBody),
+  del: url => superagent.del(`${API_ROOT}${url}`).use(tokenPlugin),
+  get: url => superagent.get(`${API_ROOT}${url}`).use(tokenPlugin),
   put: (url, body) =>
     superagent.put(`${API_ROOT}${url}`, body).use(tokenPlugin),
   post: (url, body) =>
