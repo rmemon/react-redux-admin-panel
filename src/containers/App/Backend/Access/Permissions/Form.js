@@ -70,6 +70,11 @@ class Form extends Component {
       data.name = permission.name;
       data.display_name = permission.display_name;
       data.sort = permission.sort;
+    } else {
+      data.id = null;
+      data.name = '';
+      data.display_name = '';
+      data.sort = '';
     }
 
     if (this.props.match.params.id && errors) {

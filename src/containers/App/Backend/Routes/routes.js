@@ -59,6 +59,8 @@ const PermissionView = Loadable({
   loading: Loading,
 });
 
+// console.log(window.localStorage.getItem(''));
+
 const adminRoutes = [
   { path: '/dashboard', name: 'Dashboard', component: Home },
   { path: '/access', exact: true, name: 'Access', component: UserList },
