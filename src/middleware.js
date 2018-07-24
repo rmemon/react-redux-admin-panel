@@ -1,4 +1,4 @@
-import { ASYNC_END, ASYNC_START } from 'constants/actionTypes';
+import { ASYNC_END, ASYNC_START, PROGRESSEVENT } from 'constants/actionTypes';
 import {
   BACKEND_LOGIN,
   BACKEND_LOGOUT,
@@ -8,6 +8,13 @@ import { setToken } from 'utils/requests';
 import { serverDownError } from 'utils';
 
 const promiseMiddleware = store => next => action => {
+  if (action && action.payload && action.payload.on) {
+    action.payload.on('progress', e => {
+      store.dispatch({ type: PROGRESSEVENT, payload: { progress: e } });
+      console.log(e.percent);
+    });
+  }
+
   if (isPromise(action.payload)) {
     store.dispatch({ type: ASYNC_START, subtype: action.type });
 
