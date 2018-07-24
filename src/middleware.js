@@ -1,4 +1,9 @@
-import { ASYNC_END, ASYNC_START, PROGRESSEVENT } from 'constants/actionTypes';
+import {
+  ASYNC_END,
+  ASYNC_START,
+  PROGRESSEVENT,
+  APP_LOAD,
+} from 'constants/actionTypes';
 import {
   BACKEND_LOGIN,
   BACKEND_LOGOUT,
@@ -78,4 +83,14 @@ const localStorageMiddleware = store => next => action => {
   next(action);
 };
 
-export { promiseMiddleware, localStorageMiddleware };
+const permissionStoreMiddleware = store => next => action => {
+  if (action.type === APP_LOAD) {
+    window.localStorage.setItem(
+      'backend-permissions',
+      action.payload.permissions || [],
+    );
+  }
+  next(action);
+};
+
+export { promiseMiddleware, localStorageMiddleware, permissionStoreMiddleware };

@@ -1,7 +1,11 @@
 import { applyMiddleware, createStore, compose } from 'redux';
 
 import createReducer from 'reducers';
-import { localStorageMiddleware, promiseMiddleware } from 'middleware';
+import {
+  localStorageMiddleware,
+  promiseMiddleware,
+  permissionStoreMiddleware,
+} from 'middleware';
 
 export default function configureStore(initialState = {}) {
   // Create the store with two middlewares
@@ -9,7 +13,11 @@ export default function configureStore(initialState = {}) {
   // 2. routerMiddleware: Syncs the location/URL path to the state
   // const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
-  const middlewares = [promiseMiddleware, localStorageMiddleware];
+  const middlewares = [
+    promiseMiddleware,
+    localStorageMiddleware,
+    permissionStoreMiddleware,
+  ];
   const enhancers = [applyMiddleware(...middlewares)];
 
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose

@@ -5,9 +5,9 @@ const superagent = superagentPromise(_superagent, global.Promise);
 
 let API_ROOT = process.env.REACT_APP_DEV_API_URL;
 
-const responseBody = res => res.body;
-
 let token = null;
+
+// const responseBody = res => res.body;
 
 const tokenPlugin = req => {
   if (token) {
